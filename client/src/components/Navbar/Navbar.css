@@ -1,0 +1,158 @@
+:root {
+  --font-primary: 'Poppins', sans-serif;
+  --color-primary: #F8B133;
+  --color-text: #000000;
+  --color-background: #ffffff;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-background);
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-primary);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  height: 80px;
+  width: auto;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  letter-spacing: 0.2px;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.search-button:hover {
+  color: var(--color-primary);
+}
+
+.register-button {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.register-button:hover {
+  background-color: #e6a02e;
+  transform: translateY(-2px);
+}
+
+.logout-button {
+  background-color: #000;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #dc3545;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 1rem;
+  }
+  
+  .logo-image {
+    height: 50px;
+  }
+  
+  .navbar-links {
+    gap: 1rem;
+  }
+  
+  .register-button {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  
+  .logout-button {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-links {
+    gap: 0.8rem;
+  }
+  
+  .nav-link {
+    font-size: 0.8rem;
+  }
+  
+  .register-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+  
+  .logout-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+} 
