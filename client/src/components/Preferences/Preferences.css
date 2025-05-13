@@ -1,0 +1,254 @@
+.preferences-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fff;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.preferences-header {
+  width: 100%;
+  max-width: 400px;
+  background-color: #F8B133;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.header-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.title-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.preferences-header h1 {
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: #000;
+  margin: 0;
+  line-height: 0.85;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  margin-bottom: 2rem;
+}
+
+.preferences-header h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.preferences-content {
+  flex: 1;
+  padding: 3rem;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.preference-section {
+  margin-bottom: 3rem;
+}
+
+.preference-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.preference-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.preference-item {
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.preference-image-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.preference-image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.preference-item.selected .preference-image-container img {
+  filter: brightness(0.7);
+}
+
+.selected-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(248, 177, 51, 0.5);
+}
+
+.checkmark {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.preference-item p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+  color: #333;
+}
+
+.preferences-actions {
+  margin-top: auto;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.continue-button,
+.skip-button {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  width: calc(50% - 0.5rem);
+  text-align: center;
+}
+
+.continue-button {
+  background-color: #000;
+  color: #fff;
+}
+
+.skip-button {
+  background-color: transparent;
+  color: #666;
+}
+
+.continue-button:hover {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.skip-button:hover {
+  color: #000;
+}
+
+@media (max-width: 1024px) {
+  .preferences-container {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .preferences-header {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  .preferences-content {
+    height: auto;
+    margin-left: 0;
+    padding: 2rem;
+  }
+
+  .preference-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .preferences-actions {
+    margin-top: 2rem;
+  }
+
+  .continue-button,
+  .skip-button {
+    width: calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .preferences-header {
+    padding: 1.5rem;
+  }
+
+  .preferences-header h1 {
+    font-size: 3rem;
+  }
+
+  .preferences-content {
+    padding: 1.5rem;
+  }
+
+  .preference-grid {
+    gap: 1rem;
+  }
+
+  .preferences-actions {
+    padding: 1.5rem 0 0.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .preferences-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .preferences-header h2 {
+    font-size: 0.9rem;
+  }
+
+  .preference-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preferences-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .continue-button,
+  .skip-button {
+    width: 100%;
+  }
+} 
