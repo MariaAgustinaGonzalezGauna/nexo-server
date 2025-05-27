@@ -90,8 +90,13 @@ const validateEventData = (eventData) => {
 };
 
 // Obtener todos los eventos
-const getEvents = async () => {
-  return await Event.find().populate('duenioId', 'nombre email');
+const getEvents = async (userId) => {
+  try {
+    const events = await Event.find().populate('duenioId', 'nombre email');
+    return events;
+  } catch (error) {
+    throw new Error('Error al obtener los eventos: ' + error.message);
+  }
 };
 
 // Crear un nuevo evento

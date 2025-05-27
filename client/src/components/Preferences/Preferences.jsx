@@ -61,18 +61,30 @@ const Preferences = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post('http://localhost:5000/api/users/preferences', {
-        userId: localStorage.getItem('userId'),
-        preferences: selectedPreferences
-      });
-      navigate('/home');
+      const token = localStorage.getItem('token');
+      await axios.post('http://localhost:5000/api/users/preferences', 
+        {
+          userId: localStorage.getItem('userId'),
+          preferences: selectedPreferences
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      // Navigate to EventPage after successful submission
+      navigate('/EventPage', { replace: true });
     } catch (error) {
       console.error('Error al guardar preferencias:', error);
+      // Even if there's an error, still navigate to EventPage
+      navigate('/EventPage', { replace: true });
     }
   };
 
   const handleSkip = () => {
-    navigate('/home');
+    // Navigate to EventPage when skipping
+    navigate('/EventPage', { replace: true });
   };
 
   const renderPreferenceSection = (title, items, category) => (
@@ -106,7 +118,7 @@ const Preferences = () => {
         <div className="header-text">
           <div className="title-container">
             <h1>QUEREMOS<br />SABER DE<br />VOS</h1>
-            <h2>SELECCIONA<br />TUS<br />FAVORITOS</h2>
+            <h2>SELECCIONA TUS FAVORITOS</h2>
           </div>
         </div>
         <div className="preferences-actions">

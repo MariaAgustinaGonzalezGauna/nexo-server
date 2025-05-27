@@ -10,10 +10,10 @@ const {
   deleteEvent
 } = require('../controllers/eventController');
 
-// Obtener todos los eventos (público)
-router.get('/', async (req, res) => {
+// Obtener todos los eventos (requiere autenticación)
+router.get('/', auth, async (req, res) => {
   try {
-    const events = await getEvents();
+    const events = await getEvents(req.user.id);
     res.json(events);
   } catch (error) {
     res.status(500).json({ message: error.message });
