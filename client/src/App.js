@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Preferences from './components/Preferences/Preferences';
 import Navbar from './components/Navbar/Navbar';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import EventPage from './components/EventPage/EventPage';
 import './App.css';
 
 function App() {
@@ -45,6 +46,14 @@ function App() {
             }
           />
           <Route
+            path="/EventPage"
+            element={
+              <ProtectedRoute>
+                <EventPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/mis-eventos"
             element={
               <ProtectedRoute>
@@ -64,7 +73,7 @@ function App() {
           {/* Ruta por defecto - redirige a home o inicio según autenticación */}
           <Route
             path="*"
-            element={isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/" replace />}
+            element={isAuthenticated ? <Navigate to="/EventPage" replace /> : <Navigate to="/" replace />}
           />
         </Routes>
       </div>
