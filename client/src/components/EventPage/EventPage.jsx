@@ -11,7 +11,7 @@ const EventPage = () => {
     const fetchEvents = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/events', {
+        const response = await axios.get('http://localhost:5000/api/events/preferences', {
           headers: {
             Authorization: `Bearer ${token}`
           }

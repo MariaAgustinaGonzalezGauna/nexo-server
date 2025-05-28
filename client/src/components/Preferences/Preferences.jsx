@@ -4,67 +4,43 @@ import axios from 'axios';
 import './Preferences.css';
 
 // Importar imágenes de eventos
-import musicaImg from '../../assets/eventos/musica-vivo.png';
+import gastronomiaImg from '../../assets/eventos/cine.png';
+import socialImg from '../../assets/eventos/happy-hour.png';
+import musicalImg from '../../assets/eventos/musica-vivo.png';
 import teatroImg from '../../assets/eventos/teatro.png';
 import cineImg from '../../assets/eventos/cine.png';
-import happyHourImg from '../../assets/eventos/happy-hour.png';
+import deportivoImg from '../../assets/eventos/cine.png';
+import recreativoImg from '../../assets/eventos/cine.png';
 
-// Importar imágenes de ambientes
-import tranquilosImg from '../../assets/ambientes/tranquilos.png';
-import fiestasImg from '../../assets/ambientes/fiestas.png';
-import aireLibreImg from '../../assets/ambientes/aire-libre.png';
-import recitalesImg from '../../assets/ambientes/recitales.png';
-
-// Importar imágenes de momentos
-import mananaImg from '../../assets/momentos/manana.png';
-import nochesImg from '../../assets/momentos/noches.png';
-import entreSemanaImg from '../../assets/momentos/entre-semana.png';
-import finesSemanaImg from '../../assets/momentos/fines-semana.png';
 
 const Preferences = () => {
   const navigate = useNavigate();
-  const [selectedPreferences, setSelectedPreferences] = useState({
-    eventos: [],
-    ambientes: [],
-    momentos: []
-  });
+  const [selectedPreferences, setSelectedPreferences] = useState([]);
 
   const tiposEventos = [
-    { id: 1, nombre: 'Música en vivo', imagen: musicaImg },
-    { id: 2, nombre: 'Teatro', imagen: teatroImg },
-    { id: 3, nombre: 'Cine', imagen: cineImg },
-    { id: 4, nombre: 'Happy hour', imagen: happyHourImg }
+    { id: 1, nombre: 'Gastronomia', imagen: gastronomiaImg },
+    { id: 2, nombre: 'Social', imagen: socialImg },
+    { id: 3, nombre: 'Musical', imagen: musicalImg },
+    { id: 4, nombre: 'Teatro', imagen: teatroImg },
+    { id: 5, nombre: 'Cine', imagen: cineImg },
+    { id: 6, nombre: 'Deportivo', imagen: deportivoImg },
+    { id: 7, nombre: 'Recreativo', imagen: recreativoImg }
   ];
 
-  const tiposAmbientes = [
-    { id: 5, nombre: 'Tranquilos', imagen: tranquilosImg },
-    { id: 6, nombre: 'Fiestas', imagen: fiestasImg },
-    { id: 7, nombre: 'Al aire libre', imagen: aireLibreImg },
-    { id: 8, nombre: 'Recitales', imagen: recitalesImg }
-  ];
-
-  const momentos = [
-    { id: 9, nombre: 'Mañana', imagen: mananaImg },
-    { id: 10, nombre: 'Noches', imagen: nochesImg },
-    { id: 11, nombre: 'Entre semana', imagen: entreSemanaImg },
-    { id: 12, nombre: 'Fines de semana', imagen: finesSemanaImg }
-  ];
-
-  const toggleSelection = (category, id) => {
-    setSelectedPreferences(prev => ({
-      ...prev,
-      [category]: prev[category].includes(id)
-        ? prev[category].filter(itemId => itemId !== id)
-        : [...prev[category], id]
-    }));
+  const toggleSelection = (nombre) => {
+    setSelectedPreferences(prev => 
+      prev.includes(nombre)
+        ? prev.filter(item => item !== nombre)
+        : [...prev, nombre]
+    );
   };
 
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/users/preferences', 
+      const userId = localStorage.getItem('userId');
+      await axios.put(`http://localhost:5000/api/users/${userId}/preferences`, 
         {
-          userId: localStorage.getItem('userId'),
           preferences: selectedPreferences
         },
         {
@@ -73,11 +49,9 @@ const Preferences = () => {
           }
         }
       );
-      // Navigate to EventPage after successful submission
       navigate('/EventPage', { replace: true });
     } catch (error) {
       console.error('Error al guardar preferencias:', error);
-      // Even if there's an error, still navigate to EventPage
       navigate('/EventPage', { replace: true });
     }
   };
@@ -87,19 +61,19 @@ const Preferences = () => {
     navigate('/EventPage', { replace: true });
   };
 
-  const renderPreferenceSection = (title, items, category) => (
+  const renderPreferenceSection = (title, items) => (
     <div className="preference-section">
       <h2>{title}</h2>
       <div className="preference-grid">
         {items.map(item => (
           <div
             key={item.id}
-            className={`preference-item ${selectedPreferences[category].includes(item.id) ? 'selected' : ''}`}
-            onClick={() => toggleSelection(category, item.id)}
+            className={`preference-item ${selectedPreferences.includes(item.nombre) ? 'selected' : ''}`}
+            onClick={() => toggleSelection(item.nombre)}
           >
             <div className="preference-image-container">
               <img src={item.imagen} alt={item.nombre} />
-              {selectedPreferences[category].includes(item.id) && (
+              {selectedPreferences.includes(item.nombre) && (
                 <div className="selected-overlay">
                   <span className="checkmark">✓</span>
                 </div>
@@ -127,9 +101,7 @@ const Preferences = () => {
         </div>
       </div>
       <div className="preferences-content">
-        {renderPreferenceSection('Tipo de eventos favoritos', tiposEventos, 'eventos')}
-        {renderPreferenceSection('Tipos de ambientes favoritos', tiposAmbientes, 'ambientes')}
-        {renderPreferenceSection('Momentos favoritos', momentos, 'momentos')}
+        {renderPreferenceSection('Tus tipos de eventos favoritos', tiposEventos)}
       </div>
     </div>
   );
