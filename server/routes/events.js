@@ -11,9 +11,10 @@ const {
 } = require('../controllers/eventController');
 
 // Obtener todos los eventos (requiere autenticación)
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const events = await getEvents(req.user.id);
+    const events = await getEvents();
+    
     res.json(events);
   } catch (error) {
     res.status(500).json({ message: error.message });
