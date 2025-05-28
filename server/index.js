@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
-
+const entityRoutes = require('./routes/entities');
 const app = express();
 
 // Middleware
@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://mariaagussag:oID72ElS
 // Rutas
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/entities', entityRoutes);
 
 app.get('/', (req, res) => {
   res.send('NEXO API');
