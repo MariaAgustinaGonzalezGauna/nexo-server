@@ -90,7 +90,7 @@ const validateEventData = (eventData) => {
 };
 
 // Obtener todos los eventos
-const getEvents = async (userId) => {
+const getEvents = async () => {
   try {
     const events = await Event.find().populate('duenioId', 'nombre email');
     return events;
