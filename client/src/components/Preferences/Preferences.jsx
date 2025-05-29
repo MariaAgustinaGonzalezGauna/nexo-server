@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Preferences.css';
-
+//cambio de prueba
 // Importar imágenes de eventos
 import gastronomiaImg from '../../assets/eventos/cine.png';
 import socialImg from '../../assets/eventos/happy-hour.png';
