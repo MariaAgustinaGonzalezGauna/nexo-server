@@ -93,7 +93,7 @@ const validateEventData = (eventData) => {
 // Obtener todos los eventos
 const getEvents = async () => {
   try {
-    const events = await Event.find().populate('entidad', 'nombre email');
+    const events = await Event.find({ estado: 'aprobado' }).populate('entidad', 'nombre email');
     return events;
   } catch (error) {
     throw new Error('Error al obtener los eventos: ' + error.message);
@@ -109,15 +109,16 @@ const getEventsPreferences = async (userId) => {
       throw new Error('Usuario no encontrado');
     }
 
-    // Si el usuario no tiene preferencias, retornamos todos los eventos
+    // Si el usuario no tiene preferencias, retornamos todos los eventos aprobados
     if (!user.preferencias || user.preferencias.length === 0) {
-      const events = await Event.find().populate('entidad', 'nombre descripcion lugar imagenUrl fecha hora informacion tipo');
+      const events = await Event.find({ estado: 'aprobado' }).populate('entidad', 'nombre descripcion lugar imagenUrl fecha hora informacion tipo');
       return events;
     }
 
-    // Buscamos eventos que coincidan con las preferencias del usuario
+    // Buscamos eventos aprobados que coincidan con las preferencias del usuario
     const events = await Event.find({
-      tipo: { $in: user.preferencias }
+      tipo: { $in: user.preferencias },
+      estado: 'aprobado'
     }).populate('entidad', 'nombre descripcion lugar imagenUrl fecha hora informacion tipo');
 
     return events;
