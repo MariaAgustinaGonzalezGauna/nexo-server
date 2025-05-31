@@ -41,18 +41,18 @@ router.get('/event/:id', async (req, res) => {
   }
 });
 
-// Las siguientes rutas requieren autenticación
-router.use(auth);
-
-// Crear un nuevo evento (solo administradores y dueños)
-router.post('/', checkRole([1, 2]), async (req, res) => {
+// Crear un nuevo evento (público)
+router.post('/', async (req, res) => {
   try {
-    const newEvent = await createEvent(req.body, req.user.id, req.user.tipo);
+    const newEvent = await createEvent(req.body);
     res.status(201).json(newEvent);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
+
+// Las siguientes rutas requieren autenticación
+router.use(auth);
 
 // Actualizar un evento (solo administradores y dueños)
 router.put('/:id', checkRole([1, 2]), async (req, res) => {
