@@ -73,9 +73,11 @@ const Register = () => {
       });
 
       if (response.data) {
-        // Guardar el ID del usuario para usarlo en la página de preferencias
+        // Guardar el token y la información del usuario
+        localStorage.setItem('token', response.data.token);
         localStorage.setItem('userId', response.data.user._id);
-        navigate('/preferences');
+        localStorage.setItem('userType', response.data.user.tipo);
+        navigate('/Preferences');
       }
     } catch (err) {
       // Manejar diferentes tipos de errores

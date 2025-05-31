@@ -15,7 +15,7 @@ const Login = () => {
   useEffect(() => {
     // Redirigir si ya está autenticado
     if (localStorage.getItem('token')) {
-      navigate('/home');
+      navigate('/Preferences');
     }
   }, [navigate]);
 
@@ -42,7 +42,7 @@ const Login = () => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('userType', response.data.user.tipo);
-        navigate('/home');
+        navigate('/Preferences');
       }
     } catch (err) {
       if (err.response) {

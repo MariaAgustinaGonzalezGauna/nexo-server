@@ -71,4 +71,16 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+// Obtener preferencias de usuario (protegido)
+router.put('/:id/preferences', auth, async (req, res) => {
+  try {
+    const user = await getUserById(req.params.id);
+    user.preferencias = req.body.preferences;
+    await user.save();
+    res.status(200).json({ message: 'Preferencias actualizadas correctamente' });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
 module.exports = router; 

@@ -25,7 +25,7 @@ const Home = () => {
     const fetchEvents = async () => {
       try {
         console.log('Intentando obtener eventos...');
-        const response = await axios.get('http://localhost:5000/api/events');
+        const response = await axios.get('http://localhost:5000/api/events/all');
         console.log('Respuesta:', response.data);
         setEvents(response.data);
         setLoading(false);
@@ -155,7 +155,15 @@ const Home = () => {
             DONDE TODO<br />
             SE JUNTA
           </h1>
-          <button className="empezar-button" onClick={handleRegisterClick}>EMPEZAR</button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <button className="empezar-button" onClick={handleRegisterClick}>EMPEZAR</button>
+            <button
+              style={{ background: 'none', border: 'none', color: '#ffa726', fontWeight: 600, cursor: 'pointer', padding: 0, fontSize: '1rem' }}
+              onClick={() => navigate('/barAccount')}
+            >
+                QUIERO AGREGAR UN EVENTO
+            </button>
+          </div>
         </div>
         <div className="hero-image">
           <div className="phone-frame">
