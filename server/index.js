@@ -20,6 +20,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nexo-db')
 // Rutas
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
+app.use(require('./routes/favorites')); //no se porque esta en rojo pero anda xD
+app.use(require('./routes/comments'));
 
 app.get('/', (req, res) => {
   res.send('NEXO API');
