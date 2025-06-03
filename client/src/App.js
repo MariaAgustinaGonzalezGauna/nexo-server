@@ -6,10 +6,18 @@ import Login from './components/Login/Login';
 import Preferences from './components/Preferences/Preferences';
 import Navbar from './components/Navbar/Navbar';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import AdminLogin from './components/admin/AdminLogin';
+import AdminEventos from './components/admin/AdminEventos';
 import './App.css';
 
 function App() {
   const isAuthenticated = localStorage.getItem('token') !== null;
+  const userType = localStorage.getItem('userType');
+
+  const getDefaultRoute = () => {
+    if (!isAuthenticated) return '/login';
+    return userType === '1' ? '/admin/eventos/pendientes' : '/home';
+  };
 
   return (
     <Router>
@@ -17,7 +25,11 @@ function App() {
         <Navbar />
         <Routes>
           {/* Rutas públicas */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={
+            isAuthenticated ? 
+              <Navigate to={userType === '1' ? '/admin/eventos/pendientes' : '/home'} replace /> : 
+              <Home />
+          } />
           <Route 
             path="/register" 
             element={<Register />} 
@@ -25,6 +37,10 @@ function App() {
           <Route 
             path="/login" 
             element={<Login />} 
+          />
+          <Route 
+            path="/admin/login" 
+            element={<AdminLogin />} 
           />
 
           {/* Rutas protegidas */}
@@ -52,19 +68,29 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* Rutas de administración */}
           <Route
-            path="/admin"
+            path="/admin/eventos"
             element={
               <ProtectedRoute>
-                <Home />
+                <Navigate to="/admin/eventos/pendientes" replace />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/eventos/:estado"
+            element={
+              <ProtectedRoute>
+                <AdminEventos />
               </ProtectedRoute>
             }
           />
 
-          {/* Ruta por defecto - redirige a home o inicio según autenticación */}
+          {/* Ruta por defecto - redirige según el tipo de usuario */}
           <Route
             path="*"
-            element={isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/" replace />}
+            element={<Navigate to={getDefaultRoute()} replace />}
           />
         </Routes>
       </div>

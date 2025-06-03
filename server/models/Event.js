@@ -21,6 +21,11 @@ const eventSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  estado: {
+    type: String,
+    enum: ['pendiente', 'aprobado', 'rechazado'],
+    default: 'pendiente'
+  },
   fecha: {
     type: String,
     required: true,

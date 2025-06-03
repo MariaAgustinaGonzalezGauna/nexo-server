@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 // Generar token JWT
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user._id, tipo: user.tipo },
-    process.env.JWT_SECRET || 'tu_clave_secreta_temporal',
+    { userId: user._id, tipo: user.tipo },
+    process.env.JWT_SECRET || 'tu_secreto_seguro',
     { expiresIn: '1h' }
   );
 };
@@ -29,12 +29,12 @@ const createUser = async (userData) => {
 const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) {
-    throw new Error('Credenciales inválidas');
+    throw new Error('Email o contraseña incorrectos');
   }
 
   const isMatch = await user.comparePassword(password);
   if (!isMatch) {
-    throw new Error('Credenciales inválidas');
+    throw new Error('Email o contraseña incorrectos');
   }
 
   const userResponse = user.toObject();
