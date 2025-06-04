@@ -1,7 +1,10 @@
 import React from 'react';
 import './EventCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const EventCard = ({ image, title, date, location }) => {
+  const navegacion=useNavigate();
+  const ruta= "/EventView";
   return (
     <div className="event-card">
       <div className="event-image">
@@ -11,7 +14,7 @@ const EventCard = ({ image, title, date, location }) => {
         <h3>{title}</h3>
         <p className="event-date">{date}</p>
         <p className="event-location">{location}</p>
-        <button className="ver-mas">VER MÁS</button>
+        <button className="ver-mas" onClick={()=>navegacion(ruta,{state:{image,title,date,location}})}>VER MÁS</button>
       </div>
     </div>
   );

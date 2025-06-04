@@ -1,0 +1,45 @@
+body
+{
+    background-image: url("https://i.pinimg.com/736x/05/90/50/059050adf8bbe1d29ae5270f2f593c36.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+}
+
+.event-info-container
+{
+    display: flex;
+    padding-top: 100px;
+    justify-content: start;
+    margin-left: 20%;
+    gap: 10rem;
+}
+
+.imagenes img
+{
+    border-radius: 5px;
+    border: 2px solid white;
+}
+.info p
+{
+    color: white;
+    font-size: 25px;
+    color: #F8B133;
+}
+
+.info h2
+{
+    color: white;
+    font-size: 50px;
+}
+
+.info h3
+{
+    color: white;
+    font-size: 20px;
+}
+
+.info
+{
+    justify-items: start;
+}
