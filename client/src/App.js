@@ -8,6 +8,7 @@ import Preferences from './components/Preferences/Preferences';
 import Navbar from './components/Navbar/Navbar';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import EventPage from './components/EventPage/EventPage';
+import EventView from './components/EventView/EventView'
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/barAccount" element={<BarAccount />} />
+          
 
           {/* Rutas protegidas */}
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
@@ -30,6 +32,8 @@ function App() {
           <Route path="/EventPage" element={<ProtectedRoute><EventPage /></ProtectedRoute>} />
           <Route path="/mis-eventos" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/EventView" element={<ProtectedRoute><EventView /></ProtectedRoute>} />
+          
 
           {/* Ruta por defecto - redirige a home o inicio según autenticación */}
           <Route path="*" element={isAuthenticated ? <Navigate to="/EventPage" replace /> : <Navigate to="/" replace />} />
