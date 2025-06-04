@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nexo-db')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://mariaagussag:oID72ElSlE9jQ9Xw@nexodb.ahwqx1p.mongodb.net/nexo-db')
   .then(() => console.log('Conectado a MongoDB'))
   .catch(err => console.error('Error conectando a MongoDB:', err));
 
