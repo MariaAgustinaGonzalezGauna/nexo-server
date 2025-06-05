@@ -211,6 +211,7 @@ const Home = () => {
                         title={event.nombre}
                         date={event.fecha}
                         location={event.lugar}
+                        descripcion={event.descripcion}
                       />
                     </div>
                   ))}

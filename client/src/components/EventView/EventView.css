@@ -1,10 +1,3 @@
-body
-{
-    background-image: url("https://i.pinimg.com/736x/05/90/50/059050adf8bbe1d29ae5270f2f593c36.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size:cover;
-}
 
 .event-info-container
 {
@@ -18,28 +11,76 @@ body
 .imagenes img
 {
     border-radius: 5px;
-    border: 2px solid white;
+    border: 2px solid black;
 }
 .info p
 {
-    color: white;
+    color: black;
     font-size: 25px;
     color: #F8B133;
 }
 
-.info h2
+h2
 {
-    color: white;
+    color: black;
     font-size: 50px;
+}
+
+.info button
+{
+    color: black;
+    background-color: #F8B133;
+    font-size: large;
+    width: 150px;
+    padding: 15px;
+    border: black 1px solid;
+    border-radius: 5px;
+}
+
+.info button:hover
+{
+    cursor: pointer;
+    border: #F8B133 1px solid;
 }
 
 .info h3
 {
-    color: white;
+    color: black;
     font-size: 20px;
 }
 
 .info
 {
     justify-items: start;
+}
+
+.mapa-desc
+{
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    align-items: center;
+    height: 400px;
+}
+
+.desc
+{
+   justify-items: start;
+}
+
+.desc p
+{
+    font-size: 20px;
+    color: black;
+}
+
+.puntuacion
+{
+    margin-left: 10px;
+    display: flex;
+}
+
+.exp
+{
+    display: ruby;
 }
