@@ -4,6 +4,8 @@
   --color-primary: #F8B133;
   --color-text: #333;
   --color-background: #f5f5f5;
+  --color-success: #4CAF50;
+  --color-copy-feedback: #ccc;
 }
 
 .home {
@@ -126,45 +128,6 @@
   letter-spacing: -0.5px;
 }
 
-.events-swiper {
-  padding: 2rem 1rem;
-  margin: -1rem;
-}
-
-.swiper-slide {
-  height: auto;
-  padding: 1rem;
-}
-
-/* Personalización de los controles de Swiper */
-:root {
-  --swiper-theme-color: #F8B133;
-  --swiper-navigation-size: 20px;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  background-color: rgba(255, 255, 255, 0.9);
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.swiper-button-next:after,
-.swiper-button-prev:after {
-  font-size: var(--swiper-navigation-size) !important;
-}
-
-.swiper-pagination-bullet {
-  background: var(--swiper-theme-color) !important;
-  opacity: 0.5;
-}
-
-.swiper-pagination-bullet-active {
-  opacity: 1;
-}
-
 .loading,
 .error,
 .no-events {
@@ -184,6 +147,59 @@
 .no-events {
   color: #666;
   font-style: italic;
+}
+
+/* Carousel Styles */
+.events-grid {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-row {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  cursor: grab;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  width: max-content;
+  will-change: transform;
+}
+
+.carousel-row.dragging {
+  cursor: grabbing !important;
+  transition: none !important;
+}
+
+.event-item {
+  min-width: 300px;
+  max-width: 300px;
+  width: 300px;
+  flex: 0 0 300px;
+  transition: transform 0.3s ease;
+  pointer-events: auto;
+}
+
+.event-item:hover {
+  transform: translateY(-5px);
+}
+
+.event-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
 /* About Section */
@@ -235,44 +251,68 @@
   height: auto;
 }
 
-@media (max-width: 1024px) {
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .about-text {
-    text-align: center;
-  }
-
-  .about-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-  }
-
-  .unsta-logo {
-    max-width: 300px;
-  }
+/* Footer */
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-@media (max-width: 768px) {
-  .about-section {
-    padding: 60px 0;
-  }
+.footer img {
+  width: 120px;
+  height: auto;
+  opacity: 0.8;
+}
 
-  .about-section h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-  }
+/* Shared Button Styles */
+.ver-mas {
+  background-color: var(--color-primary);
+  color: #000;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
 
-  .about-text p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
+.ver-mas:hover {
+  background-color: #e6a02e;
+}
 
-  .about-content {
-    padding: 0 20px;
-  }
+.ver-mas.copiado {
+  background-color: var(--color-copy-feedback);
+  color: #000;
+}
+
+/* Share Button Home Styles */
+.share-button {
+  background-color: #ddd;
+  color: #000;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.share-button:hover {
+  background-color: #bbb;
+}
+
+.share-button.copiado {
+  background-color: var(--color-success);
+  color: #fff;
 }
 
 /* Responsive Design */
@@ -291,17 +331,22 @@
     height: 525px;
   }
 
-  .events-section {
-    padding: 4rem 0;
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .section-container {
-    padding: 0 1.5rem;
+  .about-text {
+    text-align: center;
   }
 
-  .events-section h2 {
+  .about-section h2 {
     font-size: 2.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 40px;
+  }
+
+  .unsta-logo {
+    max-width: 300px;
   }
 }
 
@@ -326,106 +371,33 @@
     height: 450px;
   }
 
-  .events-section {
-    padding: 3rem 0;
+  .events-grid {
+    grid-template-rows: 1fr;
+    grid-auto-columns: 280px;
   }
 
-  .section-container {
-    padding: 0 1rem;
-  }
-
-  .events-section h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .swiper-button-next,
-  .swiper-button-prev {
-    width: 35px !important;
-    height: 35px !important;
-  }
-
-  .swiper-button-next:after,
-  .swiper-button-prev:after {
-    font-size: 16px;
-  }
-}
-
-/* Events Grid Styles */
-.events-grid {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
-  padding: 20px;
-  overflow: hidden;
-  width: 100%;
-}
-
-.carousel-row {
-  display: flex;
-  gap: 20px;
-  padding: 10px 0;
-  cursor: grab;
-  user-select: none;
-  position: relative;
-  overflow: hidden;
-  width: max-content;
-  will-change: transform;
-}
-
-.carousel-row.dragging {
-  cursor: grabbing !important;
-  transition: none !important;
-}
-
-.event-item {
-  min-width: 300px;
-  max-width: 300px;
-  width: 300px;
-  flex: 0 0 300px;
-  transition: transform 0.3s ease;
-  pointer-events: auto;
-}
-
-.event-item:hover {
-  transform: translateY(-5px);
-}
-
-@media (max-width: 768px) {
   .event-item {
     min-width: 280px;
     max-width: 280px;
     width: 280px;
     flex: 0 0 280px;
   }
-}
 
-/* Ensure all cards have consistent dimensions */
-.event-card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.event-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-/* Remove old carousel styles */
-.carousel-container,
-.carousel-content,
-.carousel-button,
-.carousel-dots {
-  display: none;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .events-grid {
-    grid-template-rows: 1fr;
-    grid-auto-columns: 280px;
+  .about-section {
+    padding: 60px 0;
   }
-} 
+
+  .about-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .about-content {
+    padding: 0 20px;
+  }
+}
