@@ -9,6 +9,7 @@ import EventCard from '../EventCard/EventCard';
 
 const Home = () => {
   const navigate = useNavigate();
+
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,12 +44,13 @@ const Home = () => {
     const animateRow = (rowIndex, timestamp) => {
       if (!lastTime.current[rowIndex]) lastTime.current[rowIndex] = timestamp;
       const deltaTime = timestamp - lastTime.current[rowIndex];
-      
-      if (!isDragging[rowIndex] && isAnimating[rowIndex]) {
+
+      const row = rowRefs.current[rowIndex];
+      if (!isDragging[rowIndex] && isAnimating[rowIndex] && row && !row.matches(':hover')) {
         setPositions(prev => {
-          const speed = 0.0008;
+          const speed = 0.0004;
           let newPos = prev[rowIndex];
-          
+
           if (rowIndex === 0) {
             newPos = prev[0] - speed * deltaTime;
             if (newPos <= -100) newPos = 0;
@@ -63,18 +65,16 @@ const Home = () => {
           };
         });
       }
-      
+
       lastTime.current[rowIndex] = timestamp;
       animationFrameId.current[rowIndex] = requestAnimationFrame((time) => animateRow(rowIndex, time));
     };
 
-    // Iniciar animación para ambos carruseles
     [0, 1].forEach(rowIndex => {
       animationFrameId.current[rowIndex] = requestAnimationFrame((time) => animateRow(rowIndex, time));
     });
 
     return () => {
-      // Limpiar ambas animaciones
       [0, 1].forEach(rowIndex => {
         if (animationFrameId.current[rowIndex]) {
           cancelAnimationFrame(animationFrameId.current[rowIndex]);
@@ -87,20 +87,20 @@ const Home = () => {
     e.preventDefault();
     setIsDragging(prev => ({ ...prev, [rowIndex]: true }));
     setIsAnimating(prev => ({ ...prev, [rowIndex]: false }));
-    
+
     const row = rowRefs.current[rowIndex];
     if (!row) return;
 
     dragStartX.current[rowIndex] = e.clientX;
     lastDragPosition.current[rowIndex] = positions[rowIndex];
-    
+
     row.style.cursor = 'grabbing';
     row.style.userSelect = 'none';
   };
 
   const handleMouseMove = (e, rowIndex) => {
     if (!isDragging[rowIndex]) return;
-    
+
     const row = rowRefs.current[rowIndex];
     if (!row) return;
 
@@ -109,19 +109,17 @@ const Home = () => {
     const walk = (x - dragStartX.current[rowIndex]) * 0.4;
     const baseTranslate = lastDragPosition.current[rowIndex];
     const newTranslate = baseTranslate + (walk / row.offsetWidth) * 100;
-
-    // Limitar el arrastre
     const limitedTranslate = Math.min(Math.max(newTranslate, -100), 0);
-    
+
     setPositions(prev => ({ ...prev, [rowIndex]: limitedTranslate }));
   };
 
   const handleMouseUp = (rowIndex) => {
     if (!isDragging[rowIndex]) return;
-    
+
     setIsDragging(prev => ({ ...prev, [rowIndex]: false }));
     setIsAnimating(prev => ({ ...prev, [rowIndex]: true }));
-    
+
     const row = rowRefs.current[rowIndex];
     if (!row) return;
 
@@ -137,7 +135,7 @@ const Home = () => {
   };
 
   const getCarouselItems = (rowIndex) => {
-    const items = [...events, ...events, ...events, ...events];
+    const items = [...events, ...events];
     return rowIndex === 1 ? items.reverse() : items;
   };
 
@@ -147,13 +145,10 @@ const Home = () => {
 
   return (
     <div className="home">
-      {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
           <h1>
-            LA APP<br />
-            DONDE TODO<br />
-            SE JUNTA
+            LA APP<br />DONDE TODO<br />SE JUNTA
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <button className="empezar-button" onClick={handleRegisterClick}>EMPEZAR</button>
@@ -175,7 +170,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Events Section */}
       <section className="events-section">
         <div className="section-container">
           <h2>Enterate de los mejores eventos de tu ciudad</h2>
@@ -207,6 +201,7 @@ const Home = () => {
                       className="event-item"
                     >
                       <EventCard
+                        id={event._id}
                         image={event.imagenUrl}
                         title={event.nombre}
                         date={event.fecha}
@@ -222,7 +217,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Section */}
       <section className="about-section">
         <h2>Sobre nosotros</h2>
         <div className="about-content">
@@ -241,8 +235,13 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <footer className="footer">
+        <p>© 2025 NEXO - Desarrollado por estudiantes de la UNSTA</p>
+        <img src={nexoLogoWhite} alt="NEXO Logo" />
+      </footer>
     </div>
   );
 };
 
-export default Home; 
+export default Home;
