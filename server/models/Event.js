@@ -56,11 +56,10 @@ const eventSchema = new mongoose.Schema({
   entidad: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Entities',
-    required: true,
+    required: false,
     validate: {
       validator: async function(value) {
         if (!value) return true;
-        
         const entity = await mongoose.model('Entities').findById(value);
         return entity;
       },
@@ -70,6 +69,11 @@ const eventSchema = new mongoose.Schema({
   fechaCreacion: {
     type: Date,
     default: Date.now
+  },
+  estado: {
+    type: String,
+    enum: ['pendiente', 'aprobado', 'rechazado'],
+    default: 'pendiente'
   }
 });
 

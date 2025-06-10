@@ -150,7 +150,15 @@ const Home = () => {
           <h1>
             LA APP<br />DONDE TODO<br />SE JUNTA
           </h1>
-          <button className="empezar-button" onClick={handleRegisterClick}>EMPEZAR</button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <button className="empezar-button" onClick={handleRegisterClick}>EMPEZAR</button>
+            <button
+              style={{ background: 'none', border: 'none', color: '#ffa726', fontWeight: 600, cursor: 'pointer', padding: 0, fontSize: '1rem' }}
+              onClick={() => navigate('/barAccount')}
+            >
+                QUIERO AGREGAR UN EVENTO
+            </button>
+          </div>
         </div>
         <div className="hero-image">
           <div className="phone-frame">
@@ -198,6 +206,7 @@ const Home = () => {
                         title={event.nombre}
                         date={event.fecha}
                         location={event.lugar}
+                        descripcion={event.descripcion}
                       />
                     </div>
                   ))}

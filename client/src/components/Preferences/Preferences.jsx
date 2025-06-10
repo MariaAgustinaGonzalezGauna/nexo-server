@@ -10,7 +10,7 @@ import musicalImg from '../../assets/eventos/musica-vivo.png';
 import teatroImg from '../../assets/eventos/teatro.png';
 import cineImg from '../../assets/eventos/cine.png';
 import deportivoImg from '../../assets/eventos/cine.png';
-import recreativoImg from '../../assets/eventos/Recreativo.jpeg';
+import recreativoImg from '../../assets/eventos/cine.png';
 
 
 const Preferences = () => {
