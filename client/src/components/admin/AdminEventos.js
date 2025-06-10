@@ -132,7 +132,7 @@ const AdminEventos = () => {
                   <p>Fecha: {evento.fecha} - Hora: {evento.hora}</p>
                   <p>Lugar: {evento.lugar}</p>
                   <p>Tipo: {evento.tipo}</p>
-                  <p>Dueño: {evento.duenioId?.nombre || 'No especificado'}</p>
+                  <p>Dueño: {evento.entidad?.nombre || 'No especificado'}</p>
                 </div>
               </div>
               <div className="flex flex-col space-y-2 ml-4">
