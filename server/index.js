@@ -6,6 +6,7 @@ require('dotenv').config();
 const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
 const adminRoutes = require('./routes/admin');
+const entityRoutes = require('./routes/entities');
 
 const app = express();
 
@@ -27,7 +28,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://mariaagussag:oID72ElS
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
-app.use(require('./routes/favorites')); //no se porque esta en rojo pero anda xD
+app.use('/api/entities', entityRoutes);
+app.use(require('./routes/favorites')); // <-- esto está bien aunque VS Code lo marque rojo
 app.use(require('./routes/comments'));
 
 app.get('/', (req, res) => {

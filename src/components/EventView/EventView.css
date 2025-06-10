@@ -1,0 +1,178 @@
+
+.fondo
+{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+
+}
+
+
+.event-info-container
+{
+    
+    backdrop-filter: blur(10px);
+    display: flex;
+    padding-top: 100px;
+    justify-content: center;
+    gap: 10rem;
+}
+
+.imagenes img
+{
+    
+    border-radius: 5px;
+    border: 2px solid black;
+    backdrop-filter: blur(5px);
+}
+
+.info
+{
+     background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+
+  /* IMPORTANTE: esto permite que el cuadro crezca automáticamente */
+  height: auto;
+}
+
+.info p
+{
+    color: black;
+    font-size: 25px;
+    color: #F8B133;
+}
+
+h2
+{
+      font-size: 1.5rem;
+  font-weight: bold;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  width: 100%;
+}
+.info button
+{
+    color: black;
+    background-color: #F8B133;
+    font-size: 20px;
+    width: 250px;
+    padding: 15px;
+    border: black 1px solid;
+    border-radius: 5px;
+}
+
+.info button:hover
+{
+    background-color: #F8B133;
+    cursor: pointer;
+    border: #F8B133 1px solid;
+}
+
+.info h3
+{
+    color: black;
+    font-size: 20px;
+}
+
+.info
+{
+    justify-items: start;
+}
+
+.mapa-desc
+{
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 400px;
+}
+
+.desc
+{
+    padding: 15px;
+   max-width: 900px;
+   justify-items: start;
+   background-color: white;
+   border-radius: 10px;
+}
+
+
+
+.desc p
+{
+    font-size: 20px;
+    color: black;
+}
+
+.puntuacion
+{
+    margin-left: 10px;
+    display: flex;
+}
+
+.exp
+{
+    display: ruby;
+}
+@media (max-width: 1024px) {
+  .event-info-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .exp {
+    justify-content: center;
+  }
+
+  .imagenes img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .maps,
+  .desc {
+    flex: 1 1 100%;
+  }
+}
+
+/* Móviles (<= 600px) */
+@media (max-width: 600px) {
+  .imagenes img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .info h2 {
+    
+    font-size: 2rem;
+  }
+
+  .info h3
+  {
+    font-size: 1.5rem;
+  }
+
+  .info .p
+  {
+    font-size: 1rem;
+  }
+
+  .maps {
+    min-height: 200px;
+  }
+
+  .exp {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
