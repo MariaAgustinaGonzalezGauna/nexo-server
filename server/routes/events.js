@@ -7,11 +7,12 @@ const {
   createEvent,
   getEventById,
   updateEvent,
-  deleteEvent
+  deleteEvent,
+  getEventsPreferences
 } = require('../controllers/eventController');
 
-// Obtener todos los eventos (público)
-router.get('/', async (req, res) => {
+// Obtener todos los eventos (requiere autenticación)
+router.get('/all', async (req, res) => {
   try {
     const events = await getEvents();
     res.json(events);
@@ -20,8 +21,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Obtener eventos por preferencias (requiere autenticación)
+router.get('/preferences', auth, async (req, res) => {
+  try {
+    const events = await getEventsPreferences(req.user.id);
+    res.json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Obtener un evento específico (público)
-router.get('/:id', async (req, res) => {
+router.get('/event/:id', async (req, res) => {
   try {
     const event = await getEventById(req.params.id);
     res.json(event);
@@ -30,18 +41,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Las siguientes rutas requieren autenticación
-router.use(auth);
-
-// Crear un nuevo evento (solo administradores y dueños)
-router.post('/', checkRole([1, 2]), async (req, res) => {
+// Crear un nuevo evento (público)
+router.post('/', async (req, res) => {
   try {
-    const newEvent = await createEvent(req.body, req.user.id, req.user.tipo);
+    const newEvent = await createEvent(req.body);
     res.status(201).json(newEvent);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
+
+// Las siguientes rutas requieren autenticación
+router.use(auth);
 
 // Actualizar un evento (solo administradores y dueños)
 router.put('/:id', checkRole([1, 2]), async (req, res) => {
