@@ -181,7 +181,7 @@ const Home = () => {
             <div className="no-events">No hay eventos disponibles</div>
           ) : (
             <div className="events-grid">
-              {[0, 1].map((rowIndex) => (
+              {[0, ].map((rowIndex) => (
                 <div
                   key={rowIndex}
                   ref={el => rowRefs.current[rowIndex] = el}
