@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
   fechaCreacion: {
     type: Date,
     default: Date.now
+  },
+  preferencias: {
+    type: Array,
+    default: []
   }
 });
 

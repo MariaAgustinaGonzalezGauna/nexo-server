@@ -26,7 +26,7 @@ const Home = () => {
     const fetchEvents = async () => {
       try {
         console.log('Intentando obtener eventos...');
-        const response = await axios.get('http://localhost:5000/api/events');
+        const response = await axios.get('http://localhost:5000/api/events/all');
         console.log('Respuesta:', response.data);
         setEvents(response.data);
         setLoading(false);
