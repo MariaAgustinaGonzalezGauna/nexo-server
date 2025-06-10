@@ -21,6 +21,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://mariaagussag:oID72ElS
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/entities', entityRoutes);
+app.use(require('./routes/favorites')); 
+app.use(require('./routes/comments'));
 
 app.get('/', (req, res) => {
   res.send('NEXO API');

@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './EventCard.css';
 import ShareButtonHome from '../ShareButton/shareButtonHome'; // si el share button está acá
 
-const EventCard = ({ image, title, date, location, id }) => {
-  const navigate = useNavigate();
-
-  const handleVerMasClick = () => {
-    navigate(`/evento/${id}`);
-  };
+const EventCard = ({ image, title, date, location, descripcion, id }) => {
+  const navegacion=useNavigate();
+  const ruta= "/EventView";
 
   const link = `${window.location.origin}/evento/${id}`;
+
 
   return (
     <div className="event-card">
@@ -22,11 +20,15 @@ const EventCard = ({ image, title, date, location, id }) => {
         <p className="event-date">{date}</p>
         <p className="event-location">{location}</p>
 
+        <button className="ver-mas" onClick={()=>navegacion(ruta,{state:{image,title,date,location,descripcion}})}>VER MÁS</button>
+
+
         {/* Botón VER MÁS con navegación */}
-        <button className="ver-mas" onClick={handleVerMasClick}>VER MÁS</button>
+       
 
         {/* Botón de compartir */}
         <ShareButtonHome link={link} />
+
       </div>
     </div>
   );
