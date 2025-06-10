@@ -7,11 +7,12 @@ const {
   createEvent,
   getEventById,
   updateEvent,
-  deleteEvent
+  deleteEvent,
+  getEventsPreferences
 } = require('../controllers/eventController');
 
-// Obtener todos los eventos (público)
-router.get('/', async (req, res) => {
+// Obtener todos los eventos (requiere autenticación)
+router.get('/all', async (req, res) => {
   try {
     const events = await getEvents();
     res.json(events);
@@ -20,8 +21,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Obtener eventos por preferencias (requiere autenticación)
+router.get('/preferences', auth, async (req, res) => {
+  try {
+    const events = await getEventsPreferences(req.user.id);
+    res.json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Obtener un evento específico (público)
-router.get('/:id', async (req, res) => {
+router.get('/event/:id', async (req, res) => {
   try {
     const event = await getEventById(req.params.id);
     res.json(event);

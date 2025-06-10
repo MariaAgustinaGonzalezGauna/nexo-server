@@ -10,7 +10,7 @@
   width: 100%;
   max-width: 400px;
   background-color: #F8B133;
-  padding: 3rem 2rem;
+  padding: 3rem ;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,34 +23,46 @@
 .header-text {
   flex: 1;
   display: flex;
+  max-width: 100%;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .title-container {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  justify-content: flex-start;
   margin-bottom: 2rem;
+  padding: 0;
 }
+
+
 
 .preferences-header h1 {
-  font-size: 5.5rem;
+  font-size: 5rem;     
   font-weight: 900;
   color: #000;
-  margin: 0;
-  line-height: 0.85;
-  text-transform: uppercase;
+  line-height: 0.9;
+  text-transform:initial;
   letter-spacing: -2px;
-  margin-bottom: 2rem;
+  margin: 2rem 0 2rem -1rem;     
+  padding: 0;             
+  text-align: center;       
+  width: 100%;
 }
 
+
+
 .preferences-header h2 {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: #000;
   margin: 0;
   line-height: 1.1;
   text-transform: uppercase;
-  text-align: left;
+  text-align: center;
+  width: 100%;
 }
 
 .preferences-content {
