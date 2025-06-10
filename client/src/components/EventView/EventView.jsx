@@ -1,9 +1,14 @@
 import React from "react"
 import "./EventView.css"
 import { useLocation } from "react-router"
-
+import ShareButton from "../ShareButton/shareButton"
+// 
+const link = window.location.href
 const EventView = () =>
-{
+{//crear estado de evento
+  //traer evento desde backend
+    //setear estado de evento
+      
   const localization=useLocation()  
   const {image,title,date,location,descripcion} = localization.state || {}
   return (
@@ -17,7 +22,7 @@ const EventView = () =>
          <h3>{location}</h3>
          <p>{date}</p>
          <div className="exp">
-         <button>Compartir</button>
+         <ShareButton link={link} />
           <div className="puntuacion">
             <p>☆</p>
             <p>☆</p>

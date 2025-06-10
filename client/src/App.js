@@ -32,7 +32,7 @@ function App() {
           <Route path="/EventPage" element={<ProtectedRoute><EventPage /></ProtectedRoute>} />
           <Route path="/mis-eventos" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-          <Route path="/EventView" element={<ProtectedRoute><EventView /></ProtectedRoute>} />
+          <Route path="/EventView/:id" element={<ProtectedRoute><EventView /></ProtectedRoute>} />
           
 
           {/* Ruta por defecto - redirige a home o inicio según autenticación */}
