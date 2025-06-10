@@ -4,9 +4,9 @@ const Event = require('../models/Event');
 const getAllEvents = async (req, res) => {
   try {
     const [pendingEvents, approvedEvents, rejectedEvents] = await Promise.all([
-      Event.find({ estado: 'pendiente' }).sort({ fechaCreacion: -1 }).populate('duenioId', 'nombre email'),
-      Event.find({ estado: 'aprobado' }).sort({ fechaCreacion: -1 }).populate('duenioId', 'nombre email'),
-      Event.find({ estado: 'rechazado' }).sort({ fechaCreacion: -1 }).populate('duenioId', 'nombre email')
+      Event.find({ estado: 'pendiente' }).sort({ fechaCreacion: -1 }).populate('entidad', 'nombre email'),
+      Event.find({ estado: 'aprobado' }).sort({ fechaCreacion: -1 }).populate('entidad', 'nombre email'),
+      Event.find({ estado: 'rechazado' }).sort({ fechaCreacion: -1 }).populate('entidad', 'nombre email')
     ]);
 
     res.json({
@@ -26,7 +26,7 @@ const approveEvent = async (req, res) => {
       req.params.id,
       { estado: 'aprobado' },
       { new: true }
-    ).populate('duenioId', 'nombre email');
+    ).populate('entidad', 'nombre email');
     
     if (!event) {
       return res.status(404).json({ message: 'Evento no encontrado' });
@@ -47,7 +47,7 @@ const rejectEvent = async (req, res) => {
         motivoRechazo: req.body.motivoRechazo
       },
       { new: true }
-    ).populate('duenioId', 'nombre email');
+    ).populate('entidad', 'nombre email');
     
     if (!event) {
       return res.status(404).json({ message: 'Evento no encontrado' });
@@ -65,7 +65,7 @@ const updateEvent = async (req, res) => {
       req.params.id,
       req.body,
       { new: true, runValidators: true }
-    ).populate('duenioId', 'nombre email');
+    ).populate('entidad', 'nombre email');
     
     if (!event) {
       return res.status(404).json({ message: 'Evento no encontrado' });
