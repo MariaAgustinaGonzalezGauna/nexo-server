@@ -5,9 +5,9 @@ import ShareButtonHome from '../ShareButton/shareButtonHome'; // si el share but
 
 const EventCard = ({ image, title, date, location, descripcion, id }) => {
   const navegacion=useNavigate();
-  const ruta= `/EventView/${id}`;
+  const ruta= "/EventView";
 
-  const link = `${window.location.origin}${ruta}`;
+  const link = `${window.location.origin}/evento/${id}`;
 
 
   return (
