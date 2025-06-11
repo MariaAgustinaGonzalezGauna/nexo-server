@@ -3,11 +3,10 @@ import axios from 'axios';
 // Crear una instancia de axios con la configuración base
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:5000/api', // URL completa al servidor
-    timeout: 5000, // timeout de 5 segundos
+    timeout: 10000, // aumentamos el timeout a 10 segundos
     headers: {
         'Content-Type': 'application/json'
-    },
-    withCredentials: true // Importante para CORS
+    }
 });
 
 // Interceptor para agregar el token a las peticiones
@@ -42,4 +41,4 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export default axiosInstance; 
+export default axiosInstance;

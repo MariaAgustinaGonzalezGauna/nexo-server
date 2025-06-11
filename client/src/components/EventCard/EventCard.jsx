@@ -4,12 +4,9 @@ import './EventCard.css';
 import ShareButtonHome from '../ShareButton/shareButtonHome'; // si el share button está acá
 
 const EventCard = ({ image, title, date, location, descripcion, id }) => {
-  const navegacion=useNavigate();
-  const ruta= `/EventView/${id}`;
-
+  const navegacion = useNavigate();
+  const ruta = `/evento/${id}`;
   const link = `${window.location.origin}${ruta}`;
-
-
   return (
     <div className="event-card">
       <div className="event-image">
@@ -20,15 +17,15 @@ const EventCard = ({ image, title, date, location, descripcion, id }) => {
         <p className="event-date">{date}</p>
         <p className="event-location">{location}</p>
 
-        <button className="ver-mas" onClick={()=>navegacion(ruta,{state:{image,title,date,location,descripcion}})}>VER MÁS</button>
-
-
-        {/* Botón VER MÁS con navegación */}
-       
+        <button 
+          className="ver-mas" 
+          onClick={() => navegacion(ruta)}
+        >
+          VER MÁS
+        </button>
 
         {/* Botón de compartir */}
         <ShareButtonHome link={link} />
-
       </div>
     </div>
   );
