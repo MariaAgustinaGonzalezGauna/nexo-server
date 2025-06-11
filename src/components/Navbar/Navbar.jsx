@@ -9,25 +9,22 @@ const Navbar = () => {
   const userType = localStorage.getItem('userType');
 
   const handleLogout = () => {
-    // Limpiar todo el localStorage
-    localStorage.clear();
-    
-    // Siempre redirigir a la página principal
-    navigate('/', { replace: true });
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userType');
+    navigate('/');
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to={isAuthenticated ? (userType === '1' ? '/admin/eventos' : '/home') : '/'} className="navbar-logo">
+        <Link to={isAuthenticated ? "/home" : "/"} className="navbar-logo">
           <img src={logo} alt="NEXO Logo" className="logo-image" />
         </Link>
         <div className="navbar-links">
-          {!isAuthenticated && (
-            <Link to="/sobre-nosotros" className="nav-link">
-              Sobre Nosotros
-            </Link>
-          )}
+          <Link to="/sobre-nosotros" className="nav-link">
+            Sobre Nosotros
+          </Link>
           
           {isAuthenticated ? (
             <>
@@ -38,8 +35,8 @@ const Navbar = () => {
                 </Link>
               )}
               {userType === '1' && (
-                <Link to="/admin/eventos" className="nav-link">
-                  Gestión de Eventos
+                <Link to="/admin" className="nav-link">
+                  Admin
                 </Link>
               )}
               <button className="search-button">

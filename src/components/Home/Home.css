@@ -1,0 +1,403 @@
+/* Base styles */
+:root {
+  --font-primary: 'Poppins', sans-serif;
+  --color-primary: #F8B133;
+  --color-text: #333;
+  --color-background: #f5f5f5;
+  --color-success: #4CAF50;
+  --color-copy-feedback: #ccc;
+}
+
+.home {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  font-family: var(--font-primary);
+}
+
+/* Hero Section */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  gap: 4rem;
+}
+
+.hero-content {
+  flex: 1;
+  text-align: left;
+  padding-left: 2rem;
+}
+
+.hero-content h1 {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 2rem;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.empezar-button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 1.2rem 3.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+  border-radius: 8px;
+}
+
+.empezar-button:hover {
+  transform: scale(1.05);
+  background-color: var(--color-primary);
+  color: #000;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-frame {
+  position: relative;
+  width: 400px;
+  height: 600px;
+  background: #000;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.9);
+}
+
+.nexo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.nexo-logo-overlay {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Events Section */
+.events-section {
+  padding: 6rem 0;
+  background-color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.events-section h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #000;
+  letter-spacing: -0.5px;
+}
+
+.loading,
+.error,
+.no-events {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.loading {
+  color: #666;
+}
+
+.error {
+  color: #dc3545;
+}
+
+.no-events {
+  color: #666;
+  font-style: italic;
+}
+
+/* Carousel Styles */
+.events-grid {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-row {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  cursor: grab;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  width: max-content;
+  will-change: transform;
+}
+
+.carousel-row.dragging {
+  cursor: grabbing !important;
+  transition: none !important;
+}
+
+.event-item {
+  min-width: 300px;
+  max-width: 300px;
+  width: 300px;
+  flex: 0 0 300px;
+  transition: transform 0.3s ease;
+  pointer-events: auto;
+}
+
+.event-item:hover {
+  transform: translateY(-5px);
+}
+
+.event-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* About Section */
+.about-section {
+  padding: 80px 0;
+  background-color: #fff;
+  margin-top: 60px;
+}
+
+.about-section h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 60px;
+  color: #000;
+  letter-spacing: -0.5px;
+}
+
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 0 40px;
+  align-items: center;
+}
+
+.about-text {
+  text-align: left;
+}
+
+.about-text p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin: 0;
+  font-weight: 300;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unsta-logo {
+  max-width: 400px;
+  height: auto;
+}
+
+/* Footer */
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer img {
+  width: 120px;
+  height: auto;
+  opacity: 0.8;
+}
+
+/* Shared Button Styles */
+.ver-mas {
+  background-color: var(--color-primary);
+  color: #000;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.ver-mas:hover {
+  background-color: #e6a02e;
+}
+
+.ver-mas.copiado {
+  background-color: var(--color-copy-feedback);
+  color: #000;
+}
+
+/* Share Button Home Styles */
+.share-button {
+  background-color: #ddd;
+  color: #000;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.share-button:hover {
+  background-color: #bbb;
+}
+
+.share-button.copiado {
+  background-color: var(--color-success);
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 1rem;
+    gap: 2rem;
+  }
+
+  .hero-content h1 {
+    font-size: 4rem;
+  }
+
+  .phone-frame {
+    width: 350px;
+    height: 525px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-text {
+    text-align: center;
+  }
+
+  .about-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+  }
+
+  .unsta-logo {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+  }
+
+  .hero-content {
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+
+  .phone-frame {
+    width: 300px;
+    height: 450px;
+  }
+
+  .events-grid {
+    grid-template-rows: 1fr;
+    grid-auto-columns: 280px;
+  }
+
+  .event-item {
+    min-width: 280px;
+    max-width: 280px;
+    width: 280px;
+    flex: 0 0 280px;
+  }
+
+  .about-section {
+    padding: 60px 0;
+  }
+
+  .about-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .about-content {
+    padding: 0 20px;
+  }
+}
