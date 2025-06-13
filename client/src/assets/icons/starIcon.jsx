@@ -1,8 +1,7 @@
-import React from "react"
+import * as React from "react";
 
-const StarIcon = ({width,height,fill}) =>{
-    return(
-        <svg
+const SvgIcon = ({width,height,fill}) => (
+  <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
@@ -12,10 +11,6 @@ const StarIcon = ({width,height,fill}) =>{
   >
     <path d="M45.6 15.2c-.8 1.3-2.9 5.7-4.6 9.8-1.8 4.1-3.5 7.8-3.9 8.2-.3.4-5 1.1-10.4 1.7C14.8 36.3 13 37.1 13 41.1c0 2.3 1.1 4 4.7 7.2 2.6 2.3 6.2 5.6 8.1 7.3l3.5 3L27 68.9c-1.7 7.8-2 10.9-1.2 12.6 2 4.5 4.7 4.1 14.8-2l9.4-5.7 9.4 5.7c10.1 6.1 12.8 6.5 14.8 2 .8-1.7.5-4.8-1.2-12.6l-2.3-10.3 3.4-2.9C85.8 45.4 87 44.1 87 41c0-3.9-1.8-4.7-14.4-6.3l-9.9-1.2-3.8-8.9c-2.1-4.8-4.4-9.5-5-10.2-1.8-2.2-6.6-1.7-8.3.8"></path>
   </svg>
-        )
-    
-}
+);
 
-
-
-export default StarIcon
+export default SvgIcon;
