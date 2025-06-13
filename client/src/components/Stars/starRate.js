@@ -15,7 +15,7 @@ export default function StarRate() {
               name="rate"
               value={currentRate}
               onClick={() => setRating(currentRate)}
-              style={{ display: "none" }} // opcional para ocultar el radio
+              style={{ display: "none" }} 
             />
             <StarIcon
               width={"30px"}
