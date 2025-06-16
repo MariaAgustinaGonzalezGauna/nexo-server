@@ -1,86 +1,187 @@
-
-.event-info-container
-{
-    display: flex;
-    padding-top: 100px;
-    justify-content: start;
-    margin-left: 20%;
-    gap: 10rem;
+.event-info-container {
+  display: flex;
+  padding-top: 100px;
+  justify-content: space-evenly;
+  margin-left: 10%;
+  margin-right: 10%;
+  gap: 5rem;
+  align-items: flex-start;
 }
 
-.imagenes img
-{
-    border-radius: 5px;
-    border: 2px solid black;
-}
-.info p
-{
-    color: black;
-    font-size: 25px;
-    color: #F8B133;
+.imagenes img {
+  width: 450px;
+  height: 600px; /* Más alta */
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid black;
 }
 
-h2
-{
-    color: black;
-    font-size: 50px;
+.info-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+   width: 100%;
+  max-width: 450px;
+  height: 600px; /* igual que la imagen */
+  justify-content: space-evenly; /* para que se distribuyan los elementos */
+}
+.info p {
+  font-size: 25px;
+  color: #F8B133;
 }
 
-.info button
-{
-    color: black;
-    background-color: #F8B133;
-    font-size: large;
-    width: 150px;
-    padding: 15px;
-    border: black 1px solid;
-    border-radius: 5px;
+.info h3 {
+  font-size: 20px;
+  color: black;
 }
 
-.info button:hover
-{
-    cursor: pointer;
-    border: #F8B133 1px solid;
+h2 {
+  font-size: 50px;
+  color: black;
+  word-wrap: break-word;     /* Corta palabras largas si es necesario */
+  overflow-wrap: break-word; /* Estándar moderno, recomendado */
+  white-space: normal;       /* Asegura que se puedan hacer saltos de línea */
 }
 
-.info h3
-{
-    color: black;
-    font-size: 20px;
+
+.info button {
+  color: black;
+  background-color: #F8B133;
+  font-size: large;
+  width: 150px;
+  padding: 15px;
+  border: black 1px solid;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
-.info
-{
-    justify-items: start;
+.info button:hover {
+  cursor: pointer;
+  border: #F8B133 1px solid;
 }
 
-.mapa-desc
-{
-    display: flex;
-    justify-content: center;
-    gap: 100px;
+.desc p {
+  font-size: 20px;
+  color: black;
+  word-wrap: break-word;     /* Corta palabras largas si es necesario */
+  overflow-wrap: break-word; /* Estándar moderno, recomendado */
+  white-space: normal; 
+}
+
+.exp {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.puntuacion {
+  display: flex;
+}
+.comentarios {
+  justify-self: center;
+  width: 500px;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.comentarios textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.comentarios button {
+  align-self: flex-end;
+  padding: 0.5rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comentarios button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 1024px) {
+  .event-info-container {
+    flex-direction: column;
     align-items: center;
-    height: 400px;
-}
+    margin: 0 5%;
+    padding-top: 60px;
+    gap: 2rem;
+  }
 
-.desc
-{
-   justify-items: start;
-}
+  .imagenes img {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+  }
 
-.desc p
-{
+  .info-desc {
+    max-width: 100%;
+    height: auto;
+    gap: 1.5rem;
+  }
+
+  h2 {
+    font-size: 36px;
+  }
+
+  .info p {
     font-size: 20px;
-    color: black;
+  }
+
+  .desc p {
+    font-size: 18px;
+  }
+
+  .comentarios {
+    width: 100%;
+    max-width: 500px;
+    padding: 0 1rem;
+  }
 }
 
-.puntuacion
-{
-    margin-left: 10px;
-    display: flex;
-}
+@media (max-width: 600px) {
+  h2 {
+    font-size: 28px;
+  }
 
-.exp
-{
-    display: ruby;
+  .info h3 {
+    font-size: 18px;
+  }
+
+  .info p {
+    font-size: 16px;
+  }
+
+  .desc p {
+    font-size: 16px;
+  }
+
+  .comentarios button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .exp {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .info-desc {
+    gap: 1rem;
+  }
 }
