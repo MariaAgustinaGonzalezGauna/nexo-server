@@ -11,6 +11,7 @@ import AdminLogin from './components/admin/AdminLogin';
 import AdminEventos from './components/admin/AdminEventos';
 import EventPage from './components/EventPage/EventPage';
 import EventView from './components/EventView/EventView';
+import Profile from './components/Profile/Profile';
 import './App.css';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/evento/:id" element={<EventView />} />
           <Route path="/mis-eventos" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
           {/* Rutas de administración */}
           <Route path="/admin/eventos" element={
