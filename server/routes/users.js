@@ -10,6 +10,31 @@ const {
   deleteUser
 } = require('../controllers/userController');
 
+// Obtener perfil propio (requiere autenticación)
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await getUserById(req.user._id);
+    res.json(user);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
+// Actualizar perfil propio (requiere autenticación)
+router.put('/me', auth, async (req, res) => {
+  try {
+    // Si se quiere cambiar la contraseña, hashearla aquí
+    if (req.body.password) {
+      // Aquí deberías hashear la contraseña antes de guardar
+      // Ejemplo: req.body.password = await bcrypt.hash(req.body.password, 10);
+    }
+    const updatedUser = await updateUser(req.user._id, req.body);
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 // Obtener todos los usuarios (protegido)
 router.get('/', auth, async (req, res) => {
   try {

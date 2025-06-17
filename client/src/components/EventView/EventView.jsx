@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react"
-import "./EventView.css"
-import { useParams, useNavigate } from "react-router-dom"
-import ShareButton from "../ShareButton/shareButton"
-import axiosInstance from "../../config/axios"
+import React, { useEffect, useState } from "react";
+import "./EventView.css";
+import { useParams, useNavigate } from "react-router-dom";
+import ShareButton from "../ShareButton/shareButton";
+import axiosInstance from "../../config/axios";
+import StarRate from "../Stars/starRate";
 
 const EventView = () => {
   const { id } = useParams();
@@ -22,6 +23,8 @@ const EventView = () => {
         console.error('Error al obtener el evento:', error);
         if (error.response?.status === 404) {
           setError('El evento no fue encontrado');
+          // Si querés redirigir:
+          // navigate("/404"); 
         } else {
           setError('Hubo un error al cargar el evento. Por favor, intenta de nuevo más tarde.');
         }
@@ -31,7 +34,7 @@ const EventView = () => {
     };
 
     obtenerEvento();
-  }, [id]);
+  }, [id, navigate]);
 
   if (loading) {
     return (
@@ -44,63 +47,44 @@ const EventView = () => {
 
   if (error) {
     return (
-      <div className="error-container">
-        <h2>Error</h2>
-        <p>{error}</p>
-        <button onClick={() => navigate(-1)} className="back-button">
-          Volver atrás
-        </button>
-      </div>
-    );
-  }
-
-  if (!evento) {
-    return (
-      <div className="error-container">
-        <h2>Evento no encontrado</h2>
-        <p>No pudimos encontrar el evento que estás buscando.</p>
-        <button onClick={() => navigate(-1)} className="back-button">
-          Volver atrás
-        </button>
+      <div className="contenedor">
+        <div className="error-message">
+          <p>{error}</p>
+          <button onClick={() => navigate("/")}>Volver al inicio</button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="contenedor">
       <div className="event-info-container">
         <div className="imagenes">
-          <img src={evento.imagenUrl} alt={evento.nombre} width={"400px"} height={"400px"} />
+          <img src={evento.imagenUrl} alt={evento.nombre} />
         </div>
-        <div className="info">
-          <h2>{evento.nombre}</h2>
-          <h3>{evento.lugar}</h3>
-          <p>{evento.fecha} - {evento.hora}</p>
-          <div className="exp">
-            <ShareButton link={window.location.href} />
-            <div className="puntuacion">
-              <p>☆</p>
-              <p>☆</p>
-              <p>☆</p>
-              <p>☆</p>
-              <p>☆</p>
+
+        <div className="info-desc">
+          <div className="info">
+            <h2>{evento.nombre}</h2>
+            <h3>{evento.lugar}</h3>
+            <p>{evento.fecha} - {evento.hora}</p>
+            <div className="exp">
+              <ShareButton link={window.location.href} />
+              <div className="puntuacion">
+                <StarRate />
+              </div>
             </div>
           </div>
+          <div className="desc">
+              <h2>Descripción</h2>
+              <p>{evento.descripcion}</p>
+            </div>
         </div>
       </div>
-      <div className="mapa-desc">
-        <div className="maps">
-          *
-        </div>
-        <div className="desc">
-          <h2>Descripción</h2>
-          <p>{evento.descripcion}</p>
-          <div className="info-adicional">
-            <h3>Información Adicional</h3>
-            <p>{evento.informacion}</p>
-            <p>Tipo de evento: {evento.tipo}</p>
-          </div>
-        </div>
+
+      <div className="comentarios">
+        <textarea placeholder="Dejá tu comentario..." />
+        <button type="button">Enviar</button>
       </div>
     </div>
   );
