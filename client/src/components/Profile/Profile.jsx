@@ -175,6 +175,9 @@ const Profile = () => {
           </>
         )}
       </div>
+      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <a href="/Preferences" className="profile-preferences-button">Mis Preferencias</a>
+      </div>
     </div>
   );
 };

@@ -220,7 +220,7 @@ const Home = () => {
             <div className="no-events">No hay eventos disponibles</div>
           ) : (
             <div className="events-grid">
-              {[0, ].map((rowIndex) => (
+              {[0].map((rowIndex) => (
                 <div
                   key={rowIndex}
                   ref={el => rowRefs.current[rowIndex] = el}
@@ -253,6 +253,37 @@ const Home = () => {
               ))}
             </div>
           )}
+          {/* Segundo carrusel en reversa */}
+          <div className="events-grid" style={{ marginTop: '0' }}>
+            <div
+              ref={el => rowRefs.current[1] = el}
+              className={`carousel-row ${isDragging[1] ? 'dragging' : ''}`}
+              onMouseDown={(e) => handleMouseDown(e, 1)}
+              onMouseMove={(e) => handleMouseMove(e, 1)}
+              onMouseUp={() => handleMouseUp(1)}
+              onMouseLeave={() => handleMouseLeave(1)}
+              style={{
+                transform: `translateX(${positions[1]}%)`,
+                transition: isDragging[1] ? 'none' : 'transform 0.3s ease'
+              }}
+            >
+              {[...filteredEvents].reverse().concat([...filteredEvents].reverse()).map((event, index) => (
+                <div
+                  key={`${event._id}-reverse-${index}`}
+                  className="event-item"
+                >
+                  <EventCard
+                    id={event._id}
+                    image={event.imagenUrl}
+                    title={event.nombre}
+                    date={event.fecha}
+                    location={event.lugar}
+                    descripcion={event.descripcion}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

@@ -42,6 +42,9 @@ const Navbar = () => {
                   Gestión de Eventos
                 </Link>
               )}
+              <Link to="/EventPage" className="nav-link">
+                Eventos para mi
+              </Link>
               <Link to="/profile" className="nav-link">
                 Mi Perfil
               </Link>
