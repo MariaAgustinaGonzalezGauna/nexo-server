@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ShareButton from "../ShareButton/shareButton";
 import axiosInstance from "../../config/axios";
 import StarRate from "../Stars/starRate";
+import CommentSection from "../Comments/Comments";
 
 const EventView = () => {
   const { id } = useParams();
@@ -82,10 +83,7 @@ const EventView = () => {
         </div>
       </div>
 
-      <div className="comentarios">
-        <textarea placeholder="Dejá tu comentario..." />
-        <button type="button">Enviar</button>
-      </div>
+      <CommentSection eventoId={evento._id} />
     </div>
   );
 };
