@@ -80,6 +80,29 @@
   color: #dc3545;
 }
 
+.preferences-button {
+  display: block;
+  margin: 0 auto 2rem auto;
+  padding: 0.9rem 2.5rem;
+  background-color: #F6A92D;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(246, 169, 45, 0.15);
+  letter-spacing: 0.5px;
+}
+
+.preferences-button:hover {
+  background-color: #e66b00;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(246, 169, 45, 0.22);
+  transform: translateY(-2px) scale(1.03);
+}
+
 @media (max-width: 768px) {
   .event-page-container {
     padding: 1rem;
