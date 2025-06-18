@@ -110,6 +110,7 @@ const GestorEventos = () => {
               </div>
               <div className="evento-info">
                 <h3>{evento.nombre}</h3>
+                <p className="evento-categoria"><strong>Categoría:</strong> {evento.tipo}</p>
                 <p>{evento.descripcion}</p>
                 <div className="evento-detalles">
                   <p><strong>Fecha:</strong> {parseFecha(evento.fecha) ? `${('0' + parseFecha(evento.fecha).getDate()).slice(-2)}/${('0' + (parseFecha(evento.fecha).getMonth() + 1)).slice(-2)}/${parseFecha(evento.fecha).getFullYear().toString().slice(-2)}` : ''}</p>
