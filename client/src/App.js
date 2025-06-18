@@ -12,6 +12,7 @@ import AdminEventos from './components/admin/AdminEventos';
 import EventPage from './components/EventPage/EventPage';
 import EventView from './components/EventView/EventView';
 import Profile from './components/Profile/Profile';
+import GestorEventos from './components/GestionEventos/GestorEventos';
 import './App.css';
 
 function App() {
@@ -37,14 +38,15 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/barAccount" element={<BarAccount />} />
+          <Route path="/barAccount" element={<ProtectedRoute><BarAccount /></ProtectedRoute>} />
+          <Route path="/barAccount/:id" element={<ProtectedRoute><BarAccount /></ProtectedRoute>} />
 
           {/* Rutas protegidas */}
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/preferences" element={<ProtectedRoute><Preferences /></ProtectedRoute>} />
           <Route path="/EventPage" element={<ProtectedRoute><EventPage /></ProtectedRoute>} />
           <Route path="/evento/:id" element={<EventView />} />
-          <Route path="/mis-eventos" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/mis-eventos" element={<ProtectedRoute><GestorEventos /></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 

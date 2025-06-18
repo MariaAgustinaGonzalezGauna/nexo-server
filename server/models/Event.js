@@ -60,13 +60,13 @@ const eventSchema = new mongoose.Schema({
   },
   entidad: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Entities',
+    ref: 'User',
     required: false,
     validate: {
       validator: async function(value) {
         if (!value) return true;
-        const entity = await mongoose.model('Entities').findById(value);
-        return entity;
+        const user = await mongoose.model('User').findById(value);
+        return user && user.tipo === 2;
       },
       message: 'El ID de dueño debe corresponder a un usuario con tipo dueño'
     }
