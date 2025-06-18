@@ -56,10 +56,17 @@ function BarAccount() {
   const handleChange = (e) => {
     let { name, value } = e.target;
     if (name === "fecha" && value) {
-      // Convierte yyyy-mm-dd a dd/mm/yyyy
+      // Convierte yyyy-mm-dd a dd/mm/aaaa
       const [yyyy, mm, dd] = value.split("-");
       if (yyyy && mm && dd) {
         value = `${dd}/${mm}/${yyyy}`;
+      } else {
+        // Si el usuario escribe dd/mm/aa, lo convierte a dd/mm/aaaa
+        const match = value.match(/^(\d{2})\/(\d{2})\/(\d{2})$/);
+        if (match) {
+          let [_, d, m, a] = match;
+          value = `${d}/${m}/20${a}`;
+        }
       }
     }
     setFormData({ ...formData, [name]: value });
@@ -166,6 +173,7 @@ function BarAccount() {
         type="date"
         name="fecha"
         value={formData.fecha ? (() => {
+          // Convierte dd/mm/aaaa a yyyy-mm-dd para el input
           const [dd, mm, yyyy] = formData.fecha.split("/");
           if (dd && mm && yyyy) return `${yyyy}-${mm}-${dd}`;
           return '';
