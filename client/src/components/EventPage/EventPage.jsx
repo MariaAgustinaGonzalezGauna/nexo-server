@@ -36,6 +36,7 @@ const EventPage = () => {
 
   return (
     <div className="event-page-container">
+      <button onClick={() => navegacion('/Preferences')} className="preferences-button">Ir a Mis Preferencias</button>
       <h1>Eventos Disponibles</h1>
       <div className="events-grid">
         {events.map((event) => (

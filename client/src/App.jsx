@@ -6,7 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Profile from './components/Profile';
 import GestorEventos from './components/GestionEventos/GestorEventos';
 import BarAccount from './components/BarAccount';
-import Preferences from './components/Preferences';
+import Preferences from './components/Preferences/Preferences';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 
