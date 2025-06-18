@@ -21,6 +21,9 @@ const Home = () => {
   const lastDragPosition = useRef({ 0: 0, 1: -50 });
   const animationFrameId = useRef({ 0: null, 1: null });
   const lastTime = useRef({ 0: null, 1: null });
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const isAuthenticated = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -143,6 +146,10 @@ const Home = () => {
     navigate('/register');
   };
 
+  const filteredEvents = events.filter(event =>
+    event.nombre && event.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="home">
       <section className="hero">
@@ -151,13 +158,15 @@ const Home = () => {
             LA APP<br />DONDE TODO<br />SE JUNTA
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <button className="empezar-button" onClick={handleRegisterClick}>EMPEZAR</button>
-            <button
-              style={{ background: 'none', border: 'none', color: '#ffa726', fontWeight: 600, cursor: 'pointer', padding: 0, fontSize: '1rem' }}
-              onClick={() => navigate('/barAccount')}
-            >
+            <button className="empezar-button" onClick={handleRegisterClick} style={{ display: isAuthenticated ? 'none' : 'inline-block' }}>EMPEZAR</button>
+            {isAuthenticated && (
+              <button
+                className="crear-evento-button"
+                onClick={() => navigate('/barAccount')}
+              >
                 QUIERO AGREGAR UN EVENTO
-            </button>
+              </button>
+            )}
           </div>
         </div>
         <div className="hero-image">
@@ -173,11 +182,28 @@ const Home = () => {
       <section className="events-section">
         <div className="section-container">
           <h2>Enterate de los mejores eventos de tu ciudad</h2>
+          <input
+            type="text"
+            placeholder="Buscar evento por nombre..."
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            className="event-search-input"
+            style={{
+              width: '100%',
+              maxWidth: '400px',
+              margin: '1rem auto',
+              display: 'block',
+              padding: '0.5rem 1rem',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+              fontSize: '1rem',
+            }}
+          />
           {loading ? (
             <div className="loading">Cargando eventos...</div>
           ) : error ? (
             <div className="error">{error}</div>
-          ) : events.length === 0 ? (
+          ) : filteredEvents.length === 0 ? (
             <div className="no-events">No hay eventos disponibles</div>
           ) : (
             <div className="events-grid">
@@ -195,7 +221,7 @@ const Home = () => {
                     transition: isDragging[rowIndex] ? 'none' : 'transform 0.3s ease'
                   }}
                 >
-                  {getCarouselItems(rowIndex).map((event, index) => (
+                  {filteredEvents.concat(filteredEvents).map((event, index) => (
                     <div
                       key={`${event._id}-${index}-${rowIndex}`}
                       className="event-item"
