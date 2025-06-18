@@ -33,9 +33,9 @@ const Navbar = () => {
             <>
               {/* Enlaces para usuarios autenticados */}
               {userType === '2' && (
-                <Link to="/mis-eventos" className="nav-link">
+                <button onClick={() => navigate('/mis-eventos')} className="nav-button">
                   Mis Eventos
-                </Link>
+                </button>
               )}
               {userType === '1' && (
                 <Link to="/admin/eventos" className="nav-link">

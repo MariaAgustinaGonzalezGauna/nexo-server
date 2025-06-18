@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 import './BarAccount.css';
 
-function BarAccount({ token }) {
+function BarAccount() {
   const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
@@ -16,10 +17,52 @@ function BarAccount({ token }) {
   });
   const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(false);
+  const API_URL = 'http://localhost:5000';
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const userType = localStorage.getItem('userType');
+  const userId = localStorage.getItem('userId');
+
+  // Si hay id, cargar datos del evento
+  useEffect(() => {
+    const fetchEvento = async () => {
+      if (id) {
+        try {
+          const token = localStorage.getItem('token');
+          const config = {
+            headers: { Authorization: `Bearer ${token}` }
+          };
+          const res = await axios.get(`${API_URL}/api/events/event/${id}`, config);
+          setFormData({
+            nombre: res.data.nombre || '',
+            descripcion: res.data.descripcion || '',
+            lugar: res.data.lugar || '',
+            imagenUrl: res.data.imagenUrl || '',
+            fecha: res.data.fecha || '',
+            hora: res.data.hora || '',
+            informacion: res.data.informacion || '',
+            tipo: res.data.tipo || '',
+            entidad: res.data.entidad?._id || ''
+          });
+        } catch (error) {
+          setMensaje('No se pudo cargar el evento');
+        }
+      }
+    };
+    fetchEvento();
+  }, [id]);
 
   // Maneja los cambios de inputs
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    let { name, value } = e.target;
+    if (name === "fecha" && value) {
+      // Convierte yyyy-mm-dd a dd/mm/yyyy
+      const [yyyy, mm, dd] = value.split("-");
+      if (yyyy && mm && dd) {
+        value = `${dd}/${mm}/${yyyy}`;
+      }
+    }
+    setFormData({ ...formData, [name]: value });
   };
 
   // Envío del formulario
@@ -28,35 +71,47 @@ function BarAccount({ token }) {
     setLoading(true);
     setMensaje('');
     try {
-      // Clona los datos
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setMensaje('No estás autenticado. Por favor, inicia sesión.');
+        return;
+      }
       const dataToSend = { ...formData };
-      // Si entidad está vacío, elimínalo
-      if (!dataToSend.entidad) {
+      if (userType === '2') {
+        dataToSend.entidad = userId;
+      } else {
         delete dataToSend.entidad;
       }
-      // Configura headers con el token para autorización
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       };
-      // POST a tu API de eventos
-      const response = await axios.post('/api/events', dataToSend, config);
-      setMensaje('Evento creado correctamente');
-      setFormData({
-        nombre: '',
-        descripcion: '',
-        lugar: '',
-        imagenUrl: '',
-        fecha: '',
-        hora: '',
-        informacion: '',
-        tipo: '',
-        entidad: ''
-      });
+      if (id) {
+        // Modo edición: PUT
+        await axios.put(`${API_URL}/api/events/${id}`, dataToSend, config);
+        setMensaje('Evento actualizado correctamente');
+      } else {
+        // Modo creación: POST
+        await axios.post(`${API_URL}/api/events`, dataToSend, config);
+        setMensaje('Evento creado correctamente');
+        setFormData({
+          nombre: '',
+          descripcion: '',
+          lugar: '',
+          imagenUrl: '',
+          fecha: '',
+          hora: '',
+          informacion: '',
+          tipo: '',
+          entidad: ''
+        });
+      }
+      // Redirigir a Mis Eventos después de guardar
+      setTimeout(() => navigate('/mis-eventos'), 1000);
     } catch (error) {
-      setMensaje(error.response?.data?.message || 'Error al crear el evento');
+      setMensaje(error.response?.data?.message || 'Error al guardar el evento');
     }
     setLoading(false);
   };
@@ -108,11 +163,15 @@ function BarAccount({ token }) {
       />
       <label>Fecha</label>
       <input
+        type="date"
         name="fecha"
-        value={formData.fecha}
+        value={formData.fecha ? (() => {
+          const [dd, mm, yyyy] = formData.fecha.split("/");
+          if (dd && mm && yyyy) return `${yyyy}-${mm}-${dd}`;
+          return '';
+        })() : ''}
         onChange={handleChange}
         required
-        pattern="\d{2}/\d{2}/\d{4}"
       />
       <label>Hora</label>
       <input
@@ -144,7 +203,7 @@ function BarAccount({ token }) {
       </div>
   
       <button className="barAccountSubmit" type="submit" disabled={loading}>
-        {loading ? 'Creando...' : 'Crear Evento'}
+        {loading ? (id ? 'Guardando...' : 'Creando...') : (id ? 'Guardar Cambios' : 'Crear Evento')}
       </button>
   
       {mensaje && <p>{mensaje}</p>}
