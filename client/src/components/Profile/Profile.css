@@ -172,4 +172,38 @@
   .profile-container h2 {
     font-size: 1.5rem;
   }
+}
+
+@media (max-width: 400px) {
+  .profile-container {
+    padding: 0.5rem 0.1rem;
+  }
+  .profile-container h2 {
+    font-size: 1.1rem;
+  }
+  .profile-row {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .profile-label, .profile-value {
+    font-size: 0.95rem;
+    min-width: unset;
+  }
+  .profile-row input[type="text"],
+  .profile-row input[type="email"],
+  .profile-row input[type="password"] {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.7rem;
+  }
+  .profile-row button, .profile-container button {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+  }
+  .profile-preferences-button {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+  }
 } 
