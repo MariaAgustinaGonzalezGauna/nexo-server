@@ -145,6 +145,26 @@
   color: #000;
 }
 
+.profile-preferences-button {
+  display: inline-block;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.profile-preferences-button:hover {
+  color: #fff;
+  background: var(--color-primary);
+  text-decoration: none;
+}
+
 @media (max-width: 600px) {
   .profile-container {
     padding: 1.2rem 0.5rem;
