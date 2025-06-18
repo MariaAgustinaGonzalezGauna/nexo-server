@@ -112,3 +112,49 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .event-page-container {
+    padding: 0.5rem;
+    margin-top: 60px;
+  }
+  .event-page-container h1 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .events-grid {
+    gap: 1rem;
+    padding: 0.2rem;
+  }
+  .evento-card {
+    border-radius: 7px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  }
+  .evento-card img {
+    height: 120px;
+    border-radius: 7px 7px 0 0;
+  }
+  .evento-card h5 {
+    font-size: 1rem;
+    margin: 0.7rem 0.5rem 0.5rem 0.5rem;
+  }
+  .evento-card p {
+    margin: 0.3rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  .evento-card .event-date {
+    font-size: 0.95rem;
+  }
+  .evento-card button {
+    margin: 0.7rem 0.5rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    width: calc(100% - 1rem);
+  }
+  .preferences-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 7px;
+    margin-bottom: 1.2rem;
+  }
+}

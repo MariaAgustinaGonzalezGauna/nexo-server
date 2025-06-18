@@ -423,3 +423,105 @@
   background: #fb8c00;
   transform: translateY(1px) scale(0.98);
 }
+
+@media (max-width: 600px) {
+  .home {
+    padding: 0;
+  }
+  .hero {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0.5rem;
+    min-height: unset;
+  }
+  .hero-content {
+    padding-left: 0;
+    text-align: center;
+  }
+  .hero-content h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .empezar-button, .crear-evento-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 7px;
+  }
+  .phone-frame {
+    width: 220px;
+    height: 340px;
+    border-radius: 20px;
+  }
+  .events-section {
+    padding: 2.5rem 0 1.5rem 0;
+  }
+  .section-container {
+    padding: 0 0.5rem;
+  }
+  .events-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .events-grid {
+    grid-template-rows: 1fr;
+    gap: 0.7rem;
+    padding: 0.2rem;
+  }
+  .carousel-row {
+    gap: 10px;
+    padding: 5px 0;
+  }
+  .event-item {
+    min-width: 180px;
+    max-width: 180px;
+    width: 180px;
+  }
+  .event-card img {
+    height: 90px;
+    border-radius: 7px 7px 0 0;
+  }
+  .event-card {
+    font-size: 0.95rem;
+  }
+  .about-section {
+    padding: 2rem 0 1rem 0;
+    margin-top: 1.5rem;
+  }
+  .about-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+  .about-text p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .logos {
+    margin-top: 1rem;
+  }
+  .unsta-logo {
+    max-width: 120px;
+  }
+  .footer {
+    padding: 1rem 0.2rem;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+  }
+  .footer img {
+    width: 70px;
+  }
+}
+@media (max-width: 400px) {
+  .hero-content h1 {
+    font-size: 1.1rem;
+  }
+  .event-item {
+    min-width: 140px;
+    max-width: 140px;
+    width: 140px;
+  }
+}
