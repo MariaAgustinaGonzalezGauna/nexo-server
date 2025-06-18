@@ -14,6 +14,7 @@ const Register = () => {
     repetirContrasena: ''
   });
   const [error, setError] = useState('');
+  const [isDuenio, setIsDuenio] = useState(false);
 
   useEffect(() => {
     // Redirigir si ya está autenticado
@@ -37,6 +38,10 @@ const Register = () => {
       [e.target.name]: e.target.value
     });
     setError(''); // Limpiar error cuando el usuario empiece a escribir
+  };
+
+  const handleTipoClick = () => {
+    setIsDuenio(prev => !prev);
   };
 
   const handleSubmit = async (e) => {
@@ -65,11 +70,13 @@ const Register = () => {
     }
 
     try {
+      const tipo = isDuenio ? 2 : 3;
       const response = await axios.post('http://localhost:5000/api/users', {
         nombre: formData.nombre,
         apellido: formData.apellido,
         email: formData.email,
-        password: formData.contrasena
+        password: formData.contrasena,
+        tipo
       });
 
       if (response.data) {
@@ -154,6 +161,24 @@ const Register = () => {
             onChange={handleChange}
             required
           />
+          <button
+            type="button"
+            className={`tipo-button${isDuenio ? ' selected' : ''}`}
+            onClick={handleTipoClick}
+            style={{
+              background: isDuenio ? '#ffa726' : '#eee',
+              color: isDuenio ? '#fff' : '#333',
+              border: '1px solid #ffa726',
+              borderRadius: '6px',
+              padding: '0.5rem 1.2rem',
+              marginBottom: '1rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'background 0.2s, color 0.2s'
+            }}
+          >
+            {isDuenio ? 'Cuenta de DUEÑO seleccionada' : 'QUIERO SUBIR EVENTOS DE MI LOCAL'}
+          </button>
           {error && <div className="error-message">{error}</div>}
           <button type="submit" className="enviar-button">ENVIAR</button>
           <p className="login-link">

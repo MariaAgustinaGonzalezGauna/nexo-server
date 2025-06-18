@@ -9,11 +9,11 @@ const Navbar = () => {
   const userType = localStorage.getItem('userType');
 
   const handleLogout = () => {
-    // Limpiar todo el localStorage
-    localStorage.clear();
-    
-    // Siempre redirigir a la página principal
-    navigate('/', { replace: true });
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userType');
+    navigate('/');
+    window.location.reload();
   };
 
   return (

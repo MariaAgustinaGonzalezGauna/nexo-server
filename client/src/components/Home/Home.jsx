@@ -146,7 +146,20 @@ const Home = () => {
     navigate('/register');
   };
 
-  const filteredEvents = events.filter(event =>
+  // Ordenar eventos por fechaCreacion descendente (más reciente primero)
+  const sortedEvents = [...events].sort((a, b) => {
+    if (a.fechaCreacion && b.fechaCreacion) {
+      return new Date(b.fechaCreacion) - new Date(a.fechaCreacion);
+    }
+    // Fallback: ordenar por fecha del evento si no hay fechaCreacion
+    const [da, ma, ya] = a.fecha.split('/');
+    const [db, mb, yb] = b.fecha.split('/');
+    const dateA = new Date(`${ya}-${ma}-${da}`);
+    const dateB = new Date(`${yb}-${mb}-${db}`);
+    return dateB - dateA;
+  });
+
+  const filteredEvents = sortedEvents.filter(event =>
     event.nombre && event.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
