@@ -150,12 +150,15 @@
 }
 
 /* Carousel Styles */
-.events-grid {
-  display: grid;
-  grid-template-rows: 1fr;
+/* Elimino o comento reglas que puedan ocultar las flechas */
+/* .events-grid {
   overflow: hidden;
   width: 100%;
-}
+} */
+/* .carousel-row {
+  overflow: hidden;
+  width: max-content;
+} */
 
 .carousel-row {
   display: flex;
@@ -164,7 +167,6 @@
   cursor: grab;
   user-select: none;
   position: relative;
-  overflow: hidden;
   width: max-content;
   will-change: transform;
 }
@@ -311,6 +313,30 @@
 .share-button.copiado {
   background-color: var(--color-success);
   color: #fff;
+}
+
+/* Estilos personalizados para las flechas de Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #F8B133;
+  background: rgba(255,255,255,0.85);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 22px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 10;
+  transition: background 0.2s, color 0.2s;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #F8B133;
+  color: #fff;
+}
+
+/* Aseguro que las flechas estén por encima de otros elementos */
+.swiper {
+  position: relative;
 }
 
 /* Responsive Design */
