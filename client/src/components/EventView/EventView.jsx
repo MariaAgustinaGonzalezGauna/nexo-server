@@ -5,6 +5,7 @@ import ShareButton from "../ShareButton/shareButton";
 import axiosInstance from "../../config/axios";
 import StarRate from "../Stars/starRate";
 import CommentSection from "../Comments/Comments";
+import EventMapMini from '../EventMap/EventMapMini';
 
 const EventView = () => {
   const { id } = useParams();
@@ -64,8 +65,8 @@ const EventView = () => {
           <img src={evento.imagenUrl} alt={evento.nombre} />
         </div>
 
-        <div className="info-desc">
-          <div className="info">
+        <div className="info-desc" style={{ display: 'flex', flexDirection: 'row', gap: '2rem' }}>
+          <div className="info" style={{ flex: 1 }}>
             <h2>{evento.nombre}</h2>
             <h3>{evento.lugar}</h3>
             <p>{evento.fecha} - {evento.hora}</p>
@@ -76,10 +77,15 @@ const EventView = () => {
               </div>
             </div>
           </div>
-          <div className="desc">
-              <h2>Descripción</h2>
-              <p>{evento.descripcion}</p>
-            </div>
+          <div style={{ minWidth: 200, alignSelf: 'flex-start' }}>
+            {evento.lat && evento.lng && (
+              <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} />
+            )}
+          </div>
+        </div>
+        <div className="desc">
+          <h2>Descripción</h2>
+          <p>{evento.descripcion}</p>
         </div>
       </div>
 

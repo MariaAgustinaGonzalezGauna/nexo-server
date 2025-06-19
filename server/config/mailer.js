@@ -8,4 +8,12 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+transporter.verify(function(error, success) {
+  if (error) {
+    console.error('Error en la configuración de nodemailer:', error);
+  } else {
+    console.log('Nodemailer listo para enviar emails');
+  }
+});
+
 module.exports = transporter;

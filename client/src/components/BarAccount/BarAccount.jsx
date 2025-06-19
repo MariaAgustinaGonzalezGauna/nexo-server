@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import './BarAccount.css';
+import EventLocationPicker from '../EventMap/EventLocationPicker';
 
 function BarAccount() {
   const [formData, setFormData] = useState({
@@ -13,7 +14,9 @@ function BarAccount() {
     hora: '',
     informacion: '',
     tipo: '',
-    entidad: ''
+    entidad: '',
+    lat: null,
+    lng: null
   });
   const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(false);
@@ -42,7 +45,9 @@ function BarAccount() {
             hora: res.data.hora || '',
             informacion: res.data.informacion || '',
             tipo: res.data.tipo || '',
-            entidad: res.data.entidad?._id || ''
+            entidad: res.data.entidad?._id || '',
+            lat: res.data.lat || null,
+            lng: res.data.lng || null
           });
         } catch (error) {
           setMensaje('No se pudo cargar el evento');
@@ -112,7 +117,9 @@ function BarAccount() {
           hora: '',
           informacion: '',
           tipo: '',
-          entidad: ''
+          entidad: '',
+          lat: null,
+          lng: null
         });
       }
       // Redirigir a Mis Eventos después de guardar
@@ -209,7 +216,11 @@ function BarAccount() {
           </select>
         </label>
       </div>
-  
+      <label>Ubicación en el mapa</label>
+      <EventLocationPicker
+        value={formData.lat && formData.lng ? [formData.lat, formData.lng] : null}
+        onChange={({ lat, lng }) => setFormData(prev => ({ ...prev, lat, lng }))}
+      />
       <button className="barAccountSubmit" type="submit" disabled={loading}>
         {loading ? (id ? 'Guardando...' : 'Creando...') : (id ? 'Guardar Cambios' : 'Crear Evento')}
       </button>

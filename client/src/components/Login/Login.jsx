@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import homePeople from '../../assets/home-people.png';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -64,6 +65,24 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/google', {
+        token: credentialResponse.credential
+      });
+      // Guardar token y userId como en el login tradicional
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.user._id);
+      window.location.href = '/';
+    } catch (error) {
+      alert('Error al iniciar sesión con Google');
+    }
+  };
+
+  const handleGoogleError = () => {
+    alert('Error al autenticar con Google');
+  };
+
   return (
     <div className="login-container">
       <div className="login-image-container">
@@ -91,9 +110,20 @@ const Login = () => {
             required
           />
           {error && <div className="error-message">{error}</div>}
-          <button type="submit" className="enviar-button">INICIAR SESIÓN</button>
-          <p className="register-link">
+          <button type="submit" className="login-button">ENVIAR</button>
+          <div style={{ margin: '0.1rem 0 0 0', textAlign: 'center' }}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+            />
+          </div>
+          <p className="register-link" style={{ marginTop: '0.1rem' }}>
             ¿No tienes una cuenta? <span onClick={() => navigate('/register')}>Regístrate</span>
+          </p>
+          <p className="forgot-link" style={{ marginTop: '0.7rem', textAlign: 'center' }}>
+            <span onClick={() => navigate('/forgot-password')} style={{ color: '#1976d2', textDecoration: 'underline', cursor: 'pointer' }}>
+              ¿Olvidaste tu contraseña?
+            </span>
           </p>
         </form>
       </div>

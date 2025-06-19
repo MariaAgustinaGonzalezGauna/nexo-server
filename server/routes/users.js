@@ -9,6 +9,12 @@ const {
   updateUser,
   deleteUser
 } = require('../controllers/userController');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const User = require('../models/User');
+const transporter = require('../config/mailer');
+const { OAuth2Client } = require('google-auth-library');
+const jwt = require('jsonwebtoken');
 
 // Obtener perfil propio (requiere autenticación)
 router.get('/me', auth, async (req, res) => {
@@ -105,6 +111,86 @@ router.put('/:id/preferences', auth, async (req, res) => {
     res.status(200).json({ message: 'Preferencias actualizadas correctamente' });
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+});
+
+// Recuperación de contraseña - solicitar
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(200).json({ message: 'Si el email existe, se enviará un enlace de recuperación.' });
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 1000 * 60 * 60; // 1 hora
+    await user.save();
+    const resetUrl = `http://localhost:3000/reset-password/${token}`;
+    await transporter.sendMail({
+      to: user.email,
+      subject: 'Recuperación de contraseña NEXO',
+      html: `<p>Para restablecer tu contraseña, haz clic en el siguiente enlace:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>Si no solicitaste este cambio, ignora este correo.</p>`
+    });
+    res.json({ message: 'Si el email existe, se enviará un enlace de recuperación.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error al procesar la solicitud.' });
+  }
+});
+
+// Recuperación de contraseña - restablecer
+router.post('/reset-password', async (req, res) => {
+  const { token, password } = req.body;
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+    if (!user) return res.status(400).json({ message: 'Token inválido o expirado.' });
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+    res.json({ message: 'Contraseña restablecida correctamente.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error al restablecer la contraseña.' });
+  }
+});
+
+// Login/registro con Google
+router.post('/auth/google', async (req, res) => {
+  const { token } = req.body;
+  const client = new OAuth2Client();
+  try {
+    // Verificar el token de Google
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID // Opcional, pero recomendable
+    });
+    const payload = ticket.getPayload();
+    const { email, name } = payload;
+    if (!email) return res.status(400).json({ message: 'No se pudo obtener el email de Google.' });
+    // Buscar usuario existente
+    let user = await User.findOne({ email });
+    if (!user) {
+      // Crear usuario nuevo
+      user = new User({
+        nombre: name || 'Usuario Google',
+        apellido: '',
+        email,
+        password: token, // Nunca se usará, pero es requerido
+        tipo: 3,
+        acceptedTerms: false
+      });
+      await user.save();
+    }
+    // Generar JWT propio
+    const jwtToken = jwt.sign(
+      { userId: user._id, tipo: user.tipo },
+      process.env.JWT_SECRET || 'tu_secreto_seguro',
+      { expiresIn: '1h' }
+    );
+    res.json({ token: jwtToken, user });
+  } catch (err) {
+    res.status(401).json({ message: 'Token de Google inválido.' });
   }
 });
 

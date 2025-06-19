@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Register.css';
 import homePeople from '../../assets/home-people.png';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const [isDuenio, setIsDuenio] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   useEffect(() => {
     // Redirigir si ya está autenticado
@@ -46,6 +48,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!acceptedTerms) {
+      setError('Debes aceptar los Términos y Condiciones para registrarte.');
+      return;
+    }
     setError('');
 
     // Validaciones del formulario
@@ -76,7 +82,8 @@ const Register = () => {
         apellido: formData.apellido,
         email: formData.email,
         password: formData.contrasena,
-        tipo
+        tipo,
+        acceptedTerms,
       });
 
       if (response.data) {
@@ -109,6 +116,24 @@ const Register = () => {
         setError('Error al procesar la solicitud');
       }
     }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/google', {
+        token: credentialResponse.credential
+      });
+      // Guardar token y userId como en el registro tradicional
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.user._id);
+      window.location.href = '/';
+    } catch (error) {
+      alert('Error al registrarse con Google');
+    }
+  };
+
+  const handleGoogleError = () => {
+    alert('Error al autenticar con Google');
   };
 
   return (
@@ -163,25 +188,36 @@ const Register = () => {
           />
           <button
             type="button"
-            className={`tipo-button${isDuenio ? ' selected' : ''}`}
+            className={`toggle-owner-button${isDuenio ? ' selected' : ''}`}
             onClick={handleTipoClick}
-            style={{
-              background: isDuenio ? '#ffa726' : '#eee',
-              color: isDuenio ? '#fff' : '#333',
-              border: '1px solid #ffa726',
-              borderRadius: '6px',
-              padding: '0.5rem 1.2rem',
-              marginBottom: '1rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'background 0.2s, color 0.2s'
-            }}
+            style={{ marginBottom: '0.3rem', background: 'none', color: isDuenio ? '#333' : '#333', border: 'none', fontWeight: 600, transition: 'background 0.2s, color 0.2s', display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}
           >
-            {isDuenio ? 'Cuenta de DUEÑO seleccionada' : 'QUIERO SUBIR EVENTOS DE MI LOCAL'}
+            <span style={{ display: 'inline-block', width: '22px', height: '22px', background: '#fff', border: '2px solid #ffd600', borderRadius: '4px', marginRight: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem', fontWeight: 'bold' }}>
+              {isDuenio && '✔'}
+            </span>
+            QUIERO SUBIR EVENTOS DE MI LOCAL
           </button>
+          <div style={{ display: 'flex', alignItems: 'center', margin: '0.7rem 0' }}>
+            <input
+              type="checkbox"
+              id="acceptedTerms"
+              checked={acceptedTerms}
+              onChange={e => setAcceptedTerms(e.target.checked)}
+              style={{ marginRight: '0.5rem' }}
+            />
+            <label htmlFor="acceptedTerms" style={{ fontSize: '0.98rem' }}>
+              Acepto los <span onClick={() => window.open('/terms', '_blank')} style={{ color: '#1976d2', textDecoration: 'underline', cursor: 'pointer' }}>Términos y Condiciones</span>
+            </label>
+          </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit" className="enviar-button">ENVIAR</button>
-          <p className="login-link">
+          <button type="submit" className="register-button">ENVIAR</button>
+          <div style={{ margin: '0.1rem 0 0 0', textAlign: 'center' }}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+            />
+          </div>
+          <p className="login-link" style={{ marginTop: '0.1rem' }}>
             Ya tienes una cuenta? <span onClick={() => navigate('/login')}>Inicia sesión</span>
           </p>
         </form>

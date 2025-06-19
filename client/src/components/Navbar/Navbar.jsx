@@ -16,6 +16,28 @@ const Navbar = () => {
     window.location.reload();
   };
 
+  const handleMapClick = () => {
+    // Navegar al home y hacer scroll al mapa
+    navigate('/home');
+    // Usar setTimeout para asegurar que la navegación se complete antes del scroll
+    setTimeout(() => {
+      // Buscar el elemento del mapa de múltiples maneras
+      const mapElement = document.querySelector('[style*="EventMapFull"]') || 
+                        document.querySelector('[style*="600px"]') ||
+                        document.querySelector('[style*="border-radius: 18px"]');
+      
+      if (mapElement) {
+        mapElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Si no encuentra el elemento específico, hacer scroll al final de la página
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }, 300); // Aumentar el tiempo para asegurar que la página se cargue completamente
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -24,9 +46,14 @@ const Navbar = () => {
         </Link>
         <div className="navbar-links">
           {!isAuthenticated && (
-            <Link to="/sobre-nosotros" className="nav-link">
-              Sobre Nosotros
-            </Link>
+            <>
+              <Link to="/sobre-nosotros" className="nav-link">
+                Sobre Nosotros
+              </Link>
+              <button onClick={handleMapClick} className="nav-button">
+                Ir al mapa
+              </button>
+            </>
           )}
           
           {isAuthenticated ? (
@@ -45,6 +72,9 @@ const Navbar = () => {
               <Link to="/EventPage" className="nav-link">
                 Eventos para mi
               </Link>
+              <button onClick={handleMapClick} className="nav-button">
+                Ir al mapa
+              </button>
               <Link to="/profile" className="nav-link">
                 Mi Perfil
               </Link>

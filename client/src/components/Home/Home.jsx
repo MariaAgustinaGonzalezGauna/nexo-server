@@ -6,6 +6,7 @@ import homePeople from '../../assets/home-people.png';
 import unstaLogo from '../../assets/unsta-logo.png';
 import nexoLogoWhite from '../../assets/nexo-logo-white.png';
 import EventCard from '../EventCard/EventCard';
+import EventMapFull from '../EventMap/EventMapFull';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ const Home = () => {
   const animationFrameId = useRef({ 0: null, 1: null });
   const lastTime = useRef({ 0: null, 1: null });
   const [searchTerm, setSearchTerm] = useState("");
+  const [preferences, setPreferences] = useState([]);
+  const [userType, setUserType] = useState(null);
 
   const isAuthenticated = localStorage.getItem('token');
 
@@ -41,6 +44,30 @@ const Home = () => {
     };
 
     fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    // Si el usuario está autenticado, obtener sus preferencias y tipo
+    const fetchPreferencias = async () => {
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('userId');
+      if (!token || !userId) return;
+      try {
+        const response = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (response.data && response.data.preferencias) {
+          setPreferences(response.data.preferencias);
+        }
+        if (response.data && response.data.tipo !== undefined) {
+          setUserType(response.data.tipo);
+        }
+      } catch (err) {
+        setPreferences([]);
+        setUserType(null);
+      }
+    };
+    fetchPreferencias();
   }, []);
 
   useEffect(() => {
@@ -146,33 +173,67 @@ const Home = () => {
     navigate('/register');
   };
 
-  // Ordenar eventos por fechaCreacion descendente (más reciente primero)
+  // Ordenar eventos por la fecha del evento (dd/mm/aaaa), más próximo primero
   const sortedEvents = [...events].sort((a, b) => {
-    if (a.fechaCreacion && b.fechaCreacion) {
-      return new Date(b.fechaCreacion) - new Date(a.fechaCreacion);
+    if (a.fecha && b.fecha) {
+      // Convertir de dd/mm/aaaa a yyyy-mm-dd para comparar
+      const [da, ma, ya] = a.fecha.split('/');
+      const [db, mb, yb] = b.fecha.split('/');
+      const dateA = new Date(`${ya}-${ma}-${da}`);
+      const dateB = new Date(`${yb}-${mb}-${db}`);
+      return dateA - dateB;
     }
-    // Fallback: ordenar por fecha del evento si no hay fechaCreacion
-    const [da, ma, ya] = a.fecha.split('/');
-    const [db, mb, yb] = b.fecha.split('/');
-    const dateA = new Date(`${ya}-${ma}-${da}`);
-    const dateB = new Date(`${yb}-${mb}-${db}`);
-    return dateB - dateA;
+    return 0;
   });
 
+  // Filtrar eventos por nombre
   const filteredEvents = sortedEvents.filter(event =>
     event.nombre && event.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Filtrar eventos por preferencias del usuario (primer carrusel)
+  const preferredEvents = preferences.length > 0
+    ? filteredEvents.filter(event => preferences.includes(event.tipo))
+    : filteredEvents;
+
+  // Carrusel de 'Explora más eventos': si filteredEvents está vacío, mostrar todos los eventos
+  const exploreEvents = filteredEvents.length > 0 ? filteredEvents : sortedEvents;
+
+  // Lógica para carrusel infinito en todos los carruseles
+  useEffect(() => {
+    [0, 1, ...Array.from(new Set(filteredEvents.map(event => event.tipo))).map((_, idx) => idx + 2)].forEach(rowIndex => {
+      const row = rowRefs.current[rowIndex];
+      if (!row) return;
+      let totalItems = 0;
+      if (rowIndex === 0) {
+        totalItems = preferredEvents.length * 2;
+      } else if (rowIndex === 1) {
+        totalItems = exploreEvents.length * 2;
+      } else {
+        const categoria = Array.from(new Set(filteredEvents.map(event => event.tipo)))[rowIndex - 2];
+        totalItems = filteredEvents.filter(event => event.tipo === categoria).length * 2;
+      }
+      if (totalItems === 0) return;
+      if (positions[rowIndex] <= -100) {
+        setPositions(prev => ({ ...prev, [rowIndex]: 0 }));
+      } else if (positions[rowIndex] >= 0) {
+        setPositions(prev => ({ ...prev, [rowIndex]: -100 }));
+      }
+    });
+  }, [positions, preferredEvents.length, exploreEvents.length, filteredEvents]);
+
   return (
     <div className="home">
-      <section className="hero">
-        <div className="hero-content">
-          <h1>
-            LA APP<br />DONDE TODO<br />SE JUNTA
-          </h1>
+      <section className="hero" style={isAuthenticated ? { minHeight: 'unset', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 0' } : {}}>
+        <div className="hero-content" style={isAuthenticated ? { width: '100%', textAlign: 'center', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column' } : {}}>
+          {!isAuthenticated && (
+            <h1>
+              LA APP<br />DONDE TODO<br />SE JUNTA
+            </h1>
+          )}
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <button className="empezar-button" onClick={handleRegisterClick} style={{ display: isAuthenticated ? 'none' : 'inline-block' }}>EMPEZAR</button>
-            {isAuthenticated && (
+            {isAuthenticated && (userType === 1 || userType === 2) && (
               <button
                 className="crear-evento-button"
                 onClick={() => navigate('/barAccount')}
@@ -182,14 +243,16 @@ const Home = () => {
             )}
           </div>
         </div>
-        <div className="hero-image">
-          <div className="phone-frame">
-            <img src={homePeople} alt="NEXO community" className="phone-screen" />
-            <div className="nexo-overlay">
-              <img src={nexoLogoWhite} alt="NEXO" className="nexo-logo-overlay" />
+        {!isAuthenticated && (
+          <div className="hero-image">
+            <div className="phone-frame">
+              <img src={homePeople} alt="NEXO community" className="phone-screen" />
+              <div className="nexo-overlay">
+                <img src={nexoLogoWhite} alt="NEXO" className="nexo-logo-overlay" />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
 
       <section className="events-section">
@@ -218,7 +281,10 @@ const Home = () => {
             <div className="error">{error}</div>
           ) : filteredEvents.length === 0 ? (
             <div className="no-events">No hay eventos disponibles</div>
-          ) : (
+          ) : null}
+          {/* Primer carrusel: preferencias o todos */}
+          <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
+            <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Eventos para vos</h3>
             <div className="events-grid">
               {[0].map((rowIndex) => (
                 <div
@@ -234,9 +300,80 @@ const Home = () => {
                     transition: isDragging[rowIndex] ? 'none' : 'transform 0.3s ease'
                   }}
                 >
-                  {filteredEvents.concat(filteredEvents).map((event, index) => (
+                  {preferredEvents.length === 0 ? (
+                    <div className="no-events">No hay eventos de tus preferencias</div>
+                  ) : (
+                    preferredEvents.concat(preferredEvents).map((event, index) => (
+                      <div
+                        key={`${event._id}-${index}-${rowIndex}`}
+                        className="event-item"
+                      >
+                        <EventCard
+                          id={event._id}
+                          image={event.imagenUrl}
+                          title={event.nombre}
+                          date={event.fecha}
+                          location={event.lugar}
+                          descripcion={event.descripcion}
+                        />
+                      </div>
+                    ))
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Segundo carrusel: todos los eventos en reversa */}
+          <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
+            <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Explora más eventos</h3>
+            <div className="events-grid" style={{ marginTop: '0' }}>
+              <div
+                ref={el => rowRefs.current[1] = el}
+                className={`carousel-row ${isDragging[1] ? 'dragging' : ''}`}
+                onMouseDown={(e) => handleMouseDown(e, 1)}
+                onMouseMove={(e) => handleMouseMove(e, 1)}
+                onMouseUp={() => handleMouseUp(1)}
+                onMouseLeave={() => handleMouseLeave(1)}
+                style={{
+                  transform: `translateX(${positions[1]}%)`,
+                  transition: isDragging[1] ? 'none' : 'transform 0.3s ease'
+                }}
+              >
+                {[...exploreEvents].reverse().concat([...exploreEvents].reverse()).map((event, index) => (
+                  <div
+                    key={`${event._id}-reverse-${index}`}
+                    className="event-item"
+                  >
+                    <EventCard
+                      id={event._id}
+                      image={event.imagenUrl}
+                      title={event.nombre}
+                      date={event.fecha}
+                      location={event.lugar}
+                      descripcion={event.descripcion}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* Carruseles por categoría */}
+          {Array.from(new Set(filteredEvents.map(event => event.tipo)))
+            .map((categoria, idx) => (
+            <div key={categoria} style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
+              <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.2rem'}}>{categoria}</h3>
+              <div className="events-grid">
+                <div
+                  ref={el => rowRefs.current[idx + 2] = el}
+                  className="carousel-row"
+                  style={{
+                    transform: `translateX(${positions[idx + 2] || 0}%)`,
+                    transition: isDragging[idx + 2] ? 'none' : 'transform 0.3s ease'
+                  }}
+                >
+                  {filteredEvents.filter(event => event.tipo === categoria).concat(filteredEvents.filter(event => event.tipo === categoria)).map((event, index) => (
                     <div
-                      key={`${event._id}-${index}-${rowIndex}`}
+                      key={`${event._id}-cat-${index}`}
                       className="event-item"
                     >
                       <EventCard
@@ -250,42 +387,14 @@ const Home = () => {
                     </div>
                   ))}
                 </div>
-              ))}
+              </div>
             </div>
-          )}
-          {/* Segundo carrusel en reversa */}
-          <div className="events-grid" style={{ marginTop: '0' }}>
-            <div
-              ref={el => rowRefs.current[1] = el}
-              className={`carousel-row ${isDragging[1] ? 'dragging' : ''}`}
-              onMouseDown={(e) => handleMouseDown(e, 1)}
-              onMouseMove={(e) => handleMouseMove(e, 1)}
-              onMouseUp={() => handleMouseUp(1)}
-              onMouseLeave={() => handleMouseLeave(1)}
-              style={{
-                transform: `translateX(${positions[1]}%)`,
-                transition: isDragging[1] ? 'none' : 'transform 0.3s ease'
-              }}
-            >
-              {[...filteredEvents].reverse().concat([...filteredEvents].reverse()).map((event, index) => (
-                <div
-                  key={`${event._id}-reverse-${index}`}
-                  className="event-item"
-                >
-                  <EventCard
-                    id={event._id}
-                    image={event.imagenUrl}
-                    title={event.nombre}
-                    date={event.fecha}
-                    location={event.lugar}
-                    descripcion={event.descripcion}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
+
+      {/* Mapa gigante de todos los eventos */}
+      <EventMapFull events={sortedEvents} />
 
       <section className="about-section">
         <h2>Sobre nosotros</h2>

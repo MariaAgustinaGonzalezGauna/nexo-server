@@ -79,6 +79,14 @@ const eventSchema = new mongoose.Schema({
     type: String,
     enum: ['pendiente', 'aprobado', 'rechazado'],
     default: 'pendiente'
+  },
+  lat: {
+    type: Number,
+    required: false
+  },
+  lng: {
+    type: Number,
+    required: false
   }
 });
 
