@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/**/*.test.js --timeout 10000",
+    "test:unit": "mocha tests/unit/**/*.test.js --timeout 10000",
+    "test:watch": "mocha tests/**/*.test.js --watch --timeout 10000"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,11 @@
     "nodemailer": "^7.0.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@babel/register": "^7.27.1",
+    "chai": "^5.2.0",
+    "mocha": "^11.7.0",
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.1.10",
+    "sinon": "^21.0.0"
   }
 }

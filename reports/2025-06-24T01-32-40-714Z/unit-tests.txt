@@ -1,0 +1,29 @@
+
+> server@1.0.0 test:unit
+> mocha tests/unit/**/*.test.js --timeout 10000
+
+
+
+  Event Controller - Unit Tests
+    validateEventData
+      ✔ should return empty array for valid event data
+      ✔ should return errors for invalid event data
+      ✔ should validate minimum length requirements
+    isValidDate
+      ✔ should return true for valid dates
+      ✔ should return false for invalid dates
+    isValidTime
+      ✔ should return true for valid times
+      ✔ should return false for invalid times
+    isFutureDateTime
+      ✔ should return true for future date and time
+      ✔ should return false for past date and time
+    createEvent
+      ✔ should create event successfully for owner user
+      ✔ should throw error for invalid event data
+      ✔ should assign entity ID for owner user type
+      ✔ should not assign entity ID for admin user type
+
+
+  13 passing (17ms)
+

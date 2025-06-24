@@ -1,0 +1,32 @@
+
+INSTRUCCIONES PARA EJECUTAR TESTS END-TO-END CON KATALON:
+
+1. Abrir Katalon Studio
+2. Importar el proyecto o crear uno nuevo
+3. Agregar el archivo: katalon/EventCreationTest.groovy
+
+4. Configurar el entorno:
+   - Asegurarse de que el frontend esté corriendo en puerto 3000
+   - Asegurarse de que el backend esté corriendo en puerto 5000
+
+5. Ejecutar el test:
+   - Seleccionar el test case en Katalon Studio
+   - Hacer clic en "Run"
+   - Revisar el reporte generado automáticamente
+
+FLUJO DE PRUEBA:
+1. Navegar a la página de creación de eventos
+2. Llenar el formulario con datos válidos
+3. Seleccionar fecha y hora usando el selector digital
+4. Enviar el formulario
+5. Verificar que el evento se crea correctamente
+6. Verificar redirección a la página del evento
+
+RESULTADOS ESPERADOS:
+- ✅ PASSED: Flujo completo funciona correctamente
+- ❌ FAILED: Revisar capturas de pantalla y logs
+
+TROUBLESHOOTING:
+- Si Katalon no encuentra elementos, verificar selectores CSS/XPath
+- Si la página no carga, verificar que ambos servidores estén corriendo
+- Revisar capturas de pantalla para identificar problemas visuales

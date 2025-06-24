@@ -1,0 +1,32 @@
+
+INSTRUCCIONES PARA EJECUTAR TESTS DE INTEGRACIÓN CON POSTMAN:
+
+1. Abrir Postman
+2. Importar la colección: postman/Nexo_Events_API.postman_collection.json
+3. Configurar variables de entorno:
+   - baseUrl: http://localhost:5000
+   - authToken: (opcional)
+   - eventId: (se genera automáticamente)
+
+4. Ejecutar manualmente:
+   - Ir a cada request en la colección
+   - Ejecutar y verificar respuestas
+
+5. Ejecutar automáticamente:
+   - Ir a "Runner" en Postman
+   - Seleccionar colección "Nexo Events API"
+   - Configurar: Iterations: 1, Delay: 1000ms
+   - Hacer clic en "Run Nexo Events API"
+
+CASOS DE PRUEBA INCLUIDOS:
+- ✅ Crear evento válido (esperar 201)
+- ❌ Crear evento con datos inválidos (esperar 400)
+- 📋 Obtener todos los eventos (esperar 200)
+- 🔍 Obtener evento por ID (esperar 200)
+- ✏️ Actualizar evento (esperar 200)
+- 🗑️ Eliminar evento (esperar 200)
+
+RESULTADOS ESPERADOS:
+- Status 201: Evento creado exitosamente
+- Status 400: Datos inválidos (esperado para casos negativos)
+- Status 500: Error del servidor (revisar logs)

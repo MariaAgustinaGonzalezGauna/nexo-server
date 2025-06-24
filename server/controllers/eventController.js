@@ -209,5 +209,9 @@ module.exports = {
   getEventById,
   updateEvent,
   deleteEvent,
-  getEventsPreferences
+  getEventsPreferences,
+  validateEventData,
+  isValidDate,
+  isValidTime,
+  isFutureDateTime
 }; 

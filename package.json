@@ -24,7 +24,11 @@
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:all": "node run-tests.js",
+    "test:unit": "cd server && npm run test:unit",
+    "test:server": "cd server && npm run dev",
+    "test:client": "npm start"
   },
   "eslintConfig": {
     "extends": [
