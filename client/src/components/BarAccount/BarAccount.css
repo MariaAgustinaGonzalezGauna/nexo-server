@@ -180,6 +180,181 @@
     box-shadow: 0 4px 16px rgba(255,167,38,0.18);
   }
   
+  /* ESTILOS DEL RELOJ DIGITAL */
+  .timePickerContainer {
+    position: relative;
+    width: 100%;
+  }
+
+  .timePickerDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    border-bottom: 2px solid #ffa726;
+    background: transparent;
+    padding: 1.1rem 0.2rem;
+    font-size: 1.18rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #222;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timePickerDisplay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 167, 38, 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  .timePickerDisplay:hover::before {
+    left: 100%;
+  }
+
+  .timePickerDisplay:hover {
+    border-bottom: 2.5px solid #fb8c00;
+    background: #fff8e1;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 167, 38, 0.1);
+  }
+
+  .timeDisplay {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #333;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+  }
+
+  .timePickerIcon {
+    font-size: 1.3rem;
+    color: #ffa726;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .timePickerDisplay:hover .timePickerIcon {
+    transform: scale(1.1) rotate(5deg);
+    color: #fb8c00;
+  }
+
+  .timePickerDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 2px solid #ffa726;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(255, 167, 38, 0.25);
+    padding: 1.8rem;
+    z-index: 1000;
+    margin-top: 0.8rem;
+    animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-15px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .timePickerRow {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .timePickerColumn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .timePickerColumn label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #555;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .timeSelect {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background: #fafafa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .timeSelect:focus {
+    border-color: #ffa726;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 167, 38, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .timeSelect:hover {
+    border-color: #ffa726;
+    background: #fff8e1;
+    transform: translateY(-1px);
+  }
+
+  .timePickerActions {
+    display: flex;
+    justify-content: center;
+    padding-top: 1.2rem;
+    border-top: 2px solid #f0f0f0;
+  }
+
+  .timePickerButton {
+    background: linear-gradient(135deg, #ffa726, #fb8c00);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(255, 167, 38, 0.3);
+  }
+
+  .timePickerButton:hover {
+    background: linear-gradient(135deg, #fb8c00, #f57c00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 167, 38, 0.4);
+  }
+
+  .timePickerButton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 167, 38, 0.3);
+  }
+  
   @media (max-width: 1200px) {
     .barAccountContainer {
       gap: 2rem;
@@ -198,25 +373,86 @@
   @media (max-width: 900px) {
     .barAccountContainer {
       flex-direction: column;
-      align-items: center;
-      padding: 2rem 0.5rem;
       gap: 2rem;
-      max-width: 100vw;
+      padding: 2rem 1vw;
     }
+    
     .barAccountLeft {
       margin-right: 0;
-      margin-bottom: 2rem;
       align-items: center;
+      text-align: center;
     }
+    
     .barAccountForm {
-      min-width: unset;
-      width: 100%;
+      min-width: 320px;
       max-width: 100%;
       padding: 2rem 1rem;
     }
+    
     .barAccountTitle {
-      font-size: 2.2rem;
+      font-size: 3rem;
       text-align: center;
+    }
+    
+    .barAccountSubtitle {
+      margin-left: 0;
+      text-align: center;
+    }
+    
+    .barAccountRow {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .timePickerRow {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .timePickerColumn {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .timePickerColumn label {
+      min-width: 60px;
+      margin: 0;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .barAccountContainer {
+      padding: 1rem 0.5vw;
+    }
+    
+    .barAccountForm {
+      padding: 1.5rem 1rem;
+      gap: 1.5rem;
+    }
+    
+    .barAccountTitle {
+      font-size: 2.5rem;
+    }
+    
+    .barAccountSubtitle {
+      font-size: 1.1rem;
+    }
+    
+    .barAccountForm label {
+      font-size: 1.1rem;
+    }
+    
+    .barAccountForm input,
+    .barAccountForm textarea,
+    .barAccountForm select {
+      font-size: 1rem;
+      padding: 0.8rem 0.2rem;
+    }
+    
+    .barAccountSubmit {
+      font-size: 1.1rem;
+      padding: 1rem 0;
     }
   }
   
