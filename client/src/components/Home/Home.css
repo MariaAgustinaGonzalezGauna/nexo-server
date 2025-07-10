@@ -435,13 +435,13 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  margin-top: 10%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: background 0.2s, transform 0.1s;
-  margin-left: 0.5rem;
 }
 
 .crear-evento-button:hover {
-  background: #fff200;
+  background: #f57c00;
   transform: translateY(-2px) scale(1.03);
 }
 
@@ -452,6 +452,7 @@
 
 @media (max-width: 600px) {
   .home {
+    margin-top: 50px;
     padding: 0;
   }
   .hero {
