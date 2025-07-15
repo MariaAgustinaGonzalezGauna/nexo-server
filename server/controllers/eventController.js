@@ -1,5 +1,6 @@
 const Event = require('../models/Event');
 const User = require('../models/User');
+const Entity = require('../models/Entity');
 
 // Verificar si el usuario puede modificar el evento
 const canModifyEvent = async (userId, userType) => {
@@ -91,7 +92,39 @@ const validateEventData = (eventData) => {
 
 // Obtener todos los eventos
 const getEvents = async () => {
-  return await Event.find().populate('duenioId', 'nombre email');
+  try {
+    const events = await Event.find({ estado: 'aprobado' }).populate('entidad', 'nombre email');
+    return events;
+  } catch (error) {
+    throw new Error('Error al obtener los eventos: ' + error.message);
+  }
+};
+
+// Obtener eventos de preferencias
+const getEventsPreferences = async (userId) => {
+  try {
+    // Primero obtenemos el usuario para acceder a sus preferencias
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    // Si el usuario no tiene preferencias, retornamos todos los eventos aprobados
+    if (!user.preferencias || user.preferencias.length === 0) {
+      const events = await Event.find({ estado: 'aprobado' }).populate('entidad', 'nombre descripcion lugar imagenUrl fecha hora informacion tipo');
+      return events;
+    }
+
+    // Buscamos eventos aprobados que coincidan con las preferencias del usuario
+    const events = await Event.find({
+      tipo: { $in: user.preferencias },
+      estado: 'aprobado'
+    }).populate('entidad', 'nombre descripcion lugar imagenUrl fecha hora informacion tipo');
+
+    return events;
+  } catch (error) {
+    throw new Error(`Error al obtener eventos por preferencias: ${error.message}`);
+  }
 };
 
 // Crear un nuevo evento
@@ -102,23 +135,23 @@ const createEvent = async (eventData, userId, userType) => {
     throw new Error('Errores de validación: ' + validationErrors.join(', '));
   }
 
-  // Manejar el duenioId según el tipo de usuario
+  // Manejar el entidad según el tipo de usuario
   if (userType === 2) {
     // Si es dueño, asignar su ID
-    eventData.duenioId = userId;
+    eventData.entidad = userId;
   } else if (userType === 1) {
-    // Si es administrador, el duenioId será undefined/null
-    delete eventData.duenioId;
+    // Si es administrador, el entidad será undefined/null
+    delete eventData.entidad;
   }
   
   const event = new Event(eventData);
   const newEvent = await event.save();
-  return await newEvent.populate('duenioId', 'nombre email');
+  return await newEvent.populate('entidad', 'nombre email');
 };
 
 // Obtener un evento específico
 const getEventById = async (eventId) => {
-  const event = await Event.findById(eventId).populate('duenioId', 'nombre email');
+  const event = await Event.findById(eventId).populate('entidad', 'nombre email');
   if (!event) {
     throw new Error('Evento no encontrado');
   }
@@ -145,13 +178,13 @@ const updateEvent = async (eventId, updateData, userId, userType) => {
   }
 
   // Verificar permisos
-  if (userType === 2 && event.duenioId && event.duenioId.toString() !== userId) {
+  if (userType === 2 && event.entidad && event.entidad.toString() !== userId) {
     throw new Error('No tienes permiso para modificar este evento');
   }
 
   Object.assign(event, updateData);
   const updatedEvent = await event.save();
-  return await updatedEvent.populate('duenioId', 'nombre email');
+  return await updatedEvent.populate('entidad', 'nombre email');
 };
 
 // Eliminar un evento
@@ -162,7 +195,7 @@ const deleteEvent = async (eventId, userId, userType) => {
   }
 
   // Verificar permisos
-  if (userType === 2 && event.duenioId && event.duenioId.toString() !== userId) {
+  if (userType === 2 && event.entidad && event.entidad.toString() !== userId) {
     throw new Error('No tienes permiso para eliminar este evento');
   }
 
@@ -175,5 +208,6 @@ module.exports = {
   createEvent,
   getEventById,
   updateEvent,
-  deleteEvent
+  deleteEvent,
+  getEventsPreferences
 }; 

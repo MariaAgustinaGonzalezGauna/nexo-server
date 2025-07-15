@@ -21,6 +21,11 @@ const eventSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  estado: {
+    type: String,
+    enum: ['pendiente', 'aprobado', 'rechazado'],
+    default: 'pendiente'
+  },
   fecha: {
     type: String,
     required: true,
@@ -53,20 +58,13 @@ const eventSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  puntuacion: {
-    type: Number,
-    required: true,
-    min: 0,
-    default: 0
-  },
-  duenioId: {
+  entidad: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: false,
     validate: {
       validator: async function(value) {
         if (!value) return true;
-        
         const user = await mongoose.model('User').findById(value);
         return user && user.tipo === 2;
       },
@@ -76,6 +74,19 @@ const eventSchema = new mongoose.Schema({
   fechaCreacion: {
     type: Date,
     default: Date.now
+  },
+  estado: {
+    type: String,
+    enum: ['pendiente', 'aprobado', 'rechazado'],
+    default: 'pendiente'
+  },
+  lat: {
+    type: Number,
+    required: false
+  },
+  lng: {
+    type: Number,
+    required: false
   }
 });
 

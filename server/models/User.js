@@ -31,6 +31,20 @@ const userSchema = new mongoose.Schema({
   fechaCreacion: {
     type: Date,
     default: Date.now
+  },
+  preferencias: {
+    type: Array,
+    default: []
+  },
+  acceptedTerms: {
+    type: Boolean,
+    default: false
+  },
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordExpires: {
+    type: Date
   }
 });
 

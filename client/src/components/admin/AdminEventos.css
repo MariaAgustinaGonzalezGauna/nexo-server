@@ -1,0 +1,173 @@
+.admin-events-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+.admin-sidebar {
+  width: 16rem; /* w-64 */
+  background-color: #ffffff; /* bg-white */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  padding: 1rem; /* p-4 */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space-y-2 */
+}
+
+.admin-sidebar h2 {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #1f2937; /* gray-800 */
+  margin-bottom: 1rem;
+}
+
+.admin-sidebar-link {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  transition-property: background-color, color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: #374151; /* gray-700 */
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-sidebar-link.active {
+  background-color: #f97316; /* orange-500 */
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+}
+
+.admin-sidebar-link:hover:not(.active) {
+  background-color: #fff7ed; /* orange-100 */
+  color: #f97316; /* orange-700 */
+}
+
+.admin-badge {
+  margin-left: 0.5rem; /* ml-2 */
+  padding: 0.25rem 0.5rem; /* px-2 py-1 */
+  border-radius: 9999px; /* rounded-full */
+  font-size: 0.75rem; /* text-xs */
+}
+
+.admin-badge.active {
+  background-color: #fb923c; /* orange-400 */
+  color: #ffffff;
+}
+
+.admin-badge:not(.active) {
+  background-color: #e5e7eb; /* gray-200 */
+  color: #374151; /* gray-700 */
+}
+
+.admin-main-content {
+  flex: 1; /* flex-1 */
+  max-width: 72rem; /* container mx-auto */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3rem 2rem; /* py-12 px-8 */
+}
+
+.admin-main-content h1 {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* gray-900 */
+  margin-bottom: 2rem;
+}
+
+.error-message {
+  background-color: #fef2f2; /* red-50 */
+  border-left: 4px solid #f87171; /* border-l-4 border-red-400 */
+  padding: 1rem; /* p-4 */
+  margin-bottom: 2rem;
+}
+
+.error-message p {
+  color: #b91c1c; /* red-700 */
+}
+
+.event-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* space-y-4 */
+  align-items: center; /* centra las tarjetas horizontalmente */
+}
+
+.event-card {
+  background-color: #ffffff; /* bg-white */
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  border: 1px solid #e5e7eb; /* border border-gray-200 */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px; /* ancho aumentado */
+}
+
+.event-details {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.event-details h3 {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #1f2937; /* gray-900 */
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.event-details p,
+.event-adicional,
+.event-meta p {
+  font-size: 1rem; /* Unifica el tamaño de letra */
+  margin-top: 0.5rem;
+  color: #4b5563;
+  text-align: left;
+  word-break: break-all;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+.event-meta {
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* gray-500 */
+  text-align: left;
+}
+
+.event-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem; /* espacio entre botones */
+  margin-top: 1rem;
+}
+
+.action-button {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #f97316; /* orange-500 */
+  color: #ffffff;
+  border-radius: 0.25rem; /* rounded */
+  transition-property: background-color;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #ea580c; /* orange-600 */
+}
+
+.event-adicional {
+  margin-top: 0.5rem; /* mt-2 */
+  color: #4b5563; /* gray-600 */
+  text-align: left;
+}

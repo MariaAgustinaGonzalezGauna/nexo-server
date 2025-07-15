@@ -1,26 +1,37 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const commentsRoutes = require('./routes/comments');
 require('dotenv').config();
 
 const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
+const adminRoutes = require('./routes/admin');
+const entityRoutes = require('./routes/entities');
 
 const app = express();
 
+// Configuración de CORS
+app.use(cors({
+  origin: 'http://localhost:3000', // URL del frontend
+  credentials: true // Permitir cookies y headers de autenticación
+}));
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 
 // Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nexo-db')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://mariaagussag:oID72ElSlE9jQ9Xw@nexodb.ahwqx1p.mongodb.net/nexo-db')
   .then(() => console.log('Conectado a MongoDB'))
   .catch(err => console.error('Error conectando a MongoDB:', err));
 
 // Rutas
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
-app.use(require('./routes/favorites')); //no se porque esta en rojo pero anda xD
+app.use('/api/admin', adminRoutes);
+app.use('/api/entities', entityRoutes);
+app.use('/api/comments', commentsRoutes);
+app.use(require('./routes/favorites')); // <-- esto está bien aunque VS Code lo marque rojo
 app.use(require('./routes/comments'));
 
 app.get('/', (req, res) => {
