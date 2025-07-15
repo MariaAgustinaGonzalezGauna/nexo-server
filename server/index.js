@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const commentsRoutes = require('./routes/comments');
 require('dotenv').config();
 
 const userRoutes = require('./routes/users');
@@ -29,6 +30,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/entities', entityRoutes);
+app.use('/api/comments', commentsRoutes);
 app.use(require('./routes/favorites')); // <-- esto está bien aunque VS Code lo marque rojo
 app.use(require('./routes/comments'));
 

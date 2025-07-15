@@ -35,6 +35,16 @@ const userSchema = new mongoose.Schema({
   preferencias: {
     type: Array,
     default: []
+  },
+  acceptedTerms: {
+    type: Boolean,
+    default: false
+  },
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordExpires: {
+    type: Date
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Preferences.css';
@@ -16,6 +16,27 @@ import recreativoImg from '../../assets/eventos/cine.png';
 const Preferences = () => {
   const navigate = useNavigate();
   const [selectedPreferences, setSelectedPreferences] = useState([]);
+
+  useEffect(() => {
+    // Obtener preferencias guardadas del usuario
+    const fetchPreferences = async () => {
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('userId');
+      if (!token || !userId) return;
+      try {
+        const response = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (response.data && response.data.preferencias) {
+          setSelectedPreferences(response.data.preferencias);
+        }
+      } catch (err) {
+        // Si hay error, dejar vacío
+        setSelectedPreferences([]);
+      }
+    };
+    fetchPreferences();
+  }, []);
 
   const tiposEventos = [
     { id: 1, nombre: 'Gastronomia', imagen: gastronomiaImg },
@@ -41,7 +62,7 @@ const Preferences = () => {
       const userId = localStorage.getItem('userId');
       await axios.put(`http://localhost:5000/api/users/${userId}/preferences`, 
         {
-          preferences: selectedPreferences
+          preferencias: selectedPreferences
         },
         {
           headers: {

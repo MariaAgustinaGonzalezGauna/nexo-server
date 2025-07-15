@@ -51,6 +51,16 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Obtener eventos del propietario (requiere autenticación)
+router.get('/owner', auth, async (req, res) => {
+  try {
+    const events = await require('../models/Event').find({ entidad: req.user.id });
+    res.json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Las siguientes rutas requieren autenticación
 router.use(auth);
 
