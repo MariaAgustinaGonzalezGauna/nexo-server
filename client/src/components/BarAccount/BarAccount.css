@@ -1,458 +1,179 @@
-/* CONTENEDOR PRINCIPAL */
 .barAccountContainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 4rem 4vw;
-    background: #ffffff;
-    min-height: 100vh;
-    box-sizing: border-box;
-    gap: 5rem;
-    max-width: 1600px;
-    margin: 0 auto;
-  }
-  
-  .barAccountLeft {
-    flex: 1.2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right: 3rem;
-  }
-  
-  .barAccountTitle {
-    font-size: 4.5rem;
-    font-weight: 900;
-    line-height: 1;
-    margin-bottom: 2.8rem;
-    font-family: 'Montserrat', Arial, sans-serif;
-    color: #000000;
-    letter-spacing: -2px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  }
-  
-  .barAccountSubtitle {
-    display: inline-block;
-    font-size: 1.35rem;
-    font-weight: 400;
-    margin-left: 1.2rem;
-    vertical-align: top;
-    letter-spacing: 0.02em;
-    text-align: left;
-    color: #000000;
-  }
-  
-  .barAccountImageUpload {
-    margin-top: 1rem;
-    width: 320px;
-    height: 320px;
-    background: #ffffff;
-    border-radius: 28px;
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.18);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.2s;
-  }
-  
-  .barAccountImageUpload:hover {
-    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.18);
-  }
-  
-  .imageUploadBox {
-    width: 240px;
-    height: 240px;
-    background: #232323;
-    border-radius: 18px;
-    border: 2px dashed #ffa726;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: border 0.2s, background 0.2s;
-  }
-  
-  .imageUploadBox:hover {
-    border: 2.5px solid #fb8c00;
-    background: #787878;
-  }
-  
-  .imageUploadText {
-    font-size: 1.25rem;
-    color: #fff;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
-  
-  .imageUploadIcon {
-    font-size: 3rem;
-    color: #ffa726;
-  }
-  
-  .imagePreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.barAccountLeft {
+  text-align: center;
+}
+
+.barAccountTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.barAccountSubtitle {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+.barAccountForm {
+  width: 100%;
+  background: white;
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: start;
+}
+
+.barAccountForm label {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.barAccountForm input,
+.barAccountForm textarea,
+.barAccountForm select {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ffa94d;
+  padding: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  background-color: transparent;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.timePickerContainer {
+  position: relative;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  }
-  
-  .barAccountForm {
-    flex: 2;
-    background: #fff;
-    border-radius: 40px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    padding: 3.5rem 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2.2rem;
-    min-width: 480px;
-    max-width: 700px;
-    border: none;
-  }
-  
-  .barAccountForm label {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #222;
-    display: flex;
+  border: none;
+  border-bottom: 2px solid #ffa94d;
+  padding: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  background-color: transparent;
+}
+
+.timePickerDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.timePickerIcon {
+  font-size: 1.2rem;
+}
+
+.timePickerDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  z-index: 5;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.timePickerRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.timePickerColumn label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.timeSelect {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.timePickerActions {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.timePickerButton {
+  background-color: #ffa94d;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.barAccountRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.barAccountSubmit {
+  background-color: #000;
+  color: white;
+  font-weight: bold;
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.barAccountSubmit:disabled {
+  background-color: #333;
+  cursor: not-allowed;
+}
+
+/* ====================== */
+/* RESPONSIVE LAYOUT */
+/* ====================== */
+@media (min-width: 900px) {
+  .barAccountContainer {
     flex-direction: row;
-    align-items: center;
-    gap: 0rem;
-    margin-bottom: 0.2rem;
-    letter-spacing: 0.01em;
-    margin-top: 0rem;
-  }
-  
-  .barAccountForm input,
-  .barAccountForm textarea,
-  .barAccountForm select {
-    flex: 1;
-    border: none;
-    border-bottom: 2px solid #ffa726;
-    background: transparent;
-    padding: 1.1rem 0.2rem;
-    font-size: 1.18rem;
-    outline: none;
-    margin-top: 0;
-    border-radius: 2px;
-    transition: border 0.2s, background 0.2s;
-    color: #222;
-  }
-  
-  .barAccountForm input:focus,
-  .barAccountForm textarea:focus,
-  .barAccountForm select:focus {
-    border-bottom: 2.5px solid #fb8c00;
-    background: #fff8e1;
-  }
-  
-  .barAccountRow {
-    display: flex;
-    gap: 2rem;
-  }
-  
-  .barAccountRow label {
-    flex: 1;
-  }
-  
-  .barAccountSubmit {
-    margin-top: 2.5rem;
-    background: #111;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 1.3rem 0;
-    font-size: 1.25rem;
-    font-weight: 800;
-    cursor: pointer;
-    letter-spacing: 0.11em;
-    box-shadow: 0 2px 8px rgba(255,167,38,0.10);
-    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-    text-transform: uppercase;
-  }
-  
-  .barAccountSubmit:hover {
-    background: #ffa726;
-    color: #222;
-    box-shadow: 0 4px 16px rgba(255,167,38,0.18);
-  }
-  
-  /* ESTILOS DEL RELOJ DIGITAL */
-  .timePickerContainer {
-    position: relative;
-    width: 100%;
-  }
-
-  .timePickerDisplay {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: none;
-    border-bottom: 2px solid #ffa726;
-    background: transparent;
-    padding: 1.1rem 0.2rem;
-    font-size: 1.18rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #222;
-    border-radius: 2px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .timePickerDisplay::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 167, 38, 0.1), transparent);
-    transition: left 0.5s;
-  }
-
-  .timePickerDisplay:hover::before {
-    left: 100%;
-  }
-
-  .timePickerDisplay:hover {
-    border-bottom: 2.5px solid #fb8c00;
-    background: #fff8e1;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(255, 167, 38, 0.1);
-  }
-
-  .timeDisplay {
-    font-family: 'Courier New', monospace;
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: #333;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    letter-spacing: 1px;
-  }
-
-  .timePickerIcon {
-    font-size: 1.3rem;
-    color: #ffa726;
-    transition: all 0.3s ease;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .timePickerDisplay:hover .timePickerIcon {
-    transform: scale(1.1) rotate(5deg);
-    color: #fb8c00;
-  }
-
-  .timePickerDropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 2px solid #ffa726;
-    border-radius: 16px;
-    box-shadow: 0 12px 40px rgba(255, 167, 38, 0.25);
-    padding: 1.8rem;
-    z-index: 1000;
-    margin-top: 0.8rem;
-    animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-  }
-
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-15px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .timePickerRow {
-    display: flex;
-    gap: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .timePickerColumn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .timePickerColumn label {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #555;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .timeSelect {
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 1rem;
-    font-size: 1.1rem;
-    background: #fafafa;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #333;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .timeSelect:focus {
-    border-color: #ffa726;
-    background: #fff;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 167, 38, 0.1);
-    transform: translateY(-1px);
-  }
-
-  .timeSelect:hover {
-    border-color: #ffa726;
-    background: #fff8e1;
-    transform: translateY(-1px);
-  }
-
-  .timePickerActions {
-    display: flex;
+    align-items: flex-start;
     justify-content: center;
-    padding-top: 1.2rem;
-    border-top: 2px solid #f0f0f0;
   }
 
-  .timePickerButton {
-    background: linear-gradient(135deg, #ffa726, #fb8c00);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(255, 167, 38, 0.3);
+  .barAccountLeft {
+    flex: 1;
+    text-align: left;
   }
 
-  .timePickerButton:hover {
-    background: linear-gradient(135deg, #fb8c00, #f57c00);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 167, 38, 0.4);
+  .barAccountTitle {
+    font-size: 4rem;
   }
 
-  .timePickerButton:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(255, 167, 38, 0.3);
+  .barAccountSubtitle {
+    font-size: 1.2rem;
+    margin-top: 1rem;
   }
-  
-  @media (max-width: 1200px) {
-    .barAccountContainer {
-      gap: 2rem;
-      padding: 2rem 1vw;
-    }
-    .barAccountForm {
-      min-width: 320px;
-      max-width: 100%;
-      padding: 2rem 1rem;
-    }
-    .barAccountLeft {
-      margin-right: 0;
-    }
+
+  .barAccountForm {
+    flex: 1;
+    max-width: 600px;
   }
-  
-  @media (max-width: 900px) {
-    .barAccountContainer {
-      flex-direction: column;
-      gap: 2rem;
-      padding: 2rem 1vw;
-    }
-    
-    .barAccountLeft {
-      margin-right: 0;
-      align-items: center;
-      text-align: center;
-    }
-    
-    .barAccountForm {
-      min-width: 320px;
-      max-width: 100%;
-      padding: 2rem 1rem;
-    }
-    
-    .barAccountTitle {
-      font-size: 3rem;
-      text-align: center;
-    }
-    
-    .barAccountSubtitle {
-      margin-left: 0;
-      text-align: center;
-    }
-    
-    .barAccountRow {
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .timePickerRow {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .timePickerColumn {
-      flex-direction: row;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .timePickerColumn label {
-      min-width: 60px;
-      margin: 0;
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .barAccountContainer {
-      padding: 1rem 0.5vw;
-    }
-    
-    .barAccountForm {
-      padding: 1.5rem 1rem;
-      gap: 1.5rem;
-    }
-    
-    .barAccountTitle {
-      font-size: 2.5rem;
-    }
-    
-    .barAccountSubtitle {
-      font-size: 1.1rem;
-    }
-    
-    .barAccountForm label {
-      font-size: 1.1rem;
-    }
-    
-    .barAccountForm input,
-    .barAccountForm textarea,
-    .barAccountForm select {
-      font-size: 1rem;
-      padding: 0.8rem 0.2rem;
-    }
-    
-    .barAccountSubmit {
-      font-size: 1.1rem;
-      padding: 1rem 0;
-    }
-  }
-  
+}
