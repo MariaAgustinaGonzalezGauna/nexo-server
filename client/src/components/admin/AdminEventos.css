@@ -152,7 +152,7 @@
 
 .action-button {
   padding: 0.5rem 1rem; /* px-4 py-2 */
-  background-color: #f97316; /* orange-500 */
+  background-color: #F8B133; /* orange-500 */
   color: #ffffff;
   border-radius: 0.25rem; /* rounded */
   transition-property: background-color;
@@ -163,11 +163,131 @@
 }
 
 .action-button:hover {
-  background-color: #ea580c; /* orange-600 */
+  background-color: #f57c00; /* orange-600 */
 }
 
 .event-adicional {
   margin-top: 0.5rem; /* mt-2 */
   color: #4b5563; /* gray-600 */
   text-align: left;
+}
+
+/* Responsive General */
+.admin-events-layout {
+  flex-direction: row;
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    width: 12rem;
+    padding: 0.5rem;
+  }
+
+  .admin-main-content {
+    padding: 2rem 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .event-card {
+    max-width: 90%;
+    padding: 1.2rem;
+  }
+
+  .action-button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-events-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    box-shadow: none;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 0;
+    margin-top: 10%;
+  }
+
+  .admin-sidebar h2 {
+    display: none;
+  }
+
+  .admin-sidebar-link {
+    padding: 0.5rem;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+  }
+
+  .admin-main-content {
+    padding: 1rem;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .event-list-container {
+    gap: 1rem;
+  }
+
+  .event-card {
+    max-width: 100%;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .event-details h3 {
+    font-size: 1rem;
+  }
+
+  .event-details p,
+  .event-adicional,
+  .event-meta p {
+    font-size: 0.9rem;
+  }
+
+  .event-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-main-content h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .admin-sidebar {
+    gap: 0;
+    margin-top: 10%;
+  }
+
+  .admin-sidebar-link {
+    padding: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .event-card {
+    padding: 0.75rem;
+  }
+
+  .event-actions {
+    gap: 0.5rem;
+  }
 }

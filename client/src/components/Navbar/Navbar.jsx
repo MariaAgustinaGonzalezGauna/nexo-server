@@ -71,44 +71,68 @@ const Navbar = () => {
               <button onClick={handleMapClick} className="nav-button">
                 Ir al mapa
               </button>
-            </>
-          )}
-
-          {isAuthenticated ? (
-            <>
-              {userType === '2' && (
-                <button onClick={() => { navigate('/mis-eventos'); closeMenu(); }} className="nav-button">
-                  Mis Eventos
-                </button>
-              )}
-              {userType === '1' && (
-                <Link to="/admin/eventos" className="nav-link" onClick={closeMenu}>
-                  Gestión de Eventos
-                </Link>
-              )}
-              <Link to="/EventPage" className="nav-link" onClick={closeMenu}>
-                Eventos para mi
-              </Link>
-              <button onClick={handleMapClick} className="nav-button">
-                Ir al mapa
-              </button>
-              <Link to="/profile" className="nav-link" onClick={closeMenu}>
-                Mi Perfil
-              </Link>
-              
-              <button onClick={() => { handleLogout(); closeMenu(); }} className="logout-button">
-                CERRAR SESIÓN
-              </button>
-            </>
-          ) : (
-            <>
               <Link to="/login" className="nav-link" onClick={closeMenu}>
                 Log in
               </Link>
-              
               <Link to="/register" className="register-button" onClick={closeMenu}>
                 REGISTRATE
               </Link>
+            </>
+          )}
+
+          {isAuthenticated && (
+            <>
+              {userType === '2' && (
+                <>
+                  <button
+                    onClick={() => {
+                      navigate('/mis-eventos');
+                      closeMenu();
+                    }}
+                    className="nav-button"
+                  >
+                    Mis Eventos
+                  </button>
+                  <button onClick={handleMapClick} className="nav-button">
+                    Ir al mapa
+                  </button>
+                  <Link to="/profile" className="nav-link" onClick={closeMenu}>
+                    Mi Perfil
+                  </Link>
+                </>
+              )}
+
+              {userType === '3' && (
+                <>
+                  <Link to="/EventPage" className="nav-link" onClick={closeMenu}>
+                    Eventos para mi
+                  </Link>
+                  <button onClick={handleMapClick} className="nav-button">
+                    Ir al mapa
+                  </button>
+                  <Link to="/profile" className="nav-link" onClick={closeMenu}>
+                    Mi Perfil
+                  </Link>
+                </>
+              )}
+
+              {userType === '1' && (
+                <>
+                  <Link to="/admin/eventos" className="nav-link" onClick={closeMenu}>
+                    Gestión de Eventos
+                  </Link>
+                </>
+              )}
+
+              <button
+                onClick={() => {
+                  handleLogout();
+                  closeMenu();
+                }}
+                className="logout-button"
+              >
+                CERRAR SESIÓN
+              </button>
             </>
           )}
         </div>

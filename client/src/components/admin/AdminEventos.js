@@ -163,6 +163,14 @@ const AdminEventos = () => {
                   Aceptar
                 </button>
               )}
+              {type === 'aprobados' && (
+                <button
+                    onClick={() => handleReject(evento._id)}
+                    className="action-button"
+                  >
+                    Rechazar
+                  </button>
+              )}
             </div>
           </div>
         ))
