@@ -27,16 +27,22 @@ const Preferences = () => {
         const response = await axios.get(`http://localhost:5000/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        if (response.data && response.data.preferencias) {
+        if (response.data && response.data.preferencias && response.data.preferencias.length > 0) {
+          // Si viene de login o registro, redirigir a EventPage
+          if (window.history.state && window.history.state.usr && window.history.state.usr.fromAuth) {
+            navigate('/EventPage', { replace: true });
+          } else {
+            setSelectedPreferences(response.data.preferencias);
+          }
+        } else if (response.data && response.data.preferencias) {
           setSelectedPreferences(response.data.preferencias);
         }
       } catch (err) {
-        // Si hay error, dejar vacío
         setSelectedPreferences([]);
       }
     };
     fetchPreferences();
-  }, []);
+  }, [navigate]);
 
   const tiposEventos = [
     { id: 1, nombre: 'Gastronomia', imagen: gastronomiaImg },
@@ -62,7 +68,7 @@ const Preferences = () => {
       const userId = localStorage.getItem('userId');
       await axios.put(`http://localhost:5000/api/users/${userId}/preferences`, 
         {
-          preferencias: selectedPreferences
+          preferences: selectedPreferences
         },
         {
           headers: {

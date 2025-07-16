@@ -154,12 +154,10 @@ const Home = () => {
             <div className="no-events">No hay eventos disponibles</div>
           ) : null}
 
-          {/* Carrusel 1: Preferencias */}
-          <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
-            <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Eventos para vos</h3>
-            {preferredEvents.length === 0 ? (
-              <div className="no-events">No hay eventos de tus preferencias</div>
-            ) : (
+          {/* Carrusel ÚNICO: Todos los eventos filtrados */}
+          {!isAuthenticated && filteredEvents.length > 0 && (
+            <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
+              <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Eventos</h3>
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={20}
@@ -176,7 +174,7 @@ const Home = () => {
                 }}
                 style={{ padding: '1rem 0' }}
               >
-                {preferredEvents.map(event => (
+                {filteredEvents.map(event => (
                   <SwiperSlide key={event._id}>
                     <EventCard
                       id={event._id}
@@ -189,78 +187,8 @@ const Home = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            )}
-          </div>
-
-          {/* Carrusel 2: Explora más eventos (reversa) */}
-          <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
-            <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Explora más eventos</h3>
-            <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
-              spaceBetween={20}
-              slidesPerView={3}
-              navigation
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
-              speed={800}
-              loop={true}
-              breakpoints={{
-                1200: { slidesPerView: 3 },
-                900: { slidesPerView: 2 },
-                0: { slidesPerView: 1 }
-              }}
-              style={{ padding: '1rem 0' }}
-            >
-              {[...exploreEvents].reverse().map(event => (
-                <SwiperSlide key={event._id + '-reverse'}>
-                  <EventCard
-                    id={event._id}
-                    image={event.imagenUrl}
-                    title={event.nombre}
-                    date={event.fecha}
-                    location={event.lugar}
-                    descripcion={event.descripcion}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
-          {/* Carruseles por categoría */}
-          {categorias.map((categoria) => (
-            <div key={categoria} style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
-              <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.2rem'}}>{categoria}</h3>
-              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                spaceBetween={20}
-                slidesPerView={3}
-                navigation
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 3000, disableOnInteraction: false }}
-                speed={800}
-                loop={true}
-                breakpoints={{
-                  1200: { slidesPerView: 3 },
-                  900: { slidesPerView: 2 },
-                  0: { slidesPerView: 1 }
-                }}
-                style={{ padding: '1rem 0' }}
-              >
-                {filteredEvents.filter(event => event.tipo === categoria).map(event => (
-                  <SwiperSlide key={event._id + '-cat'}>
-                    <EventCard
-                      id={event._id}
-                      image={event.imagenUrl}
-                      title={event.nombre}
-                      date={event.fecha}
-                      location={event.lugar}
-                      descripcion={event.descripcion}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
             </div>
-          ))}
+          )}
         </div>
       </section>
 

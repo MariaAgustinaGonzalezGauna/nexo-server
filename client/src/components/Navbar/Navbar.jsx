@@ -37,6 +37,19 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  // Nuevo handler para scroll a Sobre Nosotros
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    navigate('/');
+    setTimeout(() => {
+      const aboutSection = document.querySelector('.about-section');
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 400);
+    setIsOpen(false);
+  };
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -65,9 +78,9 @@ const Navbar = () => {
         <div className={`navbar-links ${isOpen ? 'active' : ''}`}>
           {!isAuthenticated && (
             <>
-              <Link to="/sobre-nosotros" className="nav-link" onClick={closeMenu}>
+              <a href="#sobre-nosotros" className="nav-link" onClick={handleAboutClick}>
                 Sobre Nosotros
-              </Link>
+              </a>
               <button onClick={handleMapClick} className="nav-button">
                 Ir al mapa
               </button>
@@ -82,55 +95,40 @@ const Navbar = () => {
 
           {isAuthenticated && (
             <>
+              {/* Enlaces específicos por tipo de usuario */}
               {userType === '2' && (
-                <>
-                  <button
-                    onClick={() => {
-                      navigate('/mis-eventos');
-                      closeMenu();
-                    }}
-                    className="nav-button"
-                  >
-                    Mis Eventos
-                  </button>
-                  <button onClick={handleMapClick} className="nav-button">
-                    Ir al mapa
-                  </button>
-                  <Link to="/profile" className="nav-link" onClick={closeMenu}>
-                    Mi Perfil
-                  </Link>
-                </>
-              )}
-
-              {userType === '3' && (
-                <>
-                  <Link to="/EventPage" className="nav-link" onClick={closeMenu}>
-                    Eventos para mi
-                  </Link>
-                  <button onClick={handleMapClick} className="nav-button">
-                    Ir al mapa
-                  </button>
-                  <Link to="/profile" className="nav-link" onClick={closeMenu}>
-                    Mi Perfil
-                  </Link>
-                </>
+                <button
+                  onClick={() => {
+                    navigate('/mis-eventos');
+                    closeMenu();
+                  }}
+                  className="nav-button"
+                >
+                  Mis Eventos
+                </button>
               )}
 
               {userType === '1' && (
-                <>
-                  <Link to="/admin/eventos" className="nav-link" onClick={closeMenu}>
-                    Gestión de Eventos
-                  </Link>
-                </>
+                <Link to="/admin/eventos" className="nav-link" onClick={closeMenu}>
+                  Gestión de Eventos
+                </Link>
               )}
 
-              <button
-                onClick={() => {
-                  handleLogout();
-                  closeMenu();
-                }}
-                className="logout-button"
-              >
+              {/* Enlaces comunes para usuarios autenticados */}
+              <Link to="/EventPage" className="nav-link" onClick={closeMenu}>
+                Eventos para mi
+              </Link>
+              <Link to="/Preferences" className="nav-link" onClick={closeMenu}>
+                Preferencias
+              </Link>
+              <button onClick={handleMapClick} className="nav-button">
+                Ir al mapa
+              </button>
+              <Link to="/profile" className="nav-link" onClick={closeMenu}>
+                Mi Perfil
+              </Link>
+              
+              <button onClick={() => { handleLogout(); closeMenu(); }} className="logout-button">
                 CERRAR SESIÓN
               </button>
             </>

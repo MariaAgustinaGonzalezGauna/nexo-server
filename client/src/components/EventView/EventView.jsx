@@ -14,6 +14,15 @@ const EventView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Verificar autenticación al cargar el componente
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('token') !== null;
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+  }, [navigate]);
+
   useEffect(() => {
     const obtenerEvento = async () => {
       try {
@@ -64,31 +73,25 @@ const EventView = () => {
         <div className="imagenes">
           <img src={evento.imagenUrl} alt={evento.nombre} />
         </div>
-
-        <div className="info-desc" style={{ display: 'flex', flexDirection: 'row', gap: '2rem' }}>
-          <div className="info" style={{ flex: 1 }}>
-            <h2>{evento.nombre}</h2>
-            <h3>{evento.lugar}</h3>
-            <p>{evento.fecha} - {evento.hora}</p>
-            <div className="exp">
-              <ShareButton link={window.location.href} />
-              <div className="puntuacion">
-                <StarRate />
-              </div>
+        <div className="info-desc">
+          <h2>{evento.nombre}</h2>
+          <div className="event-date">{evento.fecha} - {evento.hora}</div>
+          <div className="event-location">{evento.lugar}</div>
+          <div className="event-description">{evento.descripcion}</div>
+          <div className="exp">
+            <span className="share-btn"><ShareButton link={window.location.href} /></span>
+            <div className="puntuacion">
+              <StarRate />
             </div>
           </div>
-          <div style={{ minWidth: 200, alignSelf: 'flex-start' }}>
-            {evento.lat && evento.lng && (
-              <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} />
-            )}
-          </div>
-        </div>
-        <div className="desc">
-          <h2>Descripción</h2>
-          <p>{evento.descripcion}</p>
         </div>
       </div>
-
+      {/* Mapa mini y comentarios en filas separadas de la grilla */}
+      {evento.lat && evento.lng && (
+        <div className="event-map-mini-container">
+          <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} eventId={evento._id} />
+        </div>
+      )}
       <CommentSection eventoId={evento._id} />
     </div>
   );
