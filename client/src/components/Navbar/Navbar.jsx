@@ -37,6 +37,19 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  // Nuevo handler para scroll a Sobre Nosotros
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    navigate('/');
+    setTimeout(() => {
+      const aboutSection = document.querySelector('.about-section');
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 400);
+    setIsOpen(false);
+  };
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -65,9 +78,9 @@ const Navbar = () => {
         <div className={`navbar-links ${isOpen ? 'active' : ''}`}>
           {!isAuthenticated && (
             <>
-              <Link to="/sobre-nosotros" className="nav-link" onClick={closeMenu}>
+              <a href="#sobre-nosotros" className="nav-link" onClick={handleAboutClick}>
                 Sobre Nosotros
-              </Link>
+              </a>
               <button onClick={handleMapClick} className="nav-button">
                 Ir al mapa
               </button>
@@ -88,6 +101,9 @@ const Navbar = () => {
               )}
               <Link to="/EventPage" className="nav-link" onClick={closeMenu}>
                 Eventos para mi
+              </Link>
+              <Link to="/Preferences" className="nav-link" onClick={closeMenu}>
+                Preferencias
               </Link>
               <button onClick={handleMapClick} className="nav-button">
                 Ir al mapa

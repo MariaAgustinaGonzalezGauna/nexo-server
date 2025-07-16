@@ -57,8 +57,7 @@ const CommentSection = ({ eventoId }) => {
         {comentarios.map((comentario) => (
           <li key={comentario._id} className="comentario-item">
             <strong>{comentario.autor || "Anónimo"}:</strong> {comentario.texto}
-            <br />
-            <small>{new Date(comentario.fecha).toLocaleString()}</small>
+            <small className="comment-date">{new Date(comentario.fecha).toLocaleString()}</small>
           </li>
         ))}
       </ul>

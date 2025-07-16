@@ -1,111 +1,171 @@
+.contenedor {
+  padding-top: 90px;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: start;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .event-info-container {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
   display: flex;
-  padding-top: 100px;
-  justify-content: space-evenly;
-  margin-left: 10%;
-  margin-right: 10%;
-  gap: 5rem;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.imagenes {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .imagenes img {
-  width: 450px;
-  height: 600px; /* Más alta */
+  width: 420px;
+  height: 340px;
   object-fit: cover;
-  border-radius: 5px;
-  border: 2px solid black;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  border: none;
+  display: block;
 }
 
 .info-desc {
+  flex: 1.2;
+  background: #fafafd;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-   width: 100%;
-  max-width: 450px;
-  height: 600px; /* igual que la imagen */
-  justify-content: space-evenly; /* para que se distribuyan los elementos */
-}
-.info p {
-  font-size: 25px;
-  color: #F8B133;
-}
-
-.info h3 {
-  font-size: 20px;
-  color: black;
+  gap: 0.4rem;
+  min-width: 320px;
+  max-width: 440px;
+  justify-content: flex-start;
+  height: 340px;
+  align-items: flex-start;
+  text-align: left;
+  position: relative;
 }
 
-h2 {
-  font-size: 50px;
-  color: black;
-  word-wrap: break-word;     /* Corta palabras largas si es necesario */
-  overflow-wrap: break-word; /* Estándar moderno, recomendado */
-  white-space: normal;       /* Asegura que se puedan hacer saltos de línea */
+.info-desc h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 0.2rem;
+  letter-spacing: 1px;
+  text-align: left;
+  text-transform: uppercase;
 }
 
-
-.info button {
-  color: black;
-  background-color: #F8B133;
-  font-size: large;
-  width: 150px;
-  padding: 15px;
-  border: black 1px solid;
-  border-radius: 5px;
-  margin-top: 10px;
+.info-desc .event-date {
+  font-size: 1.15rem;
+  color: #444;
+  margin-bottom: 0.2rem;
+  text-align: left;
+  font-weight: 500;
 }
 
-.info button:hover {
+.info-desc .event-location {
+  color: #1976d2;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  text-decoration: underline;
   cursor: pointer;
-  border: #F8B133 1px solid;
+  text-align: left;
 }
 
-.desc p {
-  font-size: 20px;
-  color: black;
-  word-wrap: break-word;     /* Corta palabras largas si es necesario */
-  overflow-wrap: break-word; /* Estándar moderno, recomendado */
-  white-space: normal; 
+.info-desc .event-description {
+  font-size: 1.08rem;
+  color: #444;
+  margin-bottom: 1.1rem;
+  word-break: break-word;
+  text-align: left;
+  font-weight: 400;
 }
 
 .exp {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  justify-content: center;
+  gap: 1.1rem;
+  margin-top: auto;
+  margin-bottom: 0.1rem;
+  width: 100%;
+}
+
+.info-desc .share-btn {
+  margin-right: 0.7rem;
 }
 
 .puntuacion {
   display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
+
 .comentarios {
-  justify-self: center;
-  width: 500px;
-  margin-top: 1.5rem;
+  grid-row: 3 / 4;
+  grid-column: 1 / 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto 0 auto;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  background: #faf8f6;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+}
+
+.comentarios h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .comentarios textarea {
   width: 100%;
-  min-height: 80px;
-  padding: 0.75rem;
+  min-height: 60px;
+  padding: 0.6rem;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 8px;
   resize: vertical;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.9rem;
+}
+
+.comentarios input[type="text"] {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 .comentarios button {
   align-self: flex-end;
-  padding: 0.5rem 1.5rem;
+  padding: 0.4rem 1.2rem;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -114,74 +174,262 @@ h2 {
   background-color: #0056b3;
 }
 
+.event-map-mini-container {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 150%;
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 1024px) {
+  .contenedor {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding: 90px 0.8rem 1rem 0.8rem;
+    gap: 1.2rem;
+    justify-items: center;
+    align-items: start;
+    box-sizing: border-box;
+  }
+  
   .event-info-container {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
     flex-direction: column;
     align-items: center;
-    margin: 0 5%;
-    padding-top: 60px;
-    gap: 2rem;
+    gap: 1.2rem;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
   }
-
+  
+  .imagenes {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    box-sizing: border-box;
+  }
+  
   .imagenes img {
     width: 100%;
-    height: auto;
-    max-width: 500px;
+    height: 240px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    object-fit: cover;
   }
-
+  
   .info-desc {
-    max-width: 100%;
-    height: auto;
-    gap: 1.5rem;
-  }
-
-  h2 {
-    font-size: 36px;
-  }
-
-  .info p {
-    font-size: 20px;
-  }
-
-  .desc p {
-    font-size: 18px;
-  }
-
-  .comentarios {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
     width: 100%;
-    max-width: 500px;
-    padding: 0 1rem;
+    min-width: 0;
+    padding: 1.8rem 1.2rem;
+    height: auto;
+    min-height: 280px;
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    background: #f8f9fa;
+  }
+  
+  .info-desc h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+  }
+  
+  .info-desc .event-date {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    color: #666;
+  }
+  
+  .info-desc .event-location {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #1976d2;
+    font-weight: 600;
+  }
+  
+  .info-desc .event-description {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    color: #555;
+  }
+  
+  .event-map-mini-container {
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  
+  .comentarios {
+    grid-row: 4 / 5;
+    grid-column: 1 / 2;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    background: #f0f8ff;
+  }
+  
+  .comentarios h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .comentarios textarea {
+    min-height: 50px;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .comentarios input[type="text"] {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .comentarios button {
+    padding: 0.35rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 600px) {
-  h2 {
-    font-size: 28px;
-  }
-
-  .info h3 {
-    font-size: 18px;
-  }
-
-  .info p {
-    font-size: 16px;
-  }
-
-  .desc p {
-    font-size: 16px;
-  }
-
-  .comentarios button {
+  .contenedor {
+    padding-top: 70px;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+    gap: 0.8rem;
     width: 100%;
-    text-align: center;
+    box-sizing: border-box;
   }
-
-  .exp {
-    flex-direction: column;
-    gap: 0.5rem;
+  
+  .event-info-container,
+  .event-map-mini-container,
+  .comentarios {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
-
+  
+  .imagenes img {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+  
   .info-desc {
-    gap: 1rem;
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    min-height: 240px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .info-desc h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .info-desc .event-date {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .info-desc .event-location {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .info-desc .event-description {
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.4;
+  }
+  
+  .comentarios {
+    padding: 0.8rem 0.5rem;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 0.4rem;
+  }
+  
+  .comentarios h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .comentarios textarea {
+    min-height: 30px;
+    padding: 0.25rem;
+    font-size: 0.7rem;
+    border-radius: 4px;
+  }
+  
+  .comentarios input[type="text"] {
+    padding: 0.25rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.15rem;
+    border-radius: 4px;
+  }
+  
+  .comentarios button {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    border-radius: 4px;
+  }
+  
+  /* Ocultar fecha/hora en comentarios mobile */
+  .comentarios .comment-date {
+    display: none;
+  }
+  
+  /* Hacer comentarios más compactos */
+  .comentarios .comment-item {
+    padding: 0.3rem 0.4rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.7rem;
+    border-radius: 4px;
+  }
+  
+  .comentarios .comment-author {
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+  }
+  
+  .comentarios .comment-text {
+    font-size: 0.7rem;
+    line-height: 1.3;
   }
 }

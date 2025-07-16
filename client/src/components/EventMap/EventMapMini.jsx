@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -12,40 +13,270 @@ const markerIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-const modalStyle = {
+const sidePanelStyle = {
+  position: 'fixed',
+  top: '50%',
+  right: '20px',
+  transform: 'translateY(-50%)',
+  width: '350px',
+  maxHeight: '80vh',
+  background: '#fff',
+  borderRadius: 16,
+  overflow: 'hidden',
+  boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+  zIndex: 9999,
+  border: '2px solid #F8B133',
+  display: 'flex',
+  flexDirection: 'column'
+};
+
+const overlayStyle = {
   position: 'fixed',
   top: 0,
   left: 0,
   width: '100vw',
   height: '100vh',
-  background: 'rgba(0,0,0,0.6)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  zIndex: 9999
+  background: 'rgba(0,0,0,0.4)',
+  zIndex: 9998,
+  backdropFilter: 'blur(2px)'
 };
 
-const EventMapMini = ({ lat, lng, nombre }) => {
+const EventMapMini = ({ lat, lng, nombre, eventId }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  
   if (!lat || !lng) return null;
+
+  const handleVerMas = () => {
+    const isAuthenticated = localStorage.getItem('token') !== null;
+    
+    if (isAuthenticated) {
+      console.log('Usuario autenticado, navegando a evento:', eventId);
+      navigate(`/evento/${eventId}`);
+    } else {
+      console.log('Usuario no autenticado, redirigiendo a login');
+      navigate('/login');
+    }
+  };
+
+  const handleCompartir = () => {
+    const url = `${window.location.origin}/evento/${eventId}`;
+    const text = `¡Mira este evento: ${nombre}!`;
+    
+    if (navigator.share) {
+      // Para dispositivos móviles con API de compartir nativa
+      navigator.share({
+        title: nombre,
+        text: text,
+        url: url
+      });
+    } else {
+      // Para navegadores de escritorio - copiar al portapapeles
+      navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+        alert('¡Enlace copiado al portapapeles!');
+      }).catch(() => {
+        // Fallback si clipboard no funciona
+        const textArea = document.createElement('textarea');
+        textArea.value = `${text} ${url}`;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('¡Enlace copiado al portapapeles!');
+      });
+    }
+  };
+  
   return (
     <>
-      <div style={{ width: 540, height: 360, borderRadius: 10, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.12)', cursor: 'pointer', border: '2px solid #1976d2' }} onClick={() => setOpen(true)}>
-        <MapContainer center={[lat, lng]} zoom={15} style={{ width: '100%', height: '100%' }} dragging={true} scrollWheelZoom={true} doubleClickZoom={true} zoomControl={true} attributionControl={true}>
+      <div 
+        style={{ 
+          width: '100%', 
+          height: '360px', 
+          borderRadius: 16, 
+          overflow: 'hidden', 
+          boxShadow: '0 4px 16px rgba(248, 177, 51, 0.2)', 
+          cursor: 'pointer', 
+          border: '2px solid #F8B133',
+          position: 'relative'
+        }} 
+        onClick={() => setOpen(true)}
+      >
+        <MapContainer 
+          center={[lat, lng]} 
+          zoom={15} 
+          style={{ width: '100%', height: '100%' }} 
+          dragging={true} 
+          scrollWheelZoom={false} 
+          doubleClickZoom={true} 
+          zoomControl={true} 
+          attributionControl={true}
+        >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <Marker position={[lat, lng]} icon={markerIcon} />
+          <Marker position={[lat, lng]} icon={markerIcon}>
+            <Popup>
+              <div style={{ textAlign: 'center', padding: '0.5rem' }}>
+                <strong style={{ color: '#F8B133', fontSize: '1.1rem' }}>{nombre}</strong>
+                <br />
+                <small style={{ color: '#666' }}>Haz clic para ver más detalles</small>
+              </div>
+            </Popup>
+          </Marker>
         </MapContainer>
-      </div>
-      {open && (
-        <div style={modalStyle} onClick={() => setOpen(false)}>
-          <div style={{ width: '95vw', height: '90vh', background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.18)', position: 'relative' }} onClick={e => e.stopPropagation()}>
-            <button onClick={() => setOpen(false)} style={{ position: 'absolute', top: 12, right: 18, zIndex: 10, background: '#1976d2', color: '#fff', border: 'none', borderRadius: 6, padding: '0.4rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>Cerrar</button>
-            <MapContainer center={[lat, lng]} zoom={16} style={{ width: '100%', height: '100%' }} dragging={true} scrollWheelZoom={true} doubleClickZoom={true} zoomControl={true} attributionControl={true}>
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <Marker position={[lat, lng]} icon={markerIcon} />
-            </MapContainer>
-          </div>
+        <div style={{
+          position: 'absolute',
+          top: '10px',
+          right: '10px',
+          background: 'rgba(248, 177, 51, 0.9)',
+          color: '#000',
+          padding: '0.3rem 0.8rem',
+          borderRadius: '8px',
+          fontSize: '0.8rem',
+          fontWeight: '600',
+          backdropFilter: 'blur(4px)'
+        }}>
+          Clic para ampliar
         </div>
+      </div>
+      
+      {open && (
+        <>
+          <div style={overlayStyle} onClick={() => setOpen(false)} />
+          <div style={sidePanelStyle} onClick={e => e.stopPropagation()}>
+            {/* Header */}
+            <div style={{
+              background: '#F8B133',
+              color: '#000',
+              padding: '1rem 1.5rem',
+              fontWeight: '700',
+              fontSize: '1.1rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderBottom: '2px solid #fb8c00'
+            }}>
+              <span>Evento Seleccionado</span>
+              <button 
+                onClick={() => setOpen(false)} 
+                style={{ 
+                  background: '#e74c3c', 
+                  color: '#fff', 
+                  border: 'none', 
+                  borderRadius: '50%', 
+                  width: '28px', 
+                  height: '28px', 
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = '#c0392b';
+                  e.target.style.transform = 'scale(1.1)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = '#e74c3c';
+                  e.target.style.transform = 'scale(1)';
+                }}
+              >
+                ✕
+              </button>
+            </div>
+            
+            {/* Content */}
+            <div style={{ padding: '1.5rem', flex: 1, overflow: 'auto' }}>
+              {/* Event Image Placeholder */}
+              <div style={{
+                width: '100%',
+                height: '200px',
+                background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                borderRadius: '12px',
+                marginBottom: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #D9D9D9'
+              }}>
+                <span style={{ color: '#666', fontSize: '0.9rem' }}>Imagen del evento</span>
+              </div>
+              
+              {/* Event Details */}
+              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                <h3 style={{ 
+                  color: '#000', 
+                  fontSize: '1.2rem', 
+                  fontWeight: '700', 
+                  marginBottom: '0.5rem' 
+                }}>
+                  {nombre}
+                </h3>
+                <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '0.3rem' }}>
+                  Fecha del evento
+                </p>
+                <p style={{ color: '#666', fontSize: '0.9rem' }}>
+                  Ubicación del evento
+                </p>
+              </div>
+              
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <button 
+                  onClick={handleVerMas}
+                  style={{
+                    width: '100%',
+                    padding: '0.8rem',
+                    background: '#F8B133',
+                    color: '#000',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontWeight: '700',
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    textTransform: 'uppercase'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.background = '#fb8c00';
+                    e.target.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.background = '#F8B133';
+                    e.target.style.transform = 'translateY(0)';
+                  }}
+                >
+                  VER MÁS
+                </button>
+                
+                <button 
+                  onClick={handleCompartir}
+                  style={{
+                    width: '100%',
+                    padding: '0.6rem',
+                    background: '#D9D9D9',
+                    color: '#000',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.background = '#ccc';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.background = '#D9D9D9';
+                  }}
+                >
+                  Compartir
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </>
   );

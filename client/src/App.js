@@ -50,7 +50,7 @@ function App() {
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/preferences" element={<ProtectedRoute><Preferences /></ProtectedRoute>} />
             <Route path="/EventPage" element={<ProtectedRoute><EventPage /></ProtectedRoute>} />
-            <Route path="/evento/:id" element={<EventView />} />
+            <Route path="/evento/:id" element={<ProtectedRoute><EventView /></ProtectedRoute>} />
             <Route path="/mis-eventos" element={<ProtectedRoute><GestorEventos /></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

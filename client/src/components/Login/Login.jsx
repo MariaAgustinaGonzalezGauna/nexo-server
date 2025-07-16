@@ -43,7 +43,17 @@ const Login = () => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('userType', response.data.user.tipo);
-        navigate('/Preferences');
+        // Consultar preferencias del usuario
+        const userId = response.data.user._id;
+        const token = response.data.token;
+        const userResp = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (userResp.data && Array.isArray(userResp.data.preferencias) && userResp.data.preferencias.length > 0) {
+          navigate('/EventPage');
+        } else {
+          navigate('/Preferences', { replace: true, state: { fromAuth: true } });
+        }
       }
     } catch (err) {
       if (err.response) {

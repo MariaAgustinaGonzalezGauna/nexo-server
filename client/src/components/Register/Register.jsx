@@ -91,7 +91,8 @@ const Register = () => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('userType', response.data.user.tipo);
-        navigate('/Preferences');
+        // Redirigir siempre a /Preferences después de registrarse
+        navigate('/Preferences', { replace: true, state: { fromAuth: true } });
       }
     } catch (err) {
       // Manejar diferentes tipos de errores
