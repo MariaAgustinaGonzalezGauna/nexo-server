@@ -147,34 +147,37 @@ const Profile = () => {
         )}
       </div>
       <div className="profile-row">
-        <span className="profile-label">Contraseña:</span>
-        {editField === 'password' ? (
-          <div style={{display: 'flex', flexDirection: 'column', gap: '0.7rem', flex: 1}}>
-            <input
-              type="password"
-              placeholder="Nueva contraseña"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              autoFocus
-            />
-            <input
-              type="password"
-              placeholder="Confirmar contraseña"
-              value={confirmPassword}
-              onChange={e => setConfirmPassword(e.target.value)}
-            />
-            <div style={{display: 'flex', gap: '0.7rem', marginTop: '0.7rem'}}>
-              <button onClick={() => handleSave('password')}>Guardar</button>
-              <button onClick={handleCancel}>Cancelar</button>
-            </div>
-          </div>
-        ) : (
-          <>
-            <span className="profile-value">********</span>
-            <button onClick={() => handleEdit('password')}>Editar</button>
-          </>
-        )}
+  <span className="profile-label">Contraseña:</span>
+  {editField === 'password' ? (
+    <>
+      <input
+        type="password"
+        placeholder="Nueva contraseña"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        autoFocus
+      />
+      <input
+        type="password"
+        placeholder="Confirmar contraseña"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+      />
+      <div>
+      <button onClick={() => handleSave('password')}>Guardar</button>
+      <button onClick={handleCancel}>Cancelar</button>
       </div>
+    </>
+  ) : (
+    <>
+      <span className="profile-value">********</span>
+      <button onClick={() => handleEdit('password')}>Editar</button>
+    </>
+  )}
+</div>
+
+
+
       <div style={{ marginTop: '2rem', textAlign: 'center' }}>
         <a href="/Preferences" className="profile-preferences-button">Mis Preferencias</a>
       </div>
@@ -182,4 +185,4 @@ const Profile = () => {
   );
 };
 
-export default Profile; 
+export default Profile;
