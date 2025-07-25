@@ -10,7 +10,8 @@ const Profile = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -150,33 +151,51 @@ const Profile = () => {
   <span className="profile-label">Contraseña:</span>
   {editField === 'password' ? (
     <>
-      <input
-        type="password"
-        placeholder="Nueva contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        autoFocus
-      />
-      <input
-        type="password"
-        placeholder="Confirmar contraseña"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <div>
-      <button onClick={() => handleSave('password')}>Guardar</button>
-      <button onClick={handleCancel}>Cancelar</button>
+      <div className="password-input-wrapper">
+        <input
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Nueva contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoFocus
+        />
+        <button
+          type="button"
+          className="password-toggle-button"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? 'Ocultar' : 'Ver'}
+        </button>
+      </div>
+
+      <div className="password-input-wrapper" style={{ marginTop: '10px' }}>
+        <input
+          type={showConfirmPassword ? 'text' : 'password'}
+          placeholder="Confirmar contraseña"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <button
+          type="button"
+          className="password-toggle-button"
+          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+        >
+          {showConfirmPassword ? 'Ocultar' : 'Ver'}
+        </button>
+      </div>
+
+      <div style={{ marginTop: '10px' }}>
+        <button onClick={() => handleSave('password')}>Guardar</button>
+        <button onClick={handleCancel}>Cancelar</button>
       </div>
     </>
   ) : (
     <>
-      <span className="profile-value">********</span>
+      <span className="profile-value">•••••••</span>
       <button onClick={() => handleEdit('password')}>Editar</button>
     </>
   )}
 </div>
-
-
 
       <div style={{ marginTop: '2rem', textAlign: 'center' }}>
         <a href="/Preferences" className="profile-preferences-button">Mis Preferencias</a>

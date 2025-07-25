@@ -87,7 +87,37 @@ const eventSchema = new mongoose.Schema({
   lng: {
     type: Number,
     required: false
+  },
+  // Campos para el sistema de puntuación
+  puntuacionTotal: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  cantidadPuntuaciones: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  // Campo virtual para calcular el promedio
+  puntuacionPromedio: {
+    type: Number,
+    default: 0
   }
+});
+
+// Método para calcular el promedio de puntuación
+eventSchema.methods.calcularPromedio = function() {
+  if (this.cantidadPuntuaciones === 0) {
+    return 0;
+  }
+  return Math.round((this.puntuacionTotal / this.cantidadPuntuaciones) * 10) / 10;
+};
+
+// Middleware para actualizar el promedio antes de guardar
+eventSchema.pre('save', function(next) {
+  this.puntuacionPromedio = this.calcularPromedio();
+  next();
 });
 
 // Middleware para validar que la fecha y hora no sean anteriores a la actual

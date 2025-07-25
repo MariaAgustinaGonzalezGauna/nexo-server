@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './EventCard.css';
-import ShareButtonHome from '../ShareButton/shareButtonHome'; // si el share button está acá
+import ShareButtonHome from '../ShareButton/shareButtonHome';
+import StarDisplay from '../Stars/StarDisplay';
 
 const EventCard = ({ image, title, date, location, descripcion, id }) => {
   const navegacion = useNavigate();
   const ruta = `/evento/${id}`;
   const link = `${window.location.origin}${ruta}`;
+  
   return (
     <div className="event-card">
       <div className="event-image">
@@ -16,6 +18,11 @@ const EventCard = ({ image, title, date, location, descripcion, id }) => {
         <h3>{title}</h3>
         <p className="event-date">{date}</p>
         <p className="event-location">{location}</p>
+        
+        {/* Sistema de estrellas */}
+        <div className="event-rating">
+          <StarDisplay eventoId={id} showCount={true} size="medium-large" />
+        </div>
 
         <button 
           className="ver-mas" 

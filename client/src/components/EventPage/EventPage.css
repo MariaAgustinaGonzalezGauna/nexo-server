@@ -2,7 +2,27 @@
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 80px;
+}
+
+.boton-container
+{
+  display: flex;
+  justify-content: center;
+}
+
+.crear-evento-boton
+{
+  background: #ffa726;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin:5%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s, transform 0.1s;
 }
 
 .event-page-container h1 {
@@ -10,6 +30,7 @@
   margin-bottom: 2rem;
   font-size: 2.5rem;
   color: #333;
+    margin-top: 5%;
 }
 
 .events-grid {
@@ -101,6 +122,281 @@
   color: #fff;
   box-shadow: 0 4px 16px rgba(246, 169, 45, 0.22);
   transform: translateY(-2px) scale(1.03);
+}
+
+/* Modo oscuro para EventPage */
+.dark-mode .event-page-container {
+  background-color: transparent !important;
+}
+
+.dark-mode .event-page-content {
+  background-color: rgba(30, 30, 30, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para el título "Eventos Disponibles" */
+.event-page-container h1 {
+  color: #F8B133;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.dark-mode .event-page-container h1 {
+  color: #F8B133;
+}
+
+.dark-mode .event-section-title {
+  color: #fff;
+}
+
+.dark-mode .event-search-input {
+  background-color: rgba(42, 42, 42, 0.9) !important;
+  border-color: #555 !important;
+  color: #fff !important;
+  backdrop-filter: blur(5px);
+}
+
+.dark-mode .event-search-input::placeholder {
+  color: #aaa !important;
+}
+
+.dark-mode .event-search-input:focus {
+  border-color: #F8B133 !important;
+  background-color: rgba(42, 42, 42, 1) !important;
+}
+
+/* Estilos específicos para carruseles en modo oscuro */
+.dark-mode .swiper {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .swiper-wrapper {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .swiper-slide {
+  background-color: #2a2a2a !important;
+}
+
+.dark-mode .swiper-container {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .swiper-button-next,
+.dark-mode .swiper-button-prev {
+  color: #F8B133 !important;
+  background-color: rgba(30, 30, 30, 0.8) !important;
+}
+
+.dark-mode .swiper-button-next:hover,
+.dark-mode .swiper-button-prev:hover {
+  background-color: rgba(248, 177, 51, 0.2) !important;
+}
+
+.dark-mode .swiper-pagination-bullet {
+  background-color: #555 !important;
+}
+
+.dark-mode .swiper-pagination-bullet-active {
+  background-color: #F8B133 !important;
+}
+
+.dark-mode .swiper-pagination {
+  background-color: transparent !important;
+}
+
+.dark-mode .add-event-button {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .add-event-button:hover {
+  background-color: #e6a030;
+}
+
+.dark-mode .no-events-message {
+  color: #aaa;
+}
+
+/* Estilos específicos para contenedores de eventos - más específicos */
+.dark-mode .event-page-container .events-section {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .event-page-container .events-container {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .event-page-container .preferred-events,
+.dark-mode .event-page-container .other-events {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .event-page-container .events-wrapper {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .event-page-container .events-carousel {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .event-page-container .events-slider {
+  background-color: #1e1e1e !important;
+}
+
+/* Solo estilos específicos para elementos que realmente necesitan fondo oscuro */
+.dark-mode .event-page-container .swiper-container {
+  background-color: #1e1e1e !important;
+}
+
+.dark-mode .event-page-container .swiper-wrapper {
+  background-color: #1e1e1e !important;
+}
+
+/* Estilos para sobrescribir los estilos inline de los contenedores de carruseles */
+.dark-mode .event-page-container div[style*="background: '#fff'"] {
+  background-color: #1e1e1e !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .event-page-container div[style*="background: #fff"] h3 {
+  color: #fff !important;
+}
+
+/* Estilos específicos para los contenedores de carruseles */
+.dark-mode .event-page-container > div > div {
+  background-color: #1e1e1e !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .event-page-container > div > div h3 {
+  color: #fff !important;
+}
+
+/* Estilos específicos para contenedores de carruseles - fondo negro */
+.dark-mode .event-page-container div[style*="background: '#fff'"] {
+  background-color: #000 !important;
+  border-color: #333 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+}
+
+.dark-mode .event-page-container div[style*="background: '#fff'"] h3 {
+  color: #fff !important;
+}
+
+/* Clases CSS para contenedores de carruseles */
+.carousel-container {
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.carousel-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+/* Modo oscuro para las clases CSS */
+.dark-mode .carousel-container {
+  background-color: #000 !important;
+  border-color: #333 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+}
+
+.dark-mode .carousel-title {
+  color: #fff !important;
+}
+
+/* Estilos más agresivos para sobrescribir estilos inline */
+.dark-mode .event-page-container div[style*="background"] {
+  background-color: #000 !important;
+  border-color: #333 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+}
+
+.dark-mode .event-page-container div[style*="border"] {
+  border-color: #333 !important;
+}
+
+/* Estilos para cualquier div dentro del contenedor de eventos */
+.dark-mode .event-page-container > div {
+  background-color: #000 !important;
+}
+
+.dark-mode .event-page-container > div > div {
+  background-color: #000 !important;
+  border-color: #333 !important;
+}
+
+/* Estilos para el contenedor principal del carrusel */
+.dark-mode .swiper {
+  background-color: transparent !important;
+}
+
+.dark-mode .swiper-container {
+  background-color: transparent !important;
+}
+
+.dark-mode .swiper-wrapper {
+  background-color: transparent !important;
+}
+
+.dark-mode .swiper-slide {
+  background-color: transparent !important;
+}
+
+/* Estilos para modo claro también */
+.swiper {
+  background-color: transparent !important;
+}
+
+.swiper-container {
+  background-color: transparent !important;
+}
+
+.swiper-wrapper {
+  background-color: transparent !important;
+}
+
+.swiper-slide {
+  background-color: transparent !important;
+}
+
+.no-events-message {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+  font-size: 1.1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 2rem 0;
+  border: 1px solid #e9ecef;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.error {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #dc3545;
+  font-size: 1.1rem;
+  background: #f8d7da;
+  border-radius: 12px;
+  margin: 2rem 0;
+  border: 1px solid #f5c6cb;
 }
 
 @media (max-width: 768px) {

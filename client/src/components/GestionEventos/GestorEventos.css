@@ -148,6 +148,20 @@
   font-size: 1.2rem;
 }
 
+body.dark-mode .gestor-eventos-container,
+body.dark-mode .gestor-eventos-header,
+body.dark-mode .gestor-eventos-content,
+body.dark-mode .gestor-eventos-table,
+body.dark-mode .gestor-eventos-table th,
+body.dark-mode .gestor-eventos-table td {
+  background: #23272a !important;
+  color: #f5f5f5 !important;
+}
+body.dark-mode .gestor-eventos-header h1,
+body.dark-mode .gestor-eventos-header h2 {
+  color: #f5f5f5 !important;
+}
+
 @media (max-width: 768px) {
   .gestor-eventos {
     padding: 1rem;

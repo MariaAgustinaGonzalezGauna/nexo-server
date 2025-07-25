@@ -177,3 +177,18 @@ textarea {
     max-width: 600px;
   }
 }
+
+body.dark-mode .bar-account-container,
+body.dark-mode .bar-account-form,
+body.dark-mode .bar-account-header,
+body.dark-mode .bar-account-section,
+body.dark-mode .bar-account-input,
+body.dark-mode .bar-account-select,
+body.dark-mode .bar-account-textarea {
+  background: #23272a !important;
+  color: #f5f5f5 !important;
+}
+body.dark-mode .bar-account-header h1,
+body.dark-mode .bar-account-header h2 {
+  color: #f5f5f5 !important;
+}

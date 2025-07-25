@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import homePeople from '../../assets/home-people.png';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -75,24 +74,7 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/auth/google', {
-        token: credentialResponse.credential
-      });
-      // Guardar token y userId como en el login tradicional
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.user._id);
-      window.location.href = '/';
-    } catch (error) {
-      alert('Error al iniciar sesión con Google');
-    }
-  };
-
-  const handleGoogleError = () => {
-    alert('Error al autenticar con Google');
-  };
-
+  
   return (
   <div className="login-container">
   <div className="login-content-wrapper">
@@ -108,9 +90,6 @@ const Login = () => {
         <input type="password" name="password" placeholder="CONTRASEÑA" value={formData.password} onChange={handleChange} required />
         {error && <div className="error-message">{error}</div>}
         <button type="submit" className="login-button">ENVIAR</button>
-        <div className="google-login-wrapper">
-          <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
-        </div>
         <p className="register-link">¿No tienes una cuenta? <span onClick={() => navigate('/register')}>Regístrate</span></p>
         <p className="forgot-link"><span onClick={() => navigate('/forgot-password')}>¿Olvidaste tu contraseña?</span></p>
       </form>
