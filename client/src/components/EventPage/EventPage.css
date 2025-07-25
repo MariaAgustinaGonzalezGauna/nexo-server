@@ -20,9 +20,19 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin:5%;
+  margin-top: 10%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: background 0.2s, transform 0.1s;
+}
+
+.crear-evento-boton:hover {
+  background: #f57c00;
+  transform: translateY(-2px) scale(1.03);
+}
+
+.crear-evento-boton:active {
+  background: #fb8c00;
+  transform: translateY(1px) scale(0.98);
 }
 
 .event-page-container h1 {
@@ -406,6 +416,12 @@
 
   .events-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .crear-evento-boton {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 7px;
   }
 }
 

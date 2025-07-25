@@ -91,7 +91,7 @@ const EventPage = () => {
     className="crear-evento-boton"
     onClick={() => navigate('/barAccount')}
   >
-    QUIERO AGREGAR UN EVENTO
+    + Crear Nuevo Evento
   </button>
 )}
 

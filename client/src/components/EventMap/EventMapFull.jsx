@@ -67,15 +67,28 @@ const EventMapFull = ({ events, center = [-26.8241, -65.2226], zoom = 13 }) => {
   };
 
   if (eventsWithCoords.length === 0) {
+    const isDarkMode = document.body.classList.contains('dark-mode');
     return (
-      <div style={{ width: '100%', height: '600px', margin: '3rem 0', borderRadius: '18px', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
-        <div style={{ textAlign: 'center', color: '#666' }}>
+      <div style={{ 
+        width: '100%', 
+        height: '600px', 
+        margin: '3rem 0', 
+        borderRadius: '18px', 
+        boxShadow: '0 4px 24px rgba(0,0,0,0.10)', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        background: isDarkMode ? '#23272a' : '#f5f5f5' 
+      }}>
+        <div style={{ textAlign: 'center', color: isDarkMode ? '#f5f5f5' : '#666' }}>
           <h3>No hay eventos con ubicación en el mapa</h3>
           <p>Los eventos necesitan tener coordenadas (lat, lng) para aparecer en el mapa</p>
         </div>
       </div>
     );
   }
+
+  const isDarkMode = document.body.classList.contains('dark-mode');
 
   return (
     <div style={{
@@ -86,7 +99,8 @@ const EventMapFull = ({ events, center = [-26.8241, -65.2226], zoom = 13 }) => {
       overflow: 'hidden',
       margin: '0 auto',
       maxWidth: '1200px',
-      position: 'relative'
+      position: 'relative',
+      background: isDarkMode ? '#23272a' : 'transparent'
     }}>
       <MapContainer center={center} zoom={zoom} style={{ width: '100%', height: '100%' }}>
         <TileLayer

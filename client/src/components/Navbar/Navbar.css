@@ -98,6 +98,8 @@
   transform: translateY(-2px);
 }
 
+
+
 .nav-button {
   background-color: #ffa726;
   color: #fff;
@@ -411,6 +413,8 @@ body.dark-mode .logout-button:hover {
   background-color: #e6a030;
   transform: translateY(-1px);
 }
+
+
 
 .dark-mode .hamburger .bar {
   background-color: #fff;

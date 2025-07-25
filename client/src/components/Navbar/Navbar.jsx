@@ -39,26 +39,6 @@ const Navbar = () => {
     window.location.reload();
   };
 
-  const handleMapClick = () => {
-    navigate('/home');
-    setTimeout(() => {
-      const mapElement =
-        document.querySelector('[style*="EventMapFull"]') ||
-        document.querySelector('[style*="600px"]') ||
-        document.querySelector('[style*="border-radius: 18px"]');
-
-      if (mapElement) {
-        mapElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: 'smooth',
-        });
-      }
-    }, 300);
-    setIsOpen(false);
-  };
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -87,14 +67,6 @@ const Navbar = () => {
         <div className={`navbar-links ${isOpen ? 'active' : ''}`}>
           {!isAuthenticated && (
             <>
-              {location.pathname !== '/sobre-nosotros' && (
-                <Link to="/sobre-nosotros" className="nav-link" onClick={closeMenu}>
-                  Sobre Nosotros
-                </Link>
-              )}
-              <button onClick={handleMapClick} className="nav-button">
-                Ir al mapa
-              </button>
               {location.pathname !== '/login' && (
                 <Link to="/login" className="nav-link" onClick={closeMenu}>
                   Log in
@@ -123,9 +95,6 @@ const Navbar = () => {
                       Mis Eventos
                     </button>
                   )}
-                  <button onClick={handleMapClick} className="nav-button">
-                    Ir al mapa
-                  </button>
                   {location.pathname !== '/profile' && (
                     <Link to="/profile" className="nav-link" onClick={closeMenu}>
                       Mi Perfil
@@ -141,9 +110,6 @@ const Navbar = () => {
                       Eventos para mi
                     </Link>
                   )}
-                  <button onClick={handleMapClick} className="nav-button">
-                    Ir al mapa
-                  </button>
                   {location.pathname !== '/profile' && (
                     <Link to="/profile" className="nav-link" onClick={closeMenu}>
                       Mi Perfil
@@ -154,7 +120,7 @@ const Navbar = () => {
 
               {userType === '1' && (
                 <>
-                  {location.pathname !== '/admin/eventos' && (
+                  {!location.pathname.startsWith('/admin/eventos') && (
                     <Link to="/admin/eventos" className="nav-link" onClick={closeMenu}>
                       Gestión de Eventos
                     </Link>

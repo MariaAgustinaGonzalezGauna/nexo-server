@@ -124,6 +124,30 @@
   background-color: #d32f2f;
 }
 
+.btn-crear-evento {
+  background: #ffa726;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-crear-evento:hover {
+  background: #f57c00;
+  transform: translateY(-2px) scale(1.03);
+}
+
+.btn-crear-evento:active {
+  background: #fb8c00;
+  transform: translateY(1px) scale(0.98);
+}
+
 .loading {
   text-align: center;
   padding: 2rem;
@@ -162,6 +186,73 @@ body.dark-mode .gestor-eventos-header h2 {
   color: #f5f5f5 !important;
 }
 
+/* Estilos para el título principal en modo oscuro */
+body.dark-mode .gestor-eventos h1 {
+  color: #f5f5f5 !important;
+}
+
+/* Estilos para modo oscuro del botón de crear evento */
+body.dark-mode .btn-crear-evento {
+  background-color: #F8B133 !important;
+  color: #000 !important;
+  box-shadow: 0 2px 8px rgba(248, 177, 51, 0.4) !important;
+}
+
+body.dark-mode .btn-crear-evento:hover {
+  background-color: #e6a030 !important;
+  box-shadow: 0 4px 12px rgba(248, 177, 51, 0.5) !important;
+}
+
+/* Estilos para modo oscuro de los textos grises */
+body.dark-mode .evento-detalles p {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .evento-info h3 {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .evento-info p {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .evento-categoria {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .estado-info {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .loading {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .no-eventos {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .evento-card {
+  background-color: #2a2a2a !important;
+  color: #f5f5f5 !important;
+}
+
+/* Estilos para los estados en modo oscuro */
+body.dark-mode .estado-pendiente {
+  background-color: #444 !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .estado-aprobado {
+  background-color: rgba(248, 177, 51, 0.2) !important;
+  color: #F8B133 !important;
+}
+
+body.dark-mode .estado-rechazado {
+  background-color: rgba(211, 47, 47, 0.2) !important;
+  color: #ff6b6b !important;
+}
+
 @media (max-width: 768px) {
   .gestor-eventos {
     padding: 1rem;
@@ -169,5 +260,13 @@ body.dark-mode .gestor-eventos-header h2 {
 
   .eventos-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .btn-crear-evento {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 7px;
+    width: 100%;
+    max-width: 300px;
   }
 } 

@@ -97,6 +97,19 @@ const GestorEventos = () => {
   return (
     <div className="gestor-eventos">
       <h1>{userType === '1' ? 'Gestión de Eventos' : 'Mis Eventos'}</h1>
+      
+      {/* Botón de Crear Evento - solo para dueños (tipo 2) */}
+      {userType === '2' && (
+        <div className="crear-evento-section">
+          <button 
+            onClick={() => navigate('/barAccount')} 
+            className="btn-crear-evento"
+          >
+            + Crear Nuevo Evento
+          </button>
+        </div>
+      )}
+      
       <div className="eventos-grid">
         {eventos.length === 0 ? (
           <p className="no-eventos">

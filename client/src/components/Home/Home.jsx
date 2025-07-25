@@ -109,7 +109,7 @@ const Home = () => {
                 className="crear-evento-button"
                 onClick={() => navigate('/barAccount')}
               >
-                QUIERO AGREGAR UN EVENTO
+                + Crear Nuevo Evento
               </button>
             )}
           </div>

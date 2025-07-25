@@ -111,6 +111,21 @@
   max-width: 600px; /* ancho aumentado */
 }
 
+.event-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
 .event-details {
   flex-grow: 1;
   text-align: left;
@@ -195,6 +210,10 @@
     padding: 1.2rem;
   }
 
+  .event-image {
+    height: 180px;
+  }
+
   .action-button {
     padding: 0.5rem 1rem;
   }
@@ -244,6 +263,10 @@
     padding: 1rem;
   }
 
+  .event-image {
+    height: 160px;
+  }
+
   .event-details h3 {
     font-size: 1rem;
   }
@@ -267,6 +290,113 @@
   }
 }
 
+/* ====================== */
+/* MODO OSCURO */
+/* ====================== */
+
+body.dark-mode .admin-events-layout {
+  background-color: #1e1e1e !important;
+}
+
+body.dark-mode .admin-sidebar {
+  background-color: #2a2a2a !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.dark-mode .admin-sidebar h2 {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .admin-sidebar-link {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .admin-sidebar-link.active {
+  background-color: #F8B133 !important;
+  color: #000 !important;
+  box-shadow: 0 4px 6px -1px rgba(248, 177, 51, 0.3), 0 2px 4px -1px rgba(248, 177, 51, 0.2) !important;
+}
+
+body.dark-mode .admin-sidebar-link:hover:not(.active) {
+  background-color: rgba(248, 177, 51, 0.1) !important;
+  color: #F8B133 !important;
+}
+
+body.dark-mode .admin-badge.active {
+  background-color: #000 !important;
+  color: #F8B133 !important;
+}
+
+body.dark-mode .admin-badge:not(.active) {
+  background-color: #444 !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .admin-main-content {
+  background-color: #1e1e1e !important;
+}
+
+body.dark-mode .admin-main-content h1 {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .error-message {
+  background-color: rgba(211, 47, 47, 0.1) !important;
+  border-left-color: #ff6b6b !important;
+}
+
+body.dark-mode .error-message p {
+  color: #ff6b6b !important;
+}
+
+body.dark-mode .event-card {
+  background-color: #2a2a2a !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+  border-color: #444 !important;
+}
+
+body.dark-mode .event-image {
+  border: 1px solid #444 !important;
+}
+
+body.dark-mode .event-details h3 {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .event-details p,
+body.dark-mode .event-adicional,
+body.dark-mode .event-meta p {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .event-meta {
+  color: #ccc !important;
+}
+
+body.dark-mode .action-button {
+  background-color: #F8B133 !important;
+  color: #000 !important;
+}
+
+body.dark-mode .action-button:hover {
+  background-color: #e6a030 !important;
+}
+
+/* Estilos para el mensaje de "No hay eventos" en modo oscuro */
+body.dark-mode .text-center.text-gray-600.py-4.bg-gray-50.rounded-lg {
+  background-color: #2a2a2a !important;
+  color: #f5f5f5 !important;
+}
+
+/* Estilos para el loading en modo oscuro */
+body.dark-mode .min-h-screen.bg-gray-100.flex.items-center.justify-center {
+  background-color: #1e1e1e !important;
+}
+
+body.dark-mode .text-xl.text-gray-600 {
+  color: #f5f5f5 !important;
+}
+
 @media (max-width: 480px) {
   .admin-main-content h1 {
     font-size: 1.5rem;
@@ -285,6 +415,10 @@
 
   .event-card {
     padding: 0.75rem;
+  }
+
+  .event-image {
+    height: 140px;
   }
 
   .event-actions {
