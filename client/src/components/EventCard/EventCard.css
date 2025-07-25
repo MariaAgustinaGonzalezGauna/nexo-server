@@ -59,4 +59,140 @@
 
 .ver-mas:hover {
   background-color: #e6a02e;
+}
+
+body.dark-mode .evento-card {
+  background: #23272a !important;
+  color: #f5f5f5 !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+  border: 1px solid #333 !important;
+}
+body.dark-mode .evento-card img {
+  background: #181a1b !important;
+}
+body.dark-mode .evento-card h5,
+body.dark-mode .evento-card p,
+body.dark-mode .evento-card .event-date {
+  color: #f5f5f5 !important;
+}
+body.dark-mode .evento-card button {
+  background-color: #333 !important;
+  color: #F8B133 !important;
+}
+body.dark-mode .evento-card button:hover {
+  background-color: #444 !important;
+  color: #fff !important;
+} 
+
+/* Modo oscuro para EventCard */
+.dark-mode .event-card {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .event-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border-color: #F8B133;
+}
+
+.dark-mode .event-card-image {
+  filter: brightness(0.9);
+}
+
+.dark-mode .event-card-content {
+  background-color: #2a2a2a;
+}
+
+.dark-mode .event-card-title {
+  color: #fff;
+}
+
+.dark-mode .event-card-description {
+  color: #ccc;
+}
+
+.dark-mode .event-card-date {
+  color: #F8B133;
+}
+
+.dark-mode .event-card-location {
+  color: #aaa;
+}
+
+.dark-mode .event-card-button {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .event-card-button:hover {
+  background-color: #e6a030;
+}
+
+/* Estilos para el sistema de estrellas */
+.event-rating {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background-color: rgba(248, 177, 51, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(248, 177, 51, 0.2);
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.event-rating > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.event-rating span {
+  font-size: 24px !important;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.dark-mode .event-rating {
+  color: #fff;
+  background-color: rgba(248, 177, 51, 0.15);
+  border-color: rgba(248, 177, 51, 0.3);
+}
+
+.dark-mode .event-rating span {
+  color: #ccc;
+}
+
+/* Responsive para el sistema de estrellas */
+@media (max-width: 768px) {
+  .event-rating {
+    padding: 6px 10px;
+    margin: 8px 0;
+  }
+  
+  .event-rating > div {
+    gap: 5px;
+  }
+  
+  .event-rating span {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-rating {
+    padding: 4px 8px;
+    margin: 6px 0;
+  }
+  
+  .event-rating span {
+    font-size: 18px !important;
+  }
 } 

@@ -15,6 +15,28 @@
   font-family: var(--font-primary);
 }
 
+body.dark-mode .home {
+  background-color: #23272a !important;
+  color: #f5f5f5 !important;
+}
+body.dark-mode .hero-content h1,
+body.dark-mode .events-section h2,
+body.dark-mode .events-section h3 {
+  color: #F8B133 !important;
+}
+body.dark-mode .empezar-button {
+  background-color: #23272a !important;
+  color: #fff !important;
+}
+body.dark-mode .empezar-button:hover {
+  background-color: #F8B133 !important;
+  color: #23272a !important;
+}
+body.dark-mode .events-section {
+  background-color: #23272a !important;
+  color: #f5f5f5 !important;
+}
+
 /* Hero Section */
 .hero {
   max-width: 1200px;
@@ -551,4 +573,118 @@
     max-width: 140px;
     width: 140px;
   }
+}
+
+body.dark-mode .about-section {
+  background-color: #23272a !important;
+  color: #f5f5f5 !important;
+}
+body.dark-mode .about-section h2 {
+  color: #F8B133 !important;
+}
+body.dark-mode .about-content,
+body.dark-mode .about-text {
+  background: transparent !important;
+  color: #f5f5f5 !important;
+}
+body.dark-mode .about-text p {
+  color: #f5f5f5 !important;
+}
+
+/* Modo oscuro para Home */
+.dark-mode .home-container {
+  background-color: #121212;
+}
+
+.dark-mode .home-content {
+  background-color: #1e1e1e;
+}
+
+.dark-mode .home-title {
+  color: #fff;
+}
+
+.dark-mode .home-subtitle {
+  color: #ccc;
+}
+
+.dark-mode .home-description {
+  color: #aaa;
+}
+
+.dark-mode .home-button {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .home-button:hover {
+  background-color: #e6a030;
+}
+
+.dark-mode .home-image {
+  filter: brightness(0.8) contrast(1.2);
+}
+
+/* Modo oscuro para la sección "Sobre nosotros" */
+.dark-mode .about-section {
+  background-color: #1e1e1e;
+}
+
+.dark-mode .about-section h2 {
+  color: #fff;
+}
+
+.dark-mode .about-text p {
+  color: #ccc;
+}
+
+/* Filtro para hacer el logo de UNSTA blanco en modo oscuro */
+.dark-mode .unsta-logo {
+  filter: brightness(0) invert(1);
+}
+
+/* Modo oscuro para el footer */
+.dark-mode .footer {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.dark-mode .footer img {
+  filter: brightness(0) invert(1);
+}
+
+/* Modo oscuro para el carrusel de la página principal */
+.dark-mode .events-section div[style*="background: '#fff'"] {
+  background-color: #1e1e1e !important;
+  border-color: #444 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-mode .events-section div[style*="background: '#fff'"] h3 {
+  color: #fff !important;
+}
+
+/* Estilos específicos para el contenedor del carrusel en Home */
+.dark-mode .home .events-section > div > div {
+  background-color: #1e1e1e !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .home .events-section > div > div h3 {
+  color: #fff !important;
+}
+
+/* Estilos para el input de búsqueda en modo oscuro */
+.dark-mode .event-search-input {
+  background-color: #2a2a2a !important;
+  border-color: #555 !important;
+  color: #fff !important;
+}
+
+.dark-mode .event-search-input::placeholder {
+  color: #aaa !important;
+}
+
+.dark-mode .event-search-input:focus {
+  border-color: #F8B133 !important;
 }

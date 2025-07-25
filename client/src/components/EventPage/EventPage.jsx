@@ -17,30 +17,39 @@ const EventPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+   const [userType, setUserType] = useState(null);
+    const isAuthenticated = localStorage.getItem('token');
+    const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const token = window.localStorage.getItem('token');
-        const userId = window.localStorage.getItem('userId');
-        // Obtener todos los eventos
-        const responseAll = await axios.get('http://localhost:5000/api/events/all', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setAllEvents(responseAll.data);
-        // Obtener preferencias del usuario
-        const responseUser = await axios.get(`http://localhost:5000/api/users/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (responseUser.data && responseUser.data.preferencias) {
-          setPreferences(responseUser.data.preferencias);
-        }
-        setLoading(false);
-      } catch (err) {
-        setError(err.message || 'Error al cargar los eventos');
-        setLoading(false);
+  try {
+    const token = window.localStorage.getItem('token');
+    const userId = window.localStorage.getItem('userId');
+    // Obtener todos los eventos
+    const responseAll = await axios.get('http://localhost:5000/api/events/all', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    setAllEvents(responseAll.data);
+
+    // Obtener usuario
+    const responseUser = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    console.log('DATOS DEL USUARIO:', responseUser.data);  
+    if (responseUser.data) {
+      if (responseUser.data.preferencias) {
+        setPreferences(responseUser.data.preferencias);
       }
-    };
+     setUserType(responseUser.data.tipo);// 👈 aquí guardas tipo de usuario
+    }
+    
+    setLoading(false);
+  } catch (err) {
+    setError(err.message || 'Error al cargar los eventos');
+    setLoading(false);
+  }
+};
     fetchData();
   }, []);
 
@@ -62,9 +71,31 @@ const EventPage = () => {
     !preferences.includes(event.tipo)
   );
 
+  // Mensaje cuando no hay eventos
+  if (allEvents.length === 0) {
+    return (
+      <div className="event-page-container">
+        <h1>Eventos Disponibles</h1>
+        <div className="no-events-message">
+          No hay eventos disponibles en este momento.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="event-page-container">
-      <button onClick={() => navegacion('/Preferences')} className="preferences-button">Ir a Mis Preferencias</button>
+      <div className='boton-container'>
+            {isAuthenticated && userType === 2 && (
+  <button
+    className="crear-evento-boton"
+    onClick={() => navigate('/barAccount')}
+  >
+    + Crear Nuevo Evento
+  </button>
+)}
+
+          </div>
       <h1>Eventos Disponibles</h1>
       <input
         type="text"
@@ -120,6 +151,12 @@ const EventPage = () => {
               </Swiper>
             </div>
           )}
+          {preferredEvents.length === 0 && preferences.length > 0 && (
+            <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
+              <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Eventos según tus preferencias</h3>
+              <p style={{textAlign: 'center', color: '#666', margin: '2rem 0'}}>No hay eventos disponibles según tus preferencias actuales.</p>
+            </div>
+          )}
           {otherEvents.length > 0 && (
             <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
               <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Otros eventos</h3>
@@ -140,6 +177,40 @@ const EventPage = () => {
                 style={{ padding: '1rem 0' }}
               >
                 {otherEvents.map(event => (
+                  <SwiperSlide key={event._id}>
+                    <EventCard
+                      id={event._id}
+                      image={event.imagenUrl}
+                      title={event.nombre}
+                      date={event.fecha}
+                      location={event.lugar}
+                      descripcion={event.descripcion}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
+          {otherEvents.length === 0 && preferredEvents.length === 0 && (
+            <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
+              <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Todos los eventos</h3>
+              <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                spaceBetween={20}
+                slidesPerView={3}
+                navigation
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
+                speed={800}
+                loop={true}
+                breakpoints={{
+                  1200: { slidesPerView: 3 },
+                  900: { slidesPerView: 2 },
+                  0: { slidesPerView: 1 }
+                }}
+                style={{ padding: '1rem 0' }}
+              >
+                {filteredEvents.map(event => (
                   <SwiperSlide key={event._id}>
                     <EventCard
                       id={event._id}

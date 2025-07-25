@@ -1,0 +1,10 @@
+body.dark-mode .footer, body.dark-mode .footer * {
+  background-color: #23272a !important;
+  color: #f5f5f5 !important;
+}
+body.dark-mode .footer a {
+  color: #F8B133 !important;
+}
+body.dark-mode .footer a:hover {
+  color: #fff !important;
+} 

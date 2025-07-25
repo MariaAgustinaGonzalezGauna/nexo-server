@@ -12,3 +12,48 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Estilos globales para Swiper - fondo transparente */
+.dark-mode .swiper,
+.dark-mode .swiper-container {
+  background-color: transparent !important;
+}
+
+.dark-mode .swiper-wrapper {
+  background-color: transparent !important;
+}
+
+.dark-mode .swiper-slide {
+  background-color: transparent !important;
+}
+
+/* Estilos globales para Swiper en modo claro */
+.swiper,
+.swiper-container {
+  background-color: transparent !important;
+}
+
+.swiper-wrapper {
+  background-color: transparent !important;
+}
+
+.swiper-slide {
+  background-color: transparent !important;
+}
+
+/* Estilos específicos para carruseles en Home */
+.dark-mode .home .events-section div[style*="background: '#fff'"] {
+  background-color: #1e1e1e !important;
+  border-color: #444 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-mode .home .events-section div[style*="background: '#fff'"] h3 {
+  color: #fff !important;
+}
+
+/* Estilos para cualquier carrusel en Home */
+.dark-mode .home div[style*="background: '#fff'"] {
+  background-color: #1e1e1e !important;
+  border-color: #444 !important;
+}

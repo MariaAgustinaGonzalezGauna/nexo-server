@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ShareButton from "../ShareButton/shareButton";
 import axiosInstance from "../../config/axios";
 import StarRate from "../Stars/starRate";
+import StarDisplay from "../Stars/StarDisplay";
 import CommentSection from "../Comments/Comments";
 import EventMapMini from '../EventMap/EventMapMini';
 
@@ -13,6 +14,7 @@ const EventView = () => {
   const [evento, setEvento] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [ratingUpdate, setRatingUpdate] = useState(0); // Para forzar actualización del StarDisplay
 
   // Verificar autenticación al cargar el componente
   useEffect(() => {
@@ -47,6 +49,11 @@ const EventView = () => {
     obtenerEvento();
   }, [id, navigate]);
 
+  // Función para manejar la actualización del puntaje
+  const handleRatingUpdate = () => {
+    setRatingUpdate(prev => prev + 1); // Incrementa para forzar re-render del StarDisplay
+  };
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -68,31 +75,41 @@ const EventView = () => {
   }
 
   return (
-    <div className="contenedor">
-      <div className="event-info-container">
-        <div className="imagenes">
-          <img src={evento.imagenUrl} alt={evento.nombre} />
-        </div>
-        <div className="info-desc">
-          <h2>{evento.nombre}</h2>
-          <div className="event-date">{evento.fecha} - {evento.hora}</div>
-          <div className="event-location">{evento.lugar}</div>
-          <div className="event-description">{evento.descripcion}</div>
-          <div className="exp">
-            <span className="share-btn"><ShareButton link={window.location.href} /></span>
-            <div className="puntuacion">
-              <StarRate />
+    <div className="eventview-bg-container">
+      {evento.imagenUrl && (
+        <div
+          className="eventview-bg"
+          style={{ backgroundImage: `url(${evento.imagenUrl})` }}
+        />
+      )}
+      <div className="contenedor">
+        <div className="event-info-container">
+          <div className="imagenes">
+            <img src={evento.imagenUrl} alt={evento.nombre} />
+          </div>
+          <div className="info-desc">
+            <h2>{evento.nombre}</h2>
+            <div className="event-date">{evento.fecha} - {evento.hora}</div>
+            <div className="event-location">{evento.lugar}</div>
+            <div className="event-description">{evento.descripcion}</div>
+            <div className="exp">
+              <span className="share-btn"><ShareButton link={window.location.href} /></span>
+              <div className="puntuacion">
+                <div className="average-rating">
+                  <StarDisplay eventoId={evento._id} showCount={true} size="medium-large" ratingUpdate={ratingUpdate} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        {/* Mapa mini y comentarios en filas separadas de la grilla */}
+        {evento.lat && evento.lng && (
+          <div className="event-map-mini-container">
+            <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} eventId={evento._id} />
+          </div>
+        )}
+        <CommentSection eventoId={evento._id} onRatingUpdate={handleRatingUpdate} />
       </div>
-      {/* Mapa mini y comentarios en filas separadas de la grilla */}
-      {evento.lat && evento.lng && (
-        <div className="event-map-mini-container">
-          <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} eventId={evento._id} />
-        </div>
-      )}
-      <CommentSection eventoId={evento._id} />
     </div>
   );
 };

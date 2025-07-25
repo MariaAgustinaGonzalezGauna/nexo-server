@@ -109,7 +109,7 @@ const Home = () => {
                 className="crear-evento-button"
                 onClick={() => navigate('/barAccount')}
               >
-                QUIERO AGREGAR UN EVENTO
+                + Crear Nuevo Evento
               </button>
             )}
           </div>
@@ -155,7 +155,7 @@ const Home = () => {
           ) : null}
 
           {/* Carrusel ÚNICO: Todos los eventos filtrados */}
-          {!isAuthenticated && filteredEvents.length > 0 && (
+          {filteredEvents.length > 0 && (
             <div style={{border: '2px solid #e5e7eb', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'}}>
               <h3 style={{marginTop: 0, marginBottom: '0.5rem', fontWeight: 'bold', fontSize: '1.3rem'}}>Eventos</h3>
               <Swiper

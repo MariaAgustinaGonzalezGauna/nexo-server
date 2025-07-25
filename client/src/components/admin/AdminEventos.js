@@ -123,6 +123,15 @@ const AdminEventos = () => {
       ) : (
         events.map(evento => (
           <div key={evento._id} className="event-card">
+            <div className="event-image">
+              <img 
+                src={evento.imagenUrl} 
+                alt={evento.nombre}
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/300x200/cccccc/666666?text=Sin+Imagen';
+                }}
+              />
+            </div>
             <div className="event-details">
               <h3 className="event-title">
                 {evento.nombre}

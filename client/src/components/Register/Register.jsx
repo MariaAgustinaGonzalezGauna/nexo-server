@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Register.css';
 import homePeople from '../../assets/home-people.png';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -119,24 +118,6 @@ const Register = () => {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/auth/google', {
-        token: credentialResponse.credential
-      });
-      // Guardar token y userId como en el registro tradicional
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.user._id);
-      window.location.href = '/';
-    } catch (error) {
-      alert('Error al registrarse con Google');
-    }
-  };
-
-  const handleGoogleError = () => {
-    alert('Error al autenticar con Google');
-  };
-
   return (
     <div className="register-container">
       <div className="register-image-container">
@@ -178,6 +159,26 @@ const Register = () => {
             value={formData.contrasena}
             onChange={handleChange}
             required
+            style={{
+              padding: '1rem 1rem',
+              width: '100%',
+              boxSizing: 'border-box',
+              cursor: 'text',
+              minHeight: '50px',
+              border: 'none',
+              borderBottom: '1px solid #666',
+              background: 'transparent',
+              fontSize: '0.9rem',
+              outline: 'none',
+              transition: 'border-color 0.3s ease',
+              fontFamily: 'Poppins, sans-serif',
+              marginBottom: '1.2rem',
+              position: 'relative',
+              zIndex: 10,
+              display: 'block',
+              pointerEvents: 'auto',
+              userSelect: 'text'
+            }}
           />
           <input
             type="password"
@@ -186,6 +187,26 @@ const Register = () => {
             value={formData.repetirContrasena}
             onChange={handleChange}
             required
+            style={{
+              padding: '1rem 1rem',
+              width: '100%',
+              boxSizing: 'border-box',
+              cursor: 'text',
+              minHeight: '50px',
+              border: 'none',
+              borderBottom: '1px solid #666',
+              background: 'transparent',
+              fontSize: '0.9rem',
+              outline: 'none',
+              transition: 'border-color 0.3s ease',
+              fontFamily: 'Poppins, sans-serif',
+              marginBottom: '1.2rem',
+              position: 'relative',
+              zIndex: 10,
+              display: 'block',
+              pointerEvents: 'auto',
+              userSelect: 'text'
+            }}
           />
           <button
             type="button"
@@ -212,12 +233,6 @@ const Register = () => {
           </div>
           {error && <div className="error-message">{error}</div>}
           <button type="submit" className="register-button">ENVIAR</button>
-          <div style={{ margin: '0.1rem 0 0 0', textAlign: 'center' }}>
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={handleGoogleError}
-            />
-          </div>
           <p className="login-link" style={{ marginTop: '0.1rem' }}>
             Ya tienes una cuenta? <span onClick={() => navigate('/login')}>Inicia sesión</span>
           </p>

@@ -1,9 +1,32 @@
+/* Fondo expandido, difuminado y oscurecido para EventView */
+.eventview-bg-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.eventview-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  filter: blur(16px) brightness(0.5);
+  pointer-events: none;
+}
+
 .contenedor {
+  position: relative;
+  z-index: 1;
   padding-top: 90px;
   display: grid;
   grid-template-rows: auto auto auto;
   grid-template-columns: 1fr;
-  justify-items: center;
+  justify-items: stretch;
   align-items: start;
   gap: 1.5rem;
   width: 100%;
@@ -15,17 +38,17 @@
   grid-row: 1 / 2;
   grid-column: 1 / 2;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0;
   width: 100%;
   max-width: 900px;
 }
 
 .imagenes {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -33,23 +56,23 @@
   width: 420px;
   height: 340px;
   object-fit: cover;
-  border-radius: 24px;
+  border-radius: 24px 0 0 24px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.13);
   border: none;
   display: block;
 }
 
 .info-desc {
-  flex: 1.2;
+  flex: 1;
   background: #fafafd;
-  border-radius: 24px;
+  border-radius: 0 24px 24px 0;
   box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
   padding: 1.5rem 1.5rem 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
   min-width: 320px;
-  max-width: 440px;
+  max-width: 480px;
   justify-content: flex-start;
   height: 340px;
   align-items: flex-start;
@@ -184,90 +207,69 @@
   justify-content: center;
 }
 
+/* Estilos para la sección de puntuación promedio */
+.average-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  padding: 12px;
+  background-color: rgba(248, 177, 51, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(248, 177, 51, 0.1);
+}
+
+.average-rating h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.average-rating > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark-mode .average-rating {
+  background-color: rgba(248, 177, 51, 0.1);
+  border-color: rgba(248, 177, 51, 0.2);
+}
+
+.dark-mode .average-rating h4 {
+  color: #fff;
+}
+
 @media (max-width: 1024px) {
   .contenedor {
-    display: grid;
-    grid-template-rows: auto auto auto auto;
-    grid-template-columns: 1fr;
-    width: 100%;
-    padding: 90px 0.8rem 1rem 0.8rem;
+    padding-top: 100px;
     gap: 1.2rem;
-    justify-items: center;
-    align-items: start;
-    box-sizing: border-box;
+    max-width: 800px;
   }
-  
+
   .event-info-container {
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-    width: 100%;
-    padding: 0;
-    box-sizing: border-box;
+    gap: 0;
+    max-width: 800px;
   }
-  
+
   .imagenes {
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0;
-    box-sizing: border-box;
+    flex: 0 0 auto;
   }
-  
+
   .imagenes img {
-    width: 100%;
-    height: 240px;
-    margin: 0 auto;
-    display: block;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-    object-fit: cover;
+    width: 380px;
+    height: 300px;
+    border-radius: 20px 0 0 20px;
   }
-  
+
   .info-desc {
-    grid-row: 2 / 3;
-    grid-column: 1 / 2;
-    width: 100%;
-    min-width: 0;
-    padding: 1.8rem 1.2rem;
-    height: auto;
-    min-height: 280px;
-    margin: 0 auto;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    box-sizing: border-box;
-    background: #f8f9fa;
-  }
-  
-  .info-desc h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.6rem;
-    font-weight: 700;
-  }
-  
-  .info-desc .event-date {
-    font-size: 1rem;
-    margin-bottom: 0.6rem;
-    color: #666;
-  }
-  
-  .info-desc .event-location {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: #1976d2;
-    font-weight: 600;
-  }
-  
-  .info-desc .event-description {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-    color: #555;
+    flex: 1;
+    border-radius: 0 20px 20px 0;
+    padding: 1.2rem 1.2rem 0.8rem 1.2rem;
+    min-width: 280px;
+    max-width: 420px;
+    height: 300px;
   }
   
   .event-map-mini-container {
@@ -281,7 +283,6 @@
     box-sizing: border-box;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   }
   
   .comentarios {
@@ -321,58 +322,69 @@
 
 @media (max-width: 600px) {
   .contenedor {
-    padding-top: 70px;
-    padding-left: 0.6rem;
-    padding-right: 0.6rem;
-    gap: 0.8rem;
-    width: 100%;
-    box-sizing: border-box;
+    padding-top: 120px;
+    gap: 1rem;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
-  
-  .event-info-container,
-  .event-map-mini-container,
-  .comentarios {
-    width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
+
+  .event-info-container {
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 100%;
   }
-  
+
+  .imagenes {
+    width: 100%;
+    justify-content: center;
+    order: 1;
+  }
+
   .imagenes img {
     width: 100%;
     height: 200px;
-    border-radius: 12px;
-    box-sizing: border-box;
+    border-radius: 16px;
   }
-  
+
   .info-desc {
-    padding: 1.5rem 1rem;
-    border-radius: 12px;
-    min-height: 240px;
     width: 100%;
-    box-sizing: border-box;
+    border-radius: 16px;
+    padding: 1rem;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: 200px;
+    order: 2;
   }
-  
+
   .info-desc h2 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .info-desc .event-date {
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .info-desc .event-location {
     font-size: 0.9rem;
     margin-bottom: 0.8rem;
   }
-  
+
   .info-desc .event-description {
     font-size: 0.85rem;
-    margin-bottom: 1.2rem;
     line-height: 1.4;
   }
-  
+
+  .event-map-mini-container {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    margin-top: 1rem;
+  }
+
   .comentarios {
     padding: 0.8rem 0.5rem;
     border-radius: 8px;
@@ -380,7 +392,7 @@
     box-sizing: border-box;
     gap: 0.4rem;
   }
-  
+
   .comentarios h3 {
     font-size: 1.2rem;
     margin-bottom: 0.4rem;
@@ -388,32 +400,32 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-  
+
   .comentarios textarea {
     min-height: 30px;
     padding: 0.25rem;
     font-size: 0.7rem;
     border-radius: 4px;
   }
-  
+
   .comentarios input[type="text"] {
     padding: 0.25rem;
     font-size: 0.7rem;
     margin-bottom: 0.15rem;
     border-radius: 4px;
   }
-  
+
   .comentarios button {
     padding: 0.2rem 0.5rem;
     font-size: 0.7rem;
     border-radius: 4px;
   }
-  
+
   /* Ocultar fecha/hora en comentarios mobile */
   .comentarios .comment-date {
     display: none;
   }
-  
+
   /* Hacer comentarios más compactos */
   .comentarios .comment-item {
     padding: 0.3rem 0.4rem;
@@ -421,15 +433,80 @@
     font-size: 0.7rem;
     border-radius: 4px;
   }
-  
+
   .comentarios .comment-author {
     font-size: 0.7rem;
     font-weight: 600;
     margin-bottom: 0.1rem;
   }
-  
+
   .comentarios .comment-text {
     font-size: 0.7rem;
     line-height: 1.3;
   }
+}
+
+body.dark-mode .eventview-bg-container {
+  background: #181a1b !important;
+}
+body.dark-mode .contenedor {
+  background: transparent !important;
+}
+body.dark-mode .event-info-container {
+  background: transparent !important;
+}
+body.dark-mode .info-desc,
+body.dark-mode .comentarios {
+  background: #23272a !important;
+  color: #f5f5f5 !important;
+}
+body.dark-mode .event-map-mini-container {
+  background: transparent !important;
+}
+body.dark-mode .info-desc h2,
+body.dark-mode .info-desc .event-date,
+body.dark-mode .info-desc .event-location,
+body.dark-mode .info-desc .event-description {
+  color: #f5f5f5 !important;
+}
+
+/* Modo oscuro para EventView */
+.dark-mode .event-view-container {
+  background-color: transparent !important;
+}
+
+.dark-mode .event-view-content {
+  background-color: rgba(30, 30, 30, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .event-view-title {
+  color: #fff;
+}
+
+.dark-mode .event-view-description {
+  color: #ccc;
+}
+
+.dark-mode .event-view-date {
+  color: #F8B133;
+}
+
+.dark-mode .event-view-location {
+  color: #aaa;
+}
+
+.dark-mode .event-view-button {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .event-view-button:hover {
+  background-color: #e6a030;
+}
+
+.dark-mode .event-view-background {
+  filter: brightness(0.3) blur(8px);
 }

@@ -193,6 +193,7 @@
     color: #333;
     word-break: break-word;
     text-align: center;
+    margin: 0;
   }
 
   .profile-row input,
@@ -234,6 +235,10 @@
   max-height: fit-content;
 }
 
+button.password-toggle-button
+{
+  width: fit-content;
+}
 }
 
 
@@ -266,4 +271,101 @@
   .profile-row input {
     flex: 1;
   }
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.password-toggle-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.password-toggle-button:hover {
+  color: var(--color-primary);
+}
+
+.password-toggle-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Modo oscuro para Profile */
+.dark-mode .profile-container {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .profile-container h2 {
+  color: #fff;
+}
+
+.dark-mode .profile-label {
+  color: #ccc;
+}
+
+.dark-mode .profile-value {
+  color: #fff;
+}
+
+.dark-mode .profile-row input[type="text"],
+.dark-mode .profile-row input[type="email"],
+.dark-mode .profile-row input[type="password"] {
+  background-color: #2a2a2a;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .profile-row input[type="text"]:focus,
+.dark-mode .profile-row input[type="email"]:focus,
+.dark-mode .profile-row input[type="password"]:focus {
+  border-color: #F8B133;
+}
+
+.dark-mode .profile-row button {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .profile-row button:hover {
+  background-color: #e6a030;
+}
+
+.dark-mode .profile-preferences-button {
+  color: #F8B133;
+}
+
+.dark-mode .profile-preferences-button:hover {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .error {
+  background-color: rgba(220, 53, 69, 0.2);
+  border-color: rgba(220, 53, 69, 0.4);
+}
+
+.dark-mode .success {
+  background-color: rgba(40, 167, 69, 0.2);
+  border-color: rgba(40, 167, 69, 0.4);
 }

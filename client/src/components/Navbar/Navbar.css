@@ -17,12 +17,14 @@
 }
 
 .navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
 }
 
 .navbar-logo {
@@ -38,7 +40,8 @@
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+  margin-right: 60px; /* Espacio para el botón de modo oscuro */
 }
 
 .nav-link {
@@ -95,6 +98,8 @@
   transform: translateY(-2px);
 }
 
+
+
 .nav-button {
   background-color: #ffa726;
   color: #fff;
@@ -125,80 +130,366 @@
 }
 
 
+/* Hamburger menu */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
+  padding: 0.5rem;
   background: none;
   border: none;
-  gap: 5px;
-  padding: 0.5rem;
-  z-index: 1100;
-  
+  z-index: 1001;
 }
 
 .hamburger .bar {
   width: 25px;
   height: 3px;
   background-color: var(--color-text);
+  margin: 3px 0;
   transition: 0.3s;
-  border-bottom: black 1px solid;
+  border-radius: 2px;
 }
+
+/* Animación del hamburger */
+.hamburger.active .bar:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.darkmode-btn {
+  background: none;
+  border: none;
+  color: #333;
+  margin-right: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+  border-radius: 50%;
+  transition: background 0.2s;
+  position: relative;
+  left: 0;
+}
+.darkmode-btn:hover {
+  background: #f0f0f0;
+  color: #F8B133;
+}
+
+/* Modo oscuro global */
+body.dark-mode {
+  --color-background: #181a1b;
+  --color-text: #f5f5f5;
+  background: var(--color-background) !important;
+  color: var(--color-text) !important;
+}
+
+body.dark-mode .navbar {
+  background-color: #23272a !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+body.dark-mode .navbar-links, body.dark-mode .navbar-links.active {
+  background-color: #23272a !important;
+}
+body.dark-mode .nav-link, body.dark-mode .register-button, body.dark-mode .logout-button, body.dark-mode .nav-button {
+  color: #f5f5f5 !important;
+}
+body.dark-mode .register-button, body.dark-mode .nav-button {
+  background-color: #333 !important;
+}
+body.dark-mode .register-button:hover, body.dark-mode .nav-button:hover {
+  background-color: #444 !important;
+}
+body.dark-mode .logout-button {
+  background-color: #111 !important;
+}
+body.dark-mode .logout-button:hover {
+  background-color: #c0392b !important;
+}
+
+/* Puedes agregar más reglas para otros componentes si lo deseas */
 
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
-    
-  }
-  .nav-link
-  {
-    align-items: center;
   }
 
-  .navbar-links{
-    position: absolute;
-    top: 100%;
-    left: 0;
+  .navbar-links {
+    position: fixed;
+    top: 80px; /* Altura del navbar */
+    left: -100%;
     background-color: var(--color-background);
     width: 100%;
+    height: calc(100vh - 80px);
     flex-direction: column;
     align-items: center;
-    padding: 1rem 2rem;
-    display: none;
-    border-bottom: black 2px solid;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
   }
 
-
   .navbar-links.active {
-    display: flex;
+    left: 0;
   }
 
   .navbar-links .nav-link,
   .navbar-links .nav-button,
   .navbar-links .logout-button,
-  .navbar-links .register-button,
-  .navbar-links .search-button {
-    margin-bottom: 1rem;
-    text-align: left;
-    
+  .navbar-links .register-button {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
   }
-
 
   .navbar-links .nav-button,
   .navbar-links .register-button,
   .navbar-links .logout-button {
-    margin-bottom: 1rem;
-    width: fit-content;
-    padding: 0.4rem 1rem;
-    font-size: 0.85rem;
-    text-align: left;
-    
+    width: 100%;
+    max-width: 200px;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
   }
-
 
   .navbar-container {
-    flex-wrap: wrap;
-    
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
   }
 
+  /* Ocultar navbar-links por defecto en móvil */
+  .navbar-links:not(.active) {
+    display: none;
+  }
+}
+
+/* Botón de modo oscuro */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #333;
+}
+
+/* Ajustar el navbar-links para dar espacio al botón */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 60px; /* Espacio para el botón de modo oscuro */
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.dark-mode-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Modo oscuro para el botón */
+.dark-mode .dark-mode-toggle {
+  color: #fff;
+}
+
+.dark-mode .dark-mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive para el botón de modo oscuro */
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    position: fixed;
+    right: 1rem;
+    top: 20px;
+    transform: none;
+    z-index: 1002;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-links {
+    margin-right: 0;
+  }
+
+  .navbar-links.active {
+    left: 0;
+  }
+}
+
+/* Modo oscuro para el navbar */
+.dark-mode .navbar {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.dark-mode .navbar-logo .logo-image {
+  filter: brightness(0) invert(1);
+}
+
+.dark-mode .nav-link {
+  color: #fff;
+}
+
+.dark-mode .nav-link:hover {
+  color: #F8B133;
+}
+
+.dark-mode .nav-button {
+  color: #fff;
+  background-color: transparent;
+}
+
+.dark-mode .nav-button:hover {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .register-button {
+  background-color: #F8B133;
+  color: #000;
+}
+
+.dark-mode .register-button:hover {
+  background-color: #e6a030;
+}
+
+.dark-mode .logout-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.dark-mode .logout-button:hover {
+  background-color: #c82333;
+}
+
+/* Estilos para el botón "Ir al mapa" en modo oscuro */
+.dark-mode .nav-button {
+  background-color: #F8B133;
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.dark-mode .nav-button:hover {
+  background-color: #e6a030;
+  transform: translateY(-1px);
+}
+
+
+
+.dark-mode .hamburger .bar {
+  background-color: #fff;
+}
+
+/* Estilos del modo oscuro para toda la página */
+.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+.dark-mode body {
+  background-color: #121212;
+  color: #fff;
+}
+
+.dark-mode * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Botón de modo oscuro dentro del menú */
+.dark-mode-toggle-menu {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.dark-mode-toggle-menu:hover {
+  background-color: var(--color-primary);
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.dark-mode-toggle-menu svg {
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Ocultar el botón de modo oscuro fijo en móvil */
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    display: flex;
+    position: static;
+    right: auto;
+    top: auto;
+    transform: none;
+    z-index: auto;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    margin-left: 1rem;
+  }
+}
+
+/* Modo oscuro para el botón dentro del menú */
+.dark-mode .dark-mode-toggle-menu {
+  border: none;
+  color: #f5f5f5;
+}
+
+.dark-mode .dark-mode-toggle-menu:hover {
+  background-color: var(--color-primary);
+  color: #000;
 }
