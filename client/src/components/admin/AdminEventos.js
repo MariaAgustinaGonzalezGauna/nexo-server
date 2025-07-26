@@ -12,6 +12,7 @@ const AdminEventos = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [loadingButtons, setLoadingButtons] = useState(new Set()); // Estado para botones individuales
   const navigate = useNavigate();
 
   // Validar que el estado en la URL sea válido
@@ -64,15 +65,43 @@ const AdminEventos = () => {
 
   const handleApprove = async (eventId) => {
     try {
+      // Marcar botón como cargando
+      setLoadingButtons(prev => new Set(prev).add(eventId));
+      
       await axiosInstance.put(`/admin/events/${eventId}/approve`);
-      const nuevosEventos = await cargarEventos();
-      if (nuevosEventos) {
-        // Si no hay más eventos pendientes, navegar a aprobados
-        if (nuevosEventos.pendientes.length === 0) {
-          navigate('/admin/eventos/aprobados');
-        }
-      }
+      
+      // Actualizar el estado local inmediatamente
+      setEventos(prevEventos => {
+        const eventoAprobado = prevEventos.pendientes.find(e => e._id === eventId);
+        if (!eventoAprobado) return prevEventos;
+        
+        return {
+          pendientes: prevEventos.pendientes.filter(e => e._id !== eventId),
+          aprobados: [...prevEventos.aprobados, eventoAprobado],
+          rechazados: prevEventos.rechazados
+        };
+      });
+      
+      // Remover botón del estado de carga
+      setLoadingButtons(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(eventId);
+        return newSet;
+      });
+      
+      // Recargar datos del servidor en segundo plano para sincronizar
+      setTimeout(() => {
+        cargarEventos();
+      }, 100);
+      
     } catch (error) {
+      // Remover botón del estado de carga en caso de error
+      setLoadingButtons(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(eventId);
+        return newSet;
+      });
+      
       if (error.response && error.response.status === 401) {
         localStorage.clear();
         navigate('/admin/login', { replace: true });
@@ -84,15 +113,43 @@ const AdminEventos = () => {
 
   const handleReject = async (eventId) => {
     try {
+      // Marcar botón como cargando
+      setLoadingButtons(prev => new Set(prev).add(eventId));
+      
       await axiosInstance.put(`/admin/events/${eventId}/reject`, { motivoRechazo: '' });
-      const nuevosEventos = await cargarEventos();
-      if (nuevosEventos) {
-        // Si no hay más eventos pendientes, navegar a rechazados
-        if (nuevosEventos.pendientes.length === 0) {
-          navigate('/admin/eventos/rechazados');
-        }
-      }
+      
+      // Actualizar el estado local inmediatamente
+      setEventos(prevEventos => {
+        const eventoRechazado = prevEventos.pendientes.find(e => e._id === eventId);
+        if (!eventoRechazado) return prevEventos;
+        
+        return {
+          pendientes: prevEventos.pendientes.filter(e => e._id !== eventId),
+          aprobados: prevEventos.aprobados,
+          rechazados: [...prevEventos.rechazados, eventoRechazado]
+        };
+      });
+      
+      // Remover botón del estado de carga
+      setLoadingButtons(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(eventId);
+        return newSet;
+      });
+      
+      // Recargar datos del servidor en segundo plano para sincronizar
+      setTimeout(() => {
+        cargarEventos();
+      }, 100);
+      
     } catch (error) {
+      // Remover botón del estado de carga en caso de error
+      setLoadingButtons(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(eventId);
+        return newSet;
+      });
+      
       if (error.response && error.response.status === 401) {
         localStorage.clear();
         navigate('/admin/login', { replace: true });
@@ -153,14 +210,16 @@ const AdminEventos = () => {
                   <button
                     onClick={() => handleApprove(evento._id)}
                     className="action-button"
+                    disabled={loadingButtons.has(evento._id)}
                   >
-                    Aprobar
+                    {loadingButtons.has(evento._id) ? 'Aprobiando...' : 'Aprobar'}
                   </button>
                   <button
                     onClick={() => handleReject(evento._id)}
                     className="action-button"
+                    disabled={loadingButtons.has(evento._id)}
                   >
-                    Rechazar
+                    {loadingButtons.has(evento._id) ? 'Rechazando...' : 'Rechazar'}
                   </button>
                 </>
               )}
@@ -168,16 +227,18 @@ const AdminEventos = () => {
                 <button
                   onClick={() => handleApprove(evento._id)}
                   className="action-button"
+                  disabled={loadingButtons.has(evento._id)}
                 >
-                  Aceptar
+                  {loadingButtons.has(evento._id) ? 'Aceptando...' : 'Aceptar'}
                 </button>
               )}
               {type === 'aprobados' && (
                 <button
                     onClick={() => handleReject(evento._id)}
                     className="action-button"
+                    disabled={loadingButtons.has(evento._id)}
                   >
-                    Rechazar
+                    {loadingButtons.has(evento._id) ? 'Rechazando...' : 'Rechazar'}
                   </button>
               )}
             </div>

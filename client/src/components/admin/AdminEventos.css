@@ -22,7 +22,8 @@
 }
 
 .admin-sidebar-link {
-  width: 100%;
+  width: auto; /* Cambiar de 100% a auto */
+  min-width: 200px; /* Ancho mínimo para consistencia */
   text-align: left;
   padding: 0.5rem 1rem; /* px-4 py-2 */
   border-radius: 0.5rem; /* rounded-lg */
@@ -36,6 +37,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box; /* Asegurar que padding no afecte el ancho */
 }
 
 .admin-sidebar-link.active {
@@ -181,6 +183,19 @@
   background-color: #f57c00; /* orange-600 */
 }
 
+.action-button:disabled {
+  background-color: #9ca3af; /* gray-400 */
+  color: #6b7280; /* gray-500 */
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+.action-button:disabled:hover {
+  background-color: #9ca3af; /* gray-400 */
+  transform: none;
+}
+
 .event-adicional {
   margin-top: 0.5rem; /* mt-2 */
   color: #4b5563; /* gray-600 */
@@ -245,6 +260,9 @@
     justify-content: center;
     flex: 1;
     text-align: center;
+    width: auto; /* Mantener ancho automático */
+    min-width: auto; /* Sin ancho mínimo en móviles */
+    max-width: 120px; /* Ancho máximo para evitar que se estiren demasiado */
   }
 
   .admin-main-content {
@@ -309,6 +327,9 @@ body.dark-mode .admin-sidebar h2 {
 
 body.dark-mode .admin-sidebar-link {
   color: #f5f5f5 !important;
+  width: auto !important; /* Mantener ancho automático en modo oscuro */
+  min-width: 200px !important; /* Ancho mínimo consistente */
+  box-sizing: border-box !important;
 }
 
 body.dark-mode .admin-sidebar-link.active {
@@ -382,6 +403,18 @@ body.dark-mode .action-button:hover {
   background-color: #e6a030 !important;
 }
 
+body.dark-mode .action-button:disabled {
+  background-color: #4b5563 !important; /* gray-600 */
+  color: #9ca3af !important; /* gray-400 */
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+body.dark-mode .action-button:disabled:hover {
+  background-color: #4b5563 !important; /* gray-600 */
+  transform: none !important;
+}
+
 /* Estilos para el mensaje de "No hay eventos" en modo oscuro */
 body.dark-mode .text-center.text-gray-600.py-4.bg-gray-50.rounded-lg {
   background-color: #2a2a2a !important;
@@ -406,11 +439,15 @@ body.dark-mode .text-xl.text-gray-600 {
   .admin-sidebar {
     gap: 0;
     margin-top: 10%;
+    padding: 0.5rem 0.5rem; /* Reducir padding */
   }
 
   .admin-sidebar-link {
     padding: 0.25rem;
     font-size: 0.8rem;
+    width: auto; /* Mantener ancho automático */
+    min-width: auto; /* Sin ancho mínimo */
+    max-width: 100px; /* Ancho máximo menor */
   }
 
   .event-card {

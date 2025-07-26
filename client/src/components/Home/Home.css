@@ -361,6 +361,48 @@ body.dark-mode .events-section {
   position: relative;
 }
 
+/* Estilos específicos para el carrusel de eventos */
+.swiper {
+  padding: 1rem 0;
+}
+
+.swiper-slide {
+  height: auto; /* Permitir que el slide se ajuste al contenido */
+  display: flex;
+  align-items: stretch; /* Hacer que todos los slides tengan la misma altura */
+}
+
+.swiper-slide .event-card {
+  height: 100%; /* Hacer que la tarjeta ocupe toda la altura del slide */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Asegurar que todas las tarjetas en el carrusel tengan la misma altura */
+.events-section .swiper .swiper-slide .event-card {
+  height: 625px; /* Altura fija para todas las tarjetas en el carrusel */
+  min-height: 625px;
+  max-height: 625px;
+}
+
+/* Responsive para el carrusel */
+@media (max-width: 768px) {
+  .events-section .swiper .swiper-slide .event-card {
+    height: 600px;
+    min-height: 600px;
+    max-height: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-section .swiper .swiper-slide .event-card {
+    height: 562px;
+    min-height: 562px;
+    max-height: 562px;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .hero {
@@ -687,4 +729,16 @@ body.dark-mode .about-text p {
 
 .dark-mode .event-search-input:focus {
   border-color: #F8B133 !important;
+}
+
+/* Modo oscuro para el carrusel */
+body.dark-mode .events-section .swiper .swiper-slide .event-card {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.dark-mode .events-section > div > div {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
 }
