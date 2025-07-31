@@ -130,9 +130,10 @@ const EventPage = () => {
                 speed={800}
                 loop={true}
                 breakpoints={{
-                  1200: { slidesPerView: 3 },
-                  900: { slidesPerView: 2 },
-                  0: { slidesPerView: 1 }
+                  1200: { slidesPerView: 3, spaceBetween: 20 },
+                  600: { slidesPerView: 2, spaceBetween: 15 },
+                  480: { slidesPerView: 1, spaceBetween: 10 },
+                  0: { slidesPerView: 1, spaceBetween: 10 }
                 }}
                 style={{ padding: '1rem 0' }}
               >
@@ -170,9 +171,10 @@ const EventPage = () => {
                 speed={800}
                 loop={true}
                 breakpoints={{
-                  1200: { slidesPerView: 3 },
-                  900: { slidesPerView: 2 },
-                  0: { slidesPerView: 1 }
+                  1200: { slidesPerView: 3, spaceBetween: 20 },
+                  600: { slidesPerView: 2, spaceBetween: 15 },
+                  480: { slidesPerView: 1, spaceBetween: 10 },
+                  0: { slidesPerView: 1, spaceBetween: 10 }
                 }}
                 style={{ padding: '1rem 0' }}
               >
@@ -204,9 +206,10 @@ const EventPage = () => {
                 speed={800}
                 loop={true}
                 breakpoints={{
-                  1200: { slidesPerView: 3 },
-                  900: { slidesPerView: 2 },
-                  0: { slidesPerView: 1 }
+                  1200: { slidesPerView: 3, spaceBetween: 20 },
+                  600: { slidesPerView: 2, spaceBetween: 15 },
+                  480: { slidesPerView: 1, spaceBetween: 10 },
+                  0: { slidesPerView: 1, spaceBetween: 10 }
                 }}
                 style={{ padding: '1rem 0' }}
               >
@@ -241,9 +244,10 @@ const EventPage = () => {
               speed={800}
               loop={true}
               breakpoints={{
-                1200: { slidesPerView: 3 },
-                900: { slidesPerView: 2 },
-                0: { slidesPerView: 1 }
+                1200: { slidesPerView: 3, spaceBetween: 20 },
+                768: { slidesPerView: 2, spaceBetween: 15 },
+                480: { slidesPerView: 1, spaceBetween: 10 },
+                0: { slidesPerView: 1, spaceBetween: 10 }
               }}
               style={{ padding: '1rem 0' }}
             >
