@@ -28,13 +28,13 @@ const EventPage = () => {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('userId');
     // Obtener todos los eventos
-    const responseAll = await axios.get(`${data.url}/api/events/all`, {
+    const responseAll = await axios.get("https://render-zqin.onrender.com/api/events/all", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setAllEvents(responseAll.data);
 
     // Obtener usuario
-    const responseUser = await axios.get(`${data.url}/api/users/${userId}`, {
+    const responseUser = await axios.get(`https://render-zqin.onrender.com/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     console.log('DATOS DEL USUARIO:', responseUser.data);  
@@ -58,9 +58,13 @@ const EventPage = () => {
   if (error) return <div className="error">{error}</div>;
 
   // Filtrar eventos por nombre
-  const filteredEvents = allEvents.filter(event =>
-    event.nombre && event.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredEvents = Array.isArray(allEvents)
+  ? allEvents.filter(event =>
+      event.nombre &&
+      event.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : [];
+
 
   // Eventos de preferencias
   const preferredEvents = preferences.length > 0
