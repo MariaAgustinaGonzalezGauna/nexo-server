@@ -67,7 +67,7 @@ const Preferences = () => {
     try {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
-      await axios.put(`${data.url}/api/users/${userId}/preferences`, 
+      await axios.put(`https://render-zqin.onrender.com/api/users/${userId}/preferences`, 
         {
           preferences: selectedPreferences
         },
