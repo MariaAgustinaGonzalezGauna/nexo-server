@@ -79,7 +79,7 @@ const CommentSection = ({ eventoId, onRatingUpdate }) => {
         console.log('No se pudo obtener la puntuación del usuario:', error);
       }
 
-      const response = await axios.post(`${}/api/comments/${eventoId}`, {
+      const response = await axios.post(`https://render-zqin.onrender.com/api/comments/${eventoId}`, {
         texto,
         autor,
         puntuacion: userCurrentRating,
