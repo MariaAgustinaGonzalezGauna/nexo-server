@@ -208,10 +208,6 @@
 }
 
 @media (max-width: 1024px) {
-  .admin-sidebar {
-    width: 12rem;
-    padding: 0.5rem;
-  }
 
   .admin-main-content {
     padding: 2rem 1rem;
@@ -439,15 +435,14 @@ body.dark-mode .text-xl.text-gray-600 {
   .admin-sidebar {
     gap: 0;
     margin-top: 10%;
-    padding: 0.5rem 0.5rem; /* Reducir padding */
+    padding: 0.5rem 0.5rem; 
   }
 
   .admin-sidebar-link {
     padding: 0.25rem;
     font-size: 0.8rem;
-    width: auto; /* Mantener ancho automático */
-    min-width: auto; /* Sin ancho mínimo */
-    max-width: 100px; /* Ancho máximo menor */
+    width: auto; 
+    min-width: auto; 
   }
 
   .event-card {
@@ -462,3 +457,4 @@ body.dark-mode .text-xl.text-gray-600 {
     gap: 0.5rem;
   }
 }
+
