@@ -348,6 +348,7 @@ body.dark-mode .logout-button:hover {
 
   .navbar-links.active {
     left: 0;
+    height: auto;
   }
 }
 

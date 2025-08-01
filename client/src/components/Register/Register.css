@@ -55,7 +55,7 @@
   right: 5%;
   transform: translateY(-50%);
   width: 35%;
-  height: 80%;
+  height: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,10 +71,10 @@
   max-width: 350px;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 0.9rem;
 }
 
-/* Estilos unificados para todos los inputs */
+/* Estilo9s unificados para todos los inputs */
 .register-form input[type="text"],
 .register-form input[type="email"],
 .register-form input[type="password"] {

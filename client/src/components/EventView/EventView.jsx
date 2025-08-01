@@ -108,7 +108,9 @@ const EventView = () => {
             <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} eventId={evento._id} />
           </div>
         )}
+        <div className="comments"> 
         <CommentSection eventoId={evento._id} onRatingUpdate={handleRatingUpdate} />
+        </div>
       </div>
     </div>
   );

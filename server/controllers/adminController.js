@@ -34,46 +34,57 @@ const approveEvent = async (req, res) => {
       return res.status(404).json({ message: 'Evento no encontrado' });
     }
 
-    // Buscar todos los usuarios
-    const usuarios = await User.find({});
-    
-    // Enviar email a cada usuario
-    for (const user of usuarios) {
-      const mailOptions = {
-        from: process.env.GMAIL_USER,
-        to: user.email,
-        subject: `¡Nuevo evento: ${event.nombre}!`,
-        html: `
-  <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5;">
-    <h2>Nuevo evento que te puede interesar:</h2>
-    <h3>${event.nombre}</h3>
-    <p><strong>Fecha:</strong> ${event.fecha}</p>
-    <p><strong>Hora:</strong> ${event.hora}</p>
-    <p><strong>Lugar:</strong> ${event.lugar}</p>
-    <p>${event.descripcion}</p>
-    <img src="${event.imagenUrl}" alt="Imagen del evento" style="max-width: 100%; height: auto; margin-top: 10px;" />
-    <div style="margin-top: 20px;">
-      <a href="http://localhost:3000/eventos/${event._id}" style="
-        display: inline-block;
-        padding: 12px 20px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-      ">Ver Evento</a>
-    </div>
-  </div>
-`
-      };
+    // ✅ Responder primero al frontend
+    res.status(200).json({ message: 'Evento aprobado correctamente', event });
 
-      await transporter.sendMail(mailOptions);
-    }
+    // 🧪 Enviar correos en segundo plano (no bloquea respuesta)
+    (async () => {
+      try {
+        const usuarios = await User.find({});
 
-    res.json({ message: 'Evento aprobado y correos enviados', event });
+        for (const user of usuarios) {
+          const mailOptions = {
+            from: process.env.GMAIL_USER,
+            to: user.email,
+            subject: `¡Nuevo evento: ${event.nombre}!`,
+            html: `
+              <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5;">
+                <h2>Nuevo evento que te puede interesar:</h2>
+                <h3>${event.nombre}</h3>
+                <p><strong>Fecha:</strong> ${event.fecha}</p>
+                <p><strong>Hora:</strong> ${event.hora}</p>
+                <p><strong>Lugar:</strong> ${event.lugar}</p>
+                <p>${event.descripcion}</p>
+                <img src="${event.imagenUrl}" alt="Imagen del evento" style="max-width: 100%; height: auto; margin-top: 10px;" />
+                <div style="margin-top: 20px;">
+                  <a href="http://localhost:3000/eventos/${event._id}" style="
+                    display: inline-block;
+                    padding: 12px 20px;
+                    background-color: #007bff;
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: bold;
+                  ">Ver Evento</a>
+                </div>
+              </div>
+            `
+          };
+
+          try {
+            await transporter.sendMail(mailOptions);
+          } catch (mailError) {
+            console.error(`❌ Error al enviar correo a ${user.email}:`, mailError.message);
+          }
+        }
+      } catch (err) {
+        console.error('❌ Error al enviar correos:', err.message);
+      }
+    })();
 
   } catch (error) {
-    res.status(500).json({ message: 'Error al aprobar el evento o enviar correos', error: error.message });
+    console.error('❌ Error en approveEvent:', error.message);
+    res.status(500).json({ message: 'Error al aprobar el evento', error: error.message });
   }
 };
 
@@ -88,10 +99,11 @@ const rejectEvent = async (req, res) => {
       },
       { new: true }
     ).populate('entidad', 'nombre email');
-    
+
     if (!event) {
       return res.status(404).json({ message: 'Evento no encontrado' });
     }
+
     res.json(event);
   } catch (error) {
     res.status(500).json({ message: 'Error al rechazar el evento', error: error.message });
@@ -106,10 +118,11 @@ const updateEvent = async (req, res) => {
       req.body,
       { new: true, runValidators: true }
     ).populate('entidad', 'nombre email');
-    
+
     if (!event) {
       return res.status(404).json({ message: 'Evento no encontrado' });
     }
+
     res.json(event);
   } catch (error) {
     res.status(500).json({ message: 'Error al actualizar el evento', error: error.message });
