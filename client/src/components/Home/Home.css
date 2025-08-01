@@ -533,6 +533,12 @@ body.dark-mode .events-section {
     font-size: 2.2rem;
     margin-bottom: 1.2rem;
   }
+
+  .hero-content div
+  {
+    justify-content: center;
+  }
+  
   .empezar-button, .crear-evento-button {
     padding: 0.7rem 1.2rem;
     font-size: 1rem;
@@ -609,6 +615,10 @@ body.dark-mode .events-section {
 @media (max-width: 400px) {
   .hero-content h1 {
     font-size: 1.1rem;
+  }
+  .hero-content div
+  {
+    justify-content: center;
   }
   .event-item {
     min-width: 140px;

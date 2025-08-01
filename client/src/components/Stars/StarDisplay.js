@@ -26,7 +26,7 @@ export default function StarDisplay({ eventoId, showCount = true, size = "normal
   useEffect(() => {
     const fetchRating = async () => {
       try {
-        const response = await axios.get(`${data.url}/api/ratings/evento/${eventoId}/estadisticas`);
+        const response = await axios.get(`https://render-zqin.onrender.com/api/ratings/evento/${eventoId}/estadisticas`);
         const puntuacion = Number(response.data.puntuacionPromedio);
         const cantidad = Number(response.data.cantidadPuntuaciones);
         setRating(isNaN(puntuacion) ? 0 : puntuacion);

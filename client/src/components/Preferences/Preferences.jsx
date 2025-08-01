@@ -4,13 +4,13 @@ import axios from 'axios';
 import './Preferences.css';
 //cambio de prueba
 // Importar imágenes de eventos
-import gastronomiaImg from '../../assets/eventos/cine.png';
+import gastronomiaImg from '../../assets/eventos/gastronomia.png';
 import socialImg from '../../assets/eventos/happy-hour.png';
 import musicalImg from '../../assets/eventos/musica-vivo.png';
 import teatroImg from '../../assets/eventos/teatro.png';
 import cineImg from '../../assets/eventos/cine.png';
-import deportivoImg from '../../assets/eventos/cine.png';
-import recreativoImg from '../../assets/eventos/cine.png';
+import deportivoImg from '../../assets/eventos/deportes.png';
+import recreativoImg from '../../assets/eventos/recreativo.png';
 import data from '../../config/data';
 
 
