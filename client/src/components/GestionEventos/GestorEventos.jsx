@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './GestorEventos.css';
-
+import data from '../../config/data';
 const GestorEventos = () => {
   const navigate = useNavigate();
   const [eventos, setEventos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const API_URL = 'http://localhost:5000';
+  const API_URL = `${data.url}`;
   const userType = localStorage.getItem('userType');
 
   useEffect(() => {

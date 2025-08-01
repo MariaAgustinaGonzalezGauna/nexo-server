@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StarIcon from "../../assets/icons/starIcon";
-
+import data from "../../config/data";
 export default function StarRate({ eventoId, onRatingChange, readOnly = false }) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -14,7 +14,7 @@ export default function StarRate({ eventoId, onRatingChange, readOnly = false })
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const response = await axios.get(`http://localhost:5000/api/ratings/evento/${eventoId}/usuario`, {
+        const response = await axios.get(`${data.url}/api/ratings/evento/${eventoId}/usuario`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -40,7 +40,7 @@ export default function StarRate({ eventoId, onRatingChange, readOnly = false })
         return;
       }
 
-      const response = await axios.post(`http://localhost:5000/api/ratings/evento/${eventoId}`, 
+      const response = await axios.post(`${data.url}/api/ratings/evento/${eventoId}`, 
         { puntuacion: newRating },
         { headers: { Authorization: `Bearer ${token}` } }
       );

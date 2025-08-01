@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import homePeople from '../../assets/home-people.png';
-
+import data from '../../config/data';
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      const response = await axios.post(`${data.url}/api/users/login`, {
         email: formData.email,
         password: formData.password
       });
@@ -45,7 +45,7 @@ const Login = () => {
         // Consultar preferencias del usuario
         const userId = response.data.user._id;
         const token = response.data.token;
-        const userResp = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+        const userResp = await axios.get(`${data.url}/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (userResp.data && Array.isArray(userResp.data.preferencias) && userResp.data.preferencias.length > 0) {

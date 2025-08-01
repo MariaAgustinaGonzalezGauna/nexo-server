@@ -1,8 +1,8 @@
 import axios from 'axios';
-
+import data from './data';
 // Crear una instancia de axios con la configuración base
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api', // URL completa al servidor
+    baseURL: `${data.url}/api`, // URL completa al servidor
     timeout: 10000, // aumentamos el timeout a 10 segundos
     headers: {
         'Content-Type': 'application/json'

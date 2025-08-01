@@ -11,6 +11,7 @@ import teatroImg from '../../assets/eventos/teatro.png';
 import cineImg from '../../assets/eventos/cine.png';
 import deportivoImg from '../../assets/eventos/cine.png';
 import recreativoImg from '../../assets/eventos/cine.png';
+import data from '../../config/data';
 
 
 const Preferences = () => {
@@ -24,7 +25,7 @@ const Preferences = () => {
       const userId = localStorage.getItem('userId');
       if (!token || !userId) return;
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+        const response = await axios.get(`${data.url}/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data && response.data.preferencias && response.data.preferencias.length > 0) {
@@ -66,7 +67,7 @@ const Preferences = () => {
     try {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
-      await axios.put(`http://localhost:5000/api/users/${userId}/preferences`, 
+      await axios.put(`${data.url}/api/users/${userId}/preferences`, 
         {
           preferences: selectedPreferences
         },

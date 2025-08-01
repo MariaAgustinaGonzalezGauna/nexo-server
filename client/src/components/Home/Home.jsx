@@ -13,6 +13,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import data from '../../config/data';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/events/all');
+        const response = await axios.get(`${data.url}/api/events/all`);
         setEvents(response.data);
         setLoading(false);
       } catch (err) {
@@ -44,7 +45,7 @@ const Home = () => {
       const userId = localStorage.getItem('userId');
       if (!token || !userId) return;
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+        const response = await axios.get(`${data.url}/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data && response.data.preferencias) {

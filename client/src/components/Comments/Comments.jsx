@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import data from "../../config/data";
 import axios from "axios";
 import "./Comments.css";
 import StarRate from "../Stars/starRate";
@@ -23,7 +24,7 @@ const CommentSection = ({ eventoId, onRatingUpdate }) => {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const response = await axios.get('http://localhost:5000/api/users/me', {
+      const response = await axios.get(`${data.url}/api/users/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -38,7 +39,7 @@ const CommentSection = ({ eventoId, onRatingUpdate }) => {
   };
 
   const fetchComentarios = async () => {
-    const res = await axios.get(`http://localhost:5000/api/comments/${eventoId}`);
+    const res = await axios.get(`${data.url}/api/comments/${eventoId}`);
     setComentarios(res.data);
     
     // Verificar si el usuario ya tiene un comentario
@@ -69,7 +70,7 @@ const CommentSection = ({ eventoId, onRatingUpdate }) => {
       try {
         const token = localStorage.getItem('token');
         if (token) {
-          const ratingResponse = await axios.get(`http://localhost:5000/api/ratings/evento/${eventoId}/usuario`, {
+          const ratingResponse = await axios.get(`${data.url}/api/ratings/evento/${eventoId}/usuario`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           userCurrentRating = ratingResponse.data.puntuacion || 0;
@@ -78,7 +79,7 @@ const CommentSection = ({ eventoId, onRatingUpdate }) => {
         console.log('No se pudo obtener la puntuación del usuario:', error);
       }
 
-      const response = await axios.post(`http://localhost:5000/api/comments/${eventoId}`, {
+      const response = await axios.post(`${data.url}/api/comments/${eventoId}`, {
         texto,
         autor,
         puntuacion: userCurrentRating,

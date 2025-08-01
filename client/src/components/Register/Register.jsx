@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Register.css';
 import homePeople from '../../assets/home-people.png';
-
+import data from '../../config/data';
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -76,7 +76,7 @@ const Register = () => {
 
     try {
       const tipo = isDuenio ? 2 : 3;
-      const response = await axios.post('http://localhost:5000/api/users', {
+      const response = await axios.post(`${data.url}/api/users`, {
         nombre: formData.nombre,
         apellido: formData.apellido,
         email: formData.email,

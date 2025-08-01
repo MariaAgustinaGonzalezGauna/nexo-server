@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import data from '../../config/data';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './EventPage.css';
@@ -27,13 +28,13 @@ const EventPage = () => {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('userId');
     // Obtener todos los eventos
-    const responseAll = await axios.get('http://localhost:5000/api/events/all', {
+    const responseAll = await axios.get(`${data.url}/api/events/all`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setAllEvents(responseAll.data);
 
     // Obtener usuario
-    const responseUser = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+    const responseUser = await axios.get(`${data.url}/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     console.log('DATOS DEL USUARIO:', responseUser.data);  

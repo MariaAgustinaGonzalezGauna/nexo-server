@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StarIcon from "../../assets/icons/starIcon";
-
+import data from "../../config/data";
 export default function StarDisplay({ eventoId, showCount = true, size = "normal", ratingUpdate = 0 }) {
   const [rating, setRating] = useState(0);
   const [count, setCount] = useState(0);
@@ -26,7 +26,7 @@ export default function StarDisplay({ eventoId, showCount = true, size = "normal
   useEffect(() => {
     const fetchRating = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/ratings/evento/${eventoId}/estadisticas`);
+        const response = await axios.get(`${data.url}/api/ratings/evento/${eventoId}/estadisticas`);
         setRating(response.data.puntuacionPromedio);
         setCount(response.data.cantidadPuntuaciones);
       } catch (error) {
