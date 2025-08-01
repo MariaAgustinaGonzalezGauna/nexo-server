@@ -28,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(`${data.url}/api/events/all`);
+        const response = await axios.get("https://render-zqin.onrender.com/api/events/all");
         setEvents(response.data);
         setLoading(false);
       } catch (err) {
@@ -45,7 +45,7 @@ const Home = () => {
       const userId = localStorage.getItem('userId');
       if (!token || !userId) return;
       try {
-        const response = await axios.get(`${data.url}/api/users/${userId}`, {
+        const response = await axios.get(`https://render-zqin.onrender.com/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data && response.data.preferencias) {

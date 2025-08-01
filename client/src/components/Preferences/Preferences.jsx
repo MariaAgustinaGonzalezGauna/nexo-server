@@ -25,7 +25,7 @@ const Preferences = () => {
       const userId = localStorage.getItem('userId');
       if (!token || !userId) return;
       try {
-        const response = await axios.get(`${data.url}/api/users/${userId}`, {
+        const response = await axios.get(`https://render-zqin.onrender.com/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.data && response.data.preferencias && response.data.preferencias.length > 0) {

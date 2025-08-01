@@ -32,7 +32,7 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await axios.post(`${data.url}/api/users/login`, {
+      const response = await axios.post("https://render-zqin.onrender.com/api/users/login", {
         email: formData.email,
         password: formData.password
       });
@@ -45,7 +45,7 @@ const Login = () => {
         // Consultar preferencias del usuario
         const userId = response.data.user._id;
         const token = response.data.token;
-        const userResp = await axios.get(`${data.url}/api/users/${userId}`, {
+        const userResp = await axios.get(`https://render-zqin.onrender.com/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (userResp.data && Array.isArray(userResp.data.preferencias) && userResp.data.preferencias.length > 0) {

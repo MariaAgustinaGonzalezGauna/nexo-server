@@ -21,7 +21,7 @@ router.post('/', upload.single('imagen'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No se subió ninguna imagen' });
   }
-  res.json({ imageUrl: `${data.url}/uploads/${req.file.filename}` });
+  res.json({ imageUrl: `https://render-zqin.onrender.com/uploads/${req.file.filename}` });
 });
 
 module.exports = router; 

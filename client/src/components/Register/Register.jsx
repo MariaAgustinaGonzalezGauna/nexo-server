@@ -76,7 +76,7 @@ const Register = () => {
 
     try {
       const tipo = isDuenio ? 2 : 3;
-      const response = await axios.post(`${data.url}/api/users`, {
+      const response = await axios.post("https://render-zqin.onrender.com/api/users", {
         nombre: formData.nombre,
         apellido: formData.apellido,
         email: formData.email,

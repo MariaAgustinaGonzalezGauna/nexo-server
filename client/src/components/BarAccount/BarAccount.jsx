@@ -24,7 +24,7 @@ function BarAccount() {
   const [selectedHour, setSelectedHour] = useState('12');
   const [selectedMinute, setSelectedMinute] = useState('00');
   const [selectedPeriod, setSelectedPeriod] = useState('AM');
-  const API_URL = data.url;
+  const API_URL = "https://render-zqin.onrender.com/";
   const { id } = useParams();
   const navigate = useNavigate();
   const userType = localStorage.getItem('userType');

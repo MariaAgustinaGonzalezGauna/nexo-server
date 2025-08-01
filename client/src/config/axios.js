@@ -2,7 +2,7 @@ import axios from 'axios';
 import data from './data';
 // Crear una instancia de axios con la configuración base
 const axiosInstance = axios.create({
-    baseURL: `${data.url}/api`, // URL completa al servidor
+    baseURL: "https://render-zqin.onrender.com/api", // URL completa al servidor
     timeout: 10000, // aumentamos el timeout a 10 segundos
     headers: {
         'Content-Type': 'application/json'

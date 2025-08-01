@@ -8,7 +8,7 @@ const GestorEventos = () => {
   const [eventos, setEventos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const API_URL = `${data.url}`;
+  const API_URL = "https://render-zqin.onrender.com/";
   const userType = localStorage.getItem('userType');
 
   useEffect(() => {

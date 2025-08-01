@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     setError('');
     setMessage('');
     try {
-      const res = await axios.post(`${data.url}/api/users/forgot-password`, { email });
+      const res = await axios.post("https://render-zqin.onrender.com/api/users/forgot-password", { email });
       setMessage(res.data.message);
     } catch (err) {
       setError('Error al enviar el email. Intenta de nuevo.');

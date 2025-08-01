@@ -26,7 +26,7 @@ const ResetPassword = () => {
     }
     setLoading(true);
     try {
-      const res = await axios.post(`${data.url}/api/users/reset-password`, { token, password });
+      const res = await axios.post("https://render-zqin.onrender.com/api/users/reset-password", { token, password });
       setMessage(res.data.message);
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {

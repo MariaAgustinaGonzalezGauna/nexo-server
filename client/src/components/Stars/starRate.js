@@ -14,7 +14,7 @@ export default function StarRate({ eventoId, onRatingChange, readOnly = false })
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const response = await axios.get(`${data.url}/api/ratings/evento/${eventoId}/usuario`, {
+        const response = await axios.get(`https://render-zqin.onrender.com/api/ratings/evento/${eventoId}/usuario`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -40,7 +40,7 @@ export default function StarRate({ eventoId, onRatingChange, readOnly = false })
         return;
       }
 
-      const response = await axios.post(`${data.url}/api/ratings/evento/${eventoId}`, 
+      const response = await axios.post(`https://render-zqin.onrender.com/api/ratings/evento/${eventoId}`, 
         { puntuacion: newRating },
         { headers: { Authorization: `Bearer ${token}` } }
       );
