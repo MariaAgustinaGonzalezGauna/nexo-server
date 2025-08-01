@@ -14,7 +14,7 @@ const app = express();
 
 // Configuración de CORS
 app.use(cors({
-  origin: "https://nexo-server-ruddy.vercel.app/", // URL del frontend
+  origin: "https://nexo-server-ruddy.vercel.app", // URL del frontend
   credentials: true // Permitir cookies y headers de autenticación
 }));
 
