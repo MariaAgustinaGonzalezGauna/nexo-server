@@ -1,9 +1,7 @@
-export const data = {}
-
-if(process.env.NODE_ENV === 'development') {
-    data.url = 'http://localhost:5000'
+export const data = {
+  url: process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000'
+    : process.env.SERVER_URL
 }
-
-data.url = process.env.SERVER_URL
 
 export default data

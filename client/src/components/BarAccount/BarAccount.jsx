@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import './BarAccount.css';
 import EventLocationPicker from '../EventMap/EventLocationPicker';
-
+import data from '../../config/data';
 function BarAccount() {
   const [formData, setFormData] = useState({
     nombre: '',
@@ -24,7 +24,7 @@ function BarAccount() {
   const [selectedHour, setSelectedHour] = useState('12');
   const [selectedMinute, setSelectedMinute] = useState('00');
   const [selectedPeriod, setSelectedPeriod] = useState('AM');
-  const API_URL = 'http://localhost:5000';
+  const API_URL = data.url;
   const { id } = useParams();
   const navigate = useNavigate();
   const userType = localStorage.getItem('userType');
