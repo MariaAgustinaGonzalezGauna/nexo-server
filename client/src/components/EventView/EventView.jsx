@@ -105,7 +105,7 @@ const EventView = () => {
         {/* Mapa mini y comentarios en filas separadas de la grilla */}
         {evento.lat && evento.lng && (
           <div className="event-map-mini-container">
-            <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} eventId={evento._id} />
+            <EventMapMini lat={evento.lat} lng={evento.lng} nombre={evento.nombre} eventId={evento._id} disablePanel={true} />
           </div>
         )}
         <div className="comments"> 

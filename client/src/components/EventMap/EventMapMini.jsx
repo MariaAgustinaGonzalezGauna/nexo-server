@@ -41,20 +41,18 @@ const overlayStyle = {
   backdropFilter: 'blur(2px)'
 };
 
-const EventMapMini = ({ lat, lng, nombre, eventId }) => {
+const EventMapMini = ({ lat, lng, nombre, eventId, disablePanel = false }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  
+
   if (!lat || !lng) return null;
 
   const handleVerMas = () => {
     const isAuthenticated = localStorage.getItem('token') !== null;
-    
+
     if (isAuthenticated) {
-      console.log('Usuario autenticado, navegando a evento:', eventId);
       navigate(`/evento/${eventId}`);
     } else {
-      console.log('Usuario no autenticado, redirigiendo a login');
       navigate('/login');
     }
   };
@@ -62,20 +60,13 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
   const handleCompartir = () => {
     const url = `${window.location.origin}/evento/${eventId}`;
     const text = `¡Mira este evento: ${nombre}!`;
-    
+
     if (navigator.share) {
-      // Para dispositivos móviles con API de compartir nativa
-      navigator.share({
-        title: nombre,
-        text: text,
-        url: url
-      });
+      navigator.share({ title: nombre, text, url });
     } else {
-      // Para navegadores de escritorio - copiar al portapapeles
       navigator.clipboard.writeText(`${text} ${url}`).then(() => {
         alert('¡Enlace copiado al portapapeles!');
       }).catch(() => {
-        // Fallback si clipboard no funciona
         const textArea = document.createElement('textarea');
         textArea.value = `${text} ${url}`;
         document.body.appendChild(textArea);
@@ -86,30 +77,32 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
       });
     }
   };
-  
+
   return (
     <>
-      <div 
-        style={{ 
-          width: '100%', 
-          height: '360px', 
-          borderRadius: 16, 
-          overflow: 'hidden', 
-          boxShadow: '0 4px 16px rgba(248, 177, 51, 0.2)', 
-          cursor: 'pointer', 
+      <div
+        style={{
+          width: '100%',
+          height: '360px',
+          borderRadius: 16,
+          overflow: 'hidden',
+          boxShadow: '0 4px 16px rgba(248, 177, 51, 0.2)',
+          cursor: disablePanel ? 'default' : 'pointer',
           border: '2px solid #F8B133',
           position: 'relative'
-        }} 
-        onClick={() => setOpen(true)}
+        }}
+        onClick={() => {
+          if (!disablePanel) setOpen(true);
+        }}
       >
-        <MapContainer 
-          center={[lat, lng]} 
-          zoom={15} 
-          style={{ width: '100%', height: '100%' }} 
-          dragging={true} 
-          scrollWheelZoom={false} 
-          doubleClickZoom={true} 
-          zoomControl={true} 
+        <MapContainer
+          center={[lat, lng]}
+          zoom={15}
+          style={{ width: '100%', height: '100%' }}
+          dragging={true}
+          scrollWheelZoom={false}
+          doubleClickZoom={true}
+          zoomControl={true}
           attributionControl={true}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -123,27 +116,28 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
             </Popup>
           </Marker>
         </MapContainer>
-        <div style={{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
-          background: 'rgba(248, 177, 51, 0.9)',
-          color: '#000',
-          padding: '0.3rem 0.8rem',
-          borderRadius: '8px',
-          fontSize: '0.8rem',
-          fontWeight: '600',
-          backdropFilter: 'blur(4px)'
-        }}>
-          Clic para ampliar
-        </div>
+        {!disablePanel && (
+          <div style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            background: 'rgba(248, 177, 51, 0.9)',
+            color: '#000',
+            padding: '0.3rem 0.8rem',
+            borderRadius: '8px',
+            fontSize: '0.8rem',
+            fontWeight: '600',
+            backdropFilter: 'blur(4px)'
+          }}>
+            Clic para ampliar
+          </div>
+        )}
       </div>
-      
+
       {open && (
         <>
           <div style={overlayStyle} onClick={() => setOpen(false)} />
           <div style={sidePanelStyle} onClick={e => e.stopPropagation()}>
-            {/* Header */}
             <div style={{
               background: '#F8B133',
               color: '#000',
@@ -156,15 +150,15 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
               borderBottom: '2px solid #fb8c00'
             }}>
               <span>Evento Seleccionado</span>
-              <button 
-                onClick={() => setOpen(false)} 
-                style={{ 
-                  background: '#e74c3c', 
-                  color: '#fff', 
-                  border: 'none', 
-                  borderRadius: '50%', 
-                  width: '28px', 
-                  height: '28px', 
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  background: '#e74c3c',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '28px',
+                  height: '28px',
                   cursor: 'pointer',
                   fontSize: '1rem',
                   fontWeight: 'bold',
@@ -185,10 +179,8 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
                 ✕
               </button>
             </div>
-            
-            {/* Content */}
+
             <div style={{ padding: '1.5rem', flex: 1, overflow: 'auto' }}>
-              {/* Event Image Placeholder */}
               <div style={{
                 width: '100%',
                 height: '200px',
@@ -202,14 +194,13 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
               }}>
                 <span style={{ color: '#666', fontSize: '0.9rem' }}>Imagen del evento</span>
               </div>
-              
-              {/* Event Details */}
+
               <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-                <h3 style={{ 
-                  color: '#000', 
-                  fontSize: '1.2rem', 
-                  fontWeight: '700', 
-                  marginBottom: '0.5rem' 
+                <h3 style={{
+                  color: '#000',
+                  fontSize: '1.2rem',
+                  fontWeight: '700',
+                  marginBottom: '0.5rem'
                 }}>
                   {nombre}
                 </h3>
@@ -220,10 +211,9 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
                   Ubicación del evento
                 </p>
               </div>
-              
-              {/* Action Buttons */}
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                <button 
+                <button
                   onClick={handleVerMas}
                   style={{
                     width: '100%',
@@ -249,8 +239,8 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
                 >
                   VER MÁS
                 </button>
-                
-                <button 
+
+                <button
                   onClick={handleCompartir}
                   style={{
                     width: '100%',
@@ -282,4 +272,4 @@ const EventMapMini = ({ lat, lng, nombre, eventId }) => {
   );
 };
 
-export default EventMapMini; 
+export default EventMapMini;
