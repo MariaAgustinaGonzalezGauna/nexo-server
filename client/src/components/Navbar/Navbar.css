@@ -311,7 +311,6 @@ body.dark-mode .logout-button:hover {
 
 .dark-mode-toggle:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  transform: translateY(-50%) scale(1.1);
 }
 
 .dark-mode-toggle svg {

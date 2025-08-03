@@ -18,7 +18,7 @@ const GestorEventos = () => {
   const fetchEventos = async () => {
     try {
       const token = localStorage.getItem('token');
-      console.log('Token:', token);
+      
 
       if (!token) {
         console.log('No hay token, redirigiendo a login');
