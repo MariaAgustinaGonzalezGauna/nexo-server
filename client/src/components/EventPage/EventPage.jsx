@@ -66,9 +66,12 @@ const EventPage = () => {
 
 
   // Eventos de preferencias
-  const preferredEvents = preferences.length > 0
-    ? filteredEvents.filter(event => preferences.includes(event.tipoEventos))
-    : [];
+ const preferredEvents = preferences.length > 0
+  ? filteredEvents.filter(event =>
+      preferences.map(p => p.toLowerCase()).includes(event.tipo.toLowerCase())
+    )
+  : [];
+
 
   // Resto de eventos
   const otherEvents = filteredEvents.filter(event =>
@@ -86,6 +89,8 @@ const EventPage = () => {
       </div>
     );
   }
+console.log('Preferencias del usuario:', preferences);
+console.log('Eventos disponibles:', allEvents.map(e => ({ nombre: e.nombre, tipo: e.tipo })));
 
   return (
     <div className="event-page-container">
