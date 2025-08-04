@@ -28,9 +28,7 @@ const EventView = () => {
   useEffect(() => {
     const obtenerEvento = async () => {
       try {
-        console.log('Obteniendo evento con ID:', id);
         const response = await axiosInstance.get(`/events/event/${id}`);
-        console.log('Respuesta del servidor:', response.data);
         setEvento(response.data);
       } catch (error) {
         console.error('Error al obtener el evento:', error);

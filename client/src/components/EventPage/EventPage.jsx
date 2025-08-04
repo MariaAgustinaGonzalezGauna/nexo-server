@@ -36,8 +36,7 @@ const EventPage = () => {
     // Obtener usuario
     const responseUser = await axios.get(`https://render-zqin.onrender.com/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` }
-    });
-    console.log('DATOS DEL USUARIO:', responseUser.data);  
+    }); 
     if (responseUser.data) {
       if (responseUser.data.preferencias) {
         setPreferences(responseUser.data.preferencias);
@@ -68,12 +67,12 @@ const EventPage = () => {
 
   // Eventos de preferencias
   const preferredEvents = preferences.length > 0
-    ? filteredEvents.filter(event => preferences.includes(event.tipo))
+    ? filteredEvents.filter(event => preferences.includes(event.tipoEventos))
     : [];
 
   // Resto de eventos
   const otherEvents = filteredEvents.filter(event =>
-    !preferences.includes(event.tipo)
+    !preferences.includes(event.tipoEventos)
   );
 
   // Mensaje cuando no hay eventos

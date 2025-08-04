@@ -25,11 +25,18 @@ const EventCard = ({ image, title, date, location, descripcion, id }) => {
         </div>
 
         <button 
-          className="ver-mas" 
-          onClick={() => navegacion(ruta)}
-        >
-          VER MÁS
-        </button>
+           className="ver-mas" 
+           onClick={() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          navegacion(ruta);
+        } else {
+          navegacion('/login');
+        }
+       }}
+       >
+          Ver más
+       </button>
 
         {/* Botón de compartir */}
         <ShareButtonHome link={link} />
