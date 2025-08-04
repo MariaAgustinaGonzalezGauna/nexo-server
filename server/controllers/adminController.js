@@ -57,7 +57,7 @@ const approveEvent = async (req, res) => {
                 <p>${event.descripcion}</p>
                 <img src="${event.imagenUrl}" alt="Imagen del evento" style="max-width: 100%; height: auto; margin-top: 10px;" />
                 <div style="margin-top: 20px;">
-                  <a href="https://nexo-server-wi34.vercel.app/eventos/${event._id}" style="
+                  <a href="https://nexo-server-bh2c.vercel.app/eventos/${event._id}" style="
                     display: inline-block;
                     padding: 12px 20px;
                     background-color: #007bff;

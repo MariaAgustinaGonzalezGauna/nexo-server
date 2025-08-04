@@ -124,7 +124,7 @@ router.post('/forgot-password', async (req, res) => {
     user.resetPasswordToken = token;
     user.resetPasswordExpires = Date.now() + 1000 * 60 * 60; // 1 hora
     await user.save();
-    const resetUrl = `https://nexo-server-wi34.vercel.app/reset-password/${token}`;
+    const resetUrl = `https://nexo-server-bh2c.vercel.app/reset-password/${token}`;
     await transporter.sendMail({
       to: user.email,
       subject: 'Recuperación de contraseña NEXO',
