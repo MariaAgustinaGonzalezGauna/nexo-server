@@ -89,8 +89,7 @@ const EventPage = () => {
       </div>
     );
   }
-console.log('Preferencias del usuario:', preferences);
-console.log('Eventos disponibles:', allEvents.map(e => ({ nombre: e.nombre, tipo: e.tipo })));
+
 
   return (
     <div className="event-page-container">
